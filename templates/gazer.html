@@ -66,12 +66,16 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
 
                         <div class="gold">                       
                             <div class="center">
+                                <div id="regions">
                                 {% for region in regions %}
                                     {{ region | safe }}
                                 {% endfor %}
+                                </div>
+                                <div id="stamps">
                                 {% for stamp in stamps %}
                                     {{ stamp | safe }}
                                 {% endfor %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -123,9 +127,11 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
                                 <ul></ul>
                             </div>
                             <p class="center white space">
+                                <div id="flags">
                                 {% for flag in flags %}
                                     {{ flag | safe }}
                                 {% endfor %}
+                                </div>
                             </p>
                         </div>
                     </div>
@@ -146,9 +152,11 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
                             </div>
                             <p class="center white space">
                                 <div class="content box data-display">
+                                    <div id="wfes">
                                     {% for wfe in wfes %}
                                         {{ wfe | safe}}
                                     {% endfor %}
+                                    </div>
                                 </div>
                             </p>
                         </div>
@@ -166,9 +174,11 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
                             </div>
                             <p class="center white space" style="font-size: 80%;">
                                 <div class="content box data-display">
+                                    <div id="tags">
                                     {% for tag in tags %}
                                         {{ tag | safe}}
                                     {% endfor %}
+                                    </div>
                                 </div>
                             </p>
                         </div>
@@ -186,9 +196,11 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
                             </div>
                             <p class="center white space" style="font-size: 80%;">
                                 <div class="content box data-display">
+                                    <div id="banners">
                                     {% for banner in banners %}
                                         {{ banner | safe }}
                                     {% endfor %}
+                                    </div>
                                 </div>
                             </p>
                         </div>
@@ -206,9 +218,11 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
                             </div>
                             <p class="center white space" style="font-size: 80%;">
                                 <div class="content box data-display">
+                                    <div id="ros">
                                     {% for ro in ros %}
                                         {{ ro | safe}}
                                     {% endfor %}
+                                    </div>
                                 </div>
                             </p>
                         </div>
