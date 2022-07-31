@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="Eyebeast, CalRef Network, Calamity Refuge, NationStates backup, NationStates history"/>
+    <meta name="description" content="Eyebeast is an archival utility from CalRef for region-builders, defenders, and archivists to recover data for a region on NationStates.net.
+
+Use the arrow buttons to flip through six months of weekly snapshots to see what world factbook entiries, regional officers, tags, and flags existed for a region at a given time.">
+    <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='bulma.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='beholder.css') }}">
+    <title>Eyebeast</title>
+</head>
+<body class="bg" id="head">
+
+    <a class="button return" href="#head">▲</a>
+
+    <div class="hero is-fullheight">
+
+        <!-- Permanent Search Bar -->
+
+        <section class="hero is-small">
+            <nav class="navbar space" role="navigation" aria-label="main navigation">
+                <div class="navbar-start" style="justify-content: center; width: 100%;">
+                    <form action="/gazer" method="POST" class="field has-addons search-box">
+                        <div class="control">                                        
+                            <button id="button-search" class="button center is-info">Search</button>
+                        </div>
+                        <input class="input" id="search" name="region" type="text" placeholder="Search for a region" required>
+                    </form>
+                </div>
+            </nav>
+        </section>
+
+        <!-- Main -->
+
+        <section class="hero-body">
+            <div class="container outline-compact" style="max-width: 95%;">
+                <div class="columns" style="margin-bottom: 0px;">
+                    <div class="column is-half" style="padding-bottom: 0px; padding-top: 0px;">
+
+                        <article class="media" style="text-align:left">
+                            <figure>
+                                <p class="image depth is-64x64">
+                                <img src ="{{ url_for('static', filename='eyecon.png') }}">
+                                </p>
+                            </figure>
+                            <div class="media-content more-space">
+                                <h1 class="title" style="display:flex">
+                                    <span class="blue space" style="padding-right: 0.5%;">Eyebeast</span>
+                                </h1>
+                                <p class="subtitle white space" style="display:flex">
+                                    Eldritch Archival Utility
+                                </p>
+                            </div>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Names and Stamps -->
+
+                    <div class="column is-half" style="padding-top: 0px;">
+
+                        <div class="gold">                       
+                            <div class="center">
+                                {% for region in regions %}
+                                    {{ region | safe }}
+                                {% endfor %}
+                                {% for stamp in stamps %}
+                                    {{ stamp | safe }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="divider">
+                    <ul></ul>
+                </div>
+
+                <div class="space"></div>
+
+                <div class="columns" style="margin-bottom: 10px;">
+                    <div class="column left">
+                        <p class="white space">
+                            Use the nav buttons to flip through snapshots and find native-created data. Tap the flags and banners to download them. 
+                            Snapshots are weekly and pruned at six months.
+                        </p>
+                    </div>
+
+                    <!-- Nav Buttons -->
+
+                    <div class="column right" style="margin-top: 15px;">
+                        <div class="is-fullhd center" style="display:flex;">
+                            <div style="width: 50px;">
+                                <input class="input center" id="indexBox" type="number" value="1" style="min-width: 45px;" disabled>
+                            </div>
+                            <span class="white space">/ </span><span class="white space" id="length">{{length}}</span>
+                            <div class="space"></div>
+                            <div class="is-one-third">
+                                <button class="button is-info" id="forward" onclick="downity()" disabled>⮜ Forward</button>
+                            </div>
+                            <div class="space"></div>
+                            <div class="is-one-third">
+                                <button class="button is-info" id="backward" onclick="uppity()" {{breaks[0]}}>Backward ⮞</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Flag Results -->
+
+                <div class="columns is-multiline">
+                    <div class="column is-one-third">
+                        <div class="content subbox">
+                            <h1 class="title is-3 center">
+                                <span class="blue" style="padding-right: 0.5%;">Flag</span>
+                            </h1>
+                            <div class="divider">
+                                <ul></ul>
+                            </div>
+                            <p class="center white space">
+                                {% for flag in flags %}
+                                    {{ flag | safe }}
+                                {% endfor %}
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- WFE Results -->
+
+                    <div class="column is-half">
+                        <div class="content subbox">
+                            <div>
+                                <h1 class="title is-3 center">
+                                    <button class="copy" onclick="copityopity()" id="copy" style="float: right;" {{breaks[1]}}> Copy </button>
+                                    <span class="blue" style="padding-right: 0.5%;">World Factbook Entry</span>
+                                </h1>
+                                
+                            </div>
+                            <div class="divider">
+                                <ul></ul>
+                            </div>
+                            <p class="center white space">
+                                <div class="content box data-display">
+                                    {% for wfe in wfes %}
+                                        {{ wfe | safe}}
+                                    {% endfor %}
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tag Results -->
+
+                    <div class="column">
+                        <div class="content subbox">
+                            <h1 class="title is-3 center">
+                                <span class="blue" style="padding-right: 0.5%;">Tags</span>
+                            </h1>
+                            <div class="divider">
+                                <ul></ul>
+                            </div>
+                            <p class="center white space" style="font-size: 80%;">
+                                <div class="content box data-display">
+                                    {% for tag in tags %}
+                                        {{ tag | safe}}
+                                    {% endfor %}
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Banner Results -->
+
+                    <div class="column is-half">
+                        <div class="content subbox">
+                            <h1 class="title is-3 center">
+                                <p class="blue" style="padding-right: 0.5%;">Region Banner</p>
+                            </h1>
+                            <div class="divider">
+                                <ul></ul>
+                            </div>
+                            <p class="center white space" style="font-size: 80%;">
+                                <div class="content box data-display">
+                                    {% for banner in banners %}
+                                        {{ banner | safe }}
+                                    {% endfor %}
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Officer Results -->
+
+                    <div class="column is-half">
+                        <div class="content subbox">
+                            <h1 class="title is-3 center">
+                                <span class="blue" style="padding-right: 0.5%;">Regional Officers</span>
+                            </h1>
+                            <div class="divider">
+                                <ul></ul>
+                            </div>
+                            <p class="center white space" style="font-size: 80%;">
+                                <div class="content box data-display">
+                                    {% for ro in ros %}
+                                        {{ ro | safe}}
+                                    {% endfor %}
+                                </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+            <!-- footer -->
+
+        <section class="hero is-small">
+            <div class="hero-body" style="background-color: #000000ab; display:block;">
+                <article class="media" style="text-align:left; padding-left: 10px; padding-right: 10px;">
+                    <figure>
+                        <p class="image depth is-64x64">
+                        <img src="https://calref.network/images/icon.png">
+                        </p>
+                    </figure>
+                    <div class="media-content">
+                        <p class="is-size-6 white">
+                        Copyright 2008-2022
+                        </p>
+                    </div>
+                    <p class="is-size-6 white" style="text-align:right">
+                        <span>Powered by <a class="gold" href="https://calref.network/">CalRef</a></span>
+                    </p>
+                </article>
+            </div>
+        </section>
+
+    </div>
+    <script src="{{ url_for('static', filename='iris.js') }}"></script>
+    <script src="{{ url_for('static', filename='retina.js') }}"></script>
+</body>
+</html>
