@@ -1,0 +1,155 @@
+import sqlite3
+import warnings
+import sys; print(sys.path)
+from bs4 import BeautifulSoup
+from datetime import datetime
+from flask import Flask, render_template, request
+
+warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
+
+version = 1.0
+
+app = Flask(__name__)
+
+# Errors
+@app.errorhandler(404)  
+def not_found(e):
+      return render_template("404.html")
+
+# Index page
+@app.route("/")
+def splash():
+    return render_template("main.html")
+
+# Search results page
+@app.route("/gazer", methods = ["POST", "GET"])
+def gazer():
+
+    # Reject the user if they travelled here directly
+    if request.method != "POST":
+        return render_template("404.html")
+    
+    # Process the search input
+    name = request.form
+    region = name['region']
+
+    # The search data is garbage
+    if region.replace("_", "").isalnum() is False:
+        return render_template("404.html")
+    
+    # Connect to the database and search for the input
+    data = []
+    connect = sqlite3.connect("/var/www/eyebeast/eyebeast.db")
+    c = connect.cursor()
+    c.execute(f"SELECT * FROM eyebeast WHERE LOWER(REPLACE(region, ' ', '_')) = '{region}' order by stamp desc;")
+
+    # Process results
+    for x in c.fetchall():
+        data.append(list(x))
+
+    # The entry was not found
+    if len(data) == 0:
+        return render_template("404.html")
+
+    # We assume we have results to deliver at this point
+    stamps = []
+    regions = []
+    wfes = []
+    tags = []
+    ros = []
+    flags = []
+    banners = []
+    counter = 1
+
+    for x in data:
+
+        # Initialise hidden
+        if counter == 1:
+            hide = ""
+        else:
+            hide = " inactive"
+
+        # Load timestamps
+        entry = ""
+        entry = datetime.utcfromtimestamp(x[0]).strftime('%B %d, %Y')
+        pstamp = f"""<p class="center stamps{hide}">Entry from {entry}</p>
+                                """
+        stamps.append(pstamp)
+
+        # Load regions
+        entry = ""
+        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;">{x[1]}</p>
+                                """
+        regions.append(entry)
+
+        # Load WFEs
+        entry = ""
+        pwfe = str(BeautifulSoup(x[2], "html.parser"))
+        # pwfe = x[2]
+        entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">{pwfe}</pre>
+                                    """
+        wfes.append(entry)
+
+        # Load tags
+        entry = ""
+        entry = f"""<pre class="data-display tags{hide}">{x[3]}</pre>
+                                    """
+        tags.append(entry)
+
+        # Load ROs
+        entry = ""
+        entry = f"""<pre class="data-display ros{hide}">{x[4]}</pre>
+                                    """
+        ros.append(entry)
+
+        # Load flags
+        entry = ""
+        if x[5] != "":
+            pflag = f"""<a href="static/flags/{x[5]}" download><img src ="static/flags/{x[5]}"></a>"""
+            entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>
+                                    """
+        else:
+            entry = ""
+        flags.append(entry)
+
+        # Format banners
+        entry = ""
+        if x[6] == "":
+            entry = f"""<pre class="data-display banners{hide}"></pre>"""
+        elif len(x[6]) < 3:
+            entry = f"""<pre class="data-display banners{hide}"><p class="gold" style="font-size: 10pt;">This is a stock banner. Select it in the region's admin menu.</p><img src ="https://www.nationstates.net/images/rbanners/{x[6]}"></pre>"""
+        else:
+            entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{x[6]}" download><img src ="static/banners/{x[6]}"></a></pre>"""
+        banners.append(entry)
+
+        # Next
+        counter += 1
+
+    # Initialise break buttons
+    breaks = []
+
+    if len(data) == 1:
+        breaks.append("disabled")
+    else:
+        breaks.append("")
+    
+    if x[2] == "":
+        breaks.append("disabled")
+    else:
+        breaks.append("")
+
+    # Send the response
+    return render_template("gazer.html", 
+    length = len(data),
+    breaks=breaks,
+    stamps=stamps,
+    regions=regions,
+    wfes=wfes,
+    tags=tags,
+    ros=ros,
+    flags=flags,
+    banners=banners,
+    )
+
+if __name__ == "__main__":
+    app.run()
