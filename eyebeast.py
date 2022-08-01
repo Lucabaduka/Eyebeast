@@ -1,10 +1,8 @@
 import sqlite3
 import warnings
-from bs4 import BeautifulSoup
+import html
 from datetime import datetime
 from flask import Flask, render_template, request
-
-warnings.filterwarnings("ignore", category=UserWarning, module='bs4')
 
 version = 1.0
 
@@ -83,7 +81,7 @@ def gazer():
 
         # Load WFEs
         entry = ""
-        pwfe = str(BeautifulSoup(x[2], "html.parser"))
+        pwfe = html.unescape(x[2])
         entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">{pwfe}</pre>
                                     """
         wfes.append(entry)
