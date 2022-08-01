@@ -1,6 +1,5 @@
 import sqlite3
 import warnings
-import sys; print(sys.path)
 from bs4 import BeautifulSoup
 from datetime import datetime
 from flask import Flask, render_template, request
@@ -36,7 +35,7 @@ def gazer():
     # The search data is garbage
     if region.replace("_", "").isalnum() is False:
         return render_template("404.html")
-    
+
     # Connect to the database and search for the input
     data = []
     connect = sqlite3.connect("/var/www/eyebeast/eyebeast.db")
