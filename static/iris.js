@@ -10,8 +10,6 @@ const send = function(ev) {
 
     // Clean and return search results
     var region_name = document.getElementById("search");
-    region_name.value = region_name.value.split("https://www.nationstates.net/region=").join("")
-    region_name.value = region_name.value.split(" ").join("_").toLowerCase();
     return region_name.value;
 
 }

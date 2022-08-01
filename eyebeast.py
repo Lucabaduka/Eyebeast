@@ -28,7 +28,7 @@ def gazer():
     
     # Process the search input
     name = request.form
-    region = name['region']
+    region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
 
     # The search data is garbage
     if region.replace("_", "").isalnum() is False:
