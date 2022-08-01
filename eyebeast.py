@@ -85,7 +85,6 @@ def gazer():
         # Load WFEs
         entry = ""
         pwfe = str(BeautifulSoup(x[2], "html.parser"))
-        # pwfe = x[2]
         entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">{pwfe}</pre>
                                     """
         wfes.append(entry)
