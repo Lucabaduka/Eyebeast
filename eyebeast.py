@@ -29,6 +29,7 @@ def gazer():
     # Process the search input
     name = request.form
     region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
+    region = region.replace(" ", "_")
 
     junk = [
         "<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>", 

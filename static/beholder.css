@@ -75,7 +75,7 @@ a:hover {
     filter: drop-shadow(3px 3px 2px #0000004f);
 }
 .bg {
-    background-image: url('background.jpg');
+    background-color: #001326;
     background-size: cover;
 }
 .outline{
