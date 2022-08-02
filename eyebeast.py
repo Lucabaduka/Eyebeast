@@ -30,6 +30,14 @@ def gazer():
     name = request.form
     region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
 
+    junk = [
+        "<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>", 
+        "<a ", "</a>", "href=", "src=", "<body>", "</body>", "<style>", "</style>"
+    ]
+
+    for x in junk:
+        region.replace(x, "")
+
     # The search data is garbage
     if region.replace("_", "").isalnum() is False:
         return render_template("404.html")
