@@ -24,7 +24,7 @@ def gazer():
 
     # Reject the user if they travelled here directly
     if request.method != "POST":
-        return render_template("404.html")
+        return render_template("main.html")
     
     # Process the search input
     name = request.form

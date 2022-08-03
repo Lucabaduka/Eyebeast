@@ -143,8 +143,8 @@ def main():
             for y in tag_regions:
                 if region in y:
                     tags += tag_list[tag_regions.index(y)] + "\n"
-            if len(tags) > 2:
-                tags = tags[:-2]
+            if len(tags) > 1:
+                tags = tags[:-1]
 
             # Flag stuff now
             if flag != None:
