@@ -1,5 +1,4 @@
 import sqlite3
-import warnings
 import html
 from datetime import datetime
 from flask import Flask, render_template, request
@@ -13,13 +12,8 @@ app = Flask(__name__)
 def not_found(e):
       return render_template("404.html")
 
-# Index page
-@app.route("/")
-def splash():
-    return render_template("main.html")
-
-# Search results page
-@app.route("/gazer", methods = ["POST", "GET"])
+# Main
+@app.route("/", methods = ["POST", "GET"])
 def gazer():
 
     # Reject the user if they travelled here directly
@@ -31,11 +25,9 @@ def gazer():
     region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
     region = region.replace(" ", "_")
 
-    junk = [
-        "<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>", 
-        "<a ", "</a>", "href=", "src=", "<body>", "</body>", "<style>", "</style>"
-    ]
-
+    # Trashy RCE thwarting
+    junk = ["<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>", 
+            "<a ", "</a>", "href=", "src=", "<body>", "</body>", "<style>", "</style>"]
     for x in junk:
         region.replace(x, "")
 
