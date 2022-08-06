@@ -39,7 +39,7 @@ def gazer():
     data = []
     connect = sqlite3.connect("/var/www/eyebeast/eyebeast.db")
     c = connect.cursor()
-    c.execute(f"SELECT * FROM eyebeast WHERE LOWER(REPLACE(region, ' ', '_')) = ? order by stamp desc;", (region,))
+    c.execute("SELECT * FROM eyebeast WHERE LOWER(REPLACE(region, ' ', '_')) = ? order by stamp desc;", (region,))
 
     # Process results
     for x in c.fetchall():
