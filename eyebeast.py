@@ -8,7 +8,7 @@ version = 1.0
 app = Flask(__name__)
 
 # Errors
-@app.errorhandler(404)  
+@app.errorhandler(404)
 def not_found(e):
       return render_template("404.html")
 
@@ -19,14 +19,14 @@ def gazer():
     # Reject the user if they travelled here directly
     if request.method != "POST":
         return render_template("main.html")
-    
+
     # Process the search input
     name = request.form
     region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
     region = region.replace(" ", "_")
 
     # Trashy RCE thwarting
-    junk = ["<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>", 
+    junk = ["<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>",
             "<a ", "</a>", "href=", "src=", "<body>", "</body>", "<style>", "</style>"]
     for x in junk:
         region.replace(x, "")
@@ -129,14 +129,14 @@ def gazer():
         breaks.append("disabled")
     else:
         breaks.append("")
-    
+
     if x[2] == "":
         breaks.append("disabled")
     else:
         breaks.append("")
 
     # Send the response
-    return render_template("gazer.html", 
+    return render_template("gazer.html",
     length = len(data),
     breaks=breaks,
     stamps=stamps,

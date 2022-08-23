@@ -19,11 +19,11 @@ function copityopity() {
     // get the thingies
     var copyText = document.querySelectorAll(".wfes:not(.inactive)");
     navigator.clipboard.writeText(copyText[0].innerText);
-  
+
     // change the thingies
     document.getElementById('copy').innerHTML = "Copied";
     document.getElementById('copy').classList.add('copied');
-  
+
 }
 
 document.addEventListener('DOMContentLoaded', init);

@@ -23,7 +23,7 @@ if not os.path.isfile(f"{path}/eyebeast.db"):
             flag text,
             banner text
             )""")
-    
+
     connect.commit()
     connect.close()
 
@@ -89,7 +89,7 @@ def main():
 
         # API call to list of regions by x (tag)
         url = f"https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(' ', '_')}"
-        r = requests.get(url, headers = {'User-Agent': 'Refuge Isle, running Nightly'})    
+        r = requests.get(url, headers = {'User-Agent': 'Refuge Isle, running Nightly'})
         with open(f"{rec}/tags.xml", "wb") as f:
             f.write(r.content)
             f.close()
@@ -103,7 +103,7 @@ def main():
     print("Tag data loaded.")
 
     # Parse region dump
-    root = et.parse(f"{rec}/regions.xml").getroot()       
+    root = et.parse(f"{rec}/regions.xml").getroot()
     for x in root.findall("REGION"):
 
         try:
@@ -119,7 +119,7 @@ def main():
             # WFE proceedure
             if wfe == None:
                 wfe = ""
-            
+
             # RO proceedure
             for y in x.findall("OFFICERS"):
                 for z in y.findall("OFFICER"):
@@ -160,7 +160,7 @@ def main():
                         f.close()
                     print(f"Downloaded: {flag}")
                     time.sleep(1.5)
-                
+
             # Banner stuff now
             if banner == "0":
                 bannername = ""
@@ -177,7 +177,7 @@ def main():
                             f.close()
                         print(f"Downloaded: {bannername}")
                         time.sleep(1.5)
-                
+
                 else:
                     bannername = banner
 
@@ -201,11 +201,11 @@ def main():
             # Prune flag file
             if record.flag != "":
                 os.remove(f"{flag_path}/{record.flag}")
-            
+
             # Prune banner file
             if "r" not in record.banner and record.banner != "" and record.banner != "0":
                 os.remove(f"{banner_path}/{record.banner}")
-            
+
             # Delete from database
             remove_record(record)
 
