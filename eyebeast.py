@@ -3,7 +3,7 @@ import html
 from datetime import datetime
 from flask import Flask, render_template, request
 
-version = 1.0
+version = "1.0.2"
 
 app = Flask(__name__)
 
@@ -106,7 +106,8 @@ def gazer():
             entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>
                                     """
         else:
-            entry = ""
+            entry = """<pre class="data-display flags"></pre>
+                                    """
         flags.append(entry)
 
         # Format banners
