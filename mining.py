@@ -67,11 +67,11 @@ def main():
 
     tag_list = [
         "Anarchist", "Anime", "Anti-Capitalist", "Anti-Communist", "Anti-Fascist", "Anti-General Assembly", "Anti-Security Council", "Anti-World Assembly",
-        "Capitalist", "Casual", "Communist", "Conservative", "Cyberpunk", "Defender", "Democratic", "Eco-Friendly", "Egalitarian", "F7er", "FT FtL", 
-        "FT FTLi", "FT STL", "Fandom", "Fantasy Tech", "Fascist", "Feminist", "Free Trade", "Future Tech", "Game Player", "General Assembly", 
+        "Capitalist", "Casual", "Communist", "Conservative", "Cyberpunk", "Defender", "Democratic", "Eco-Friendly", "Egalitarian", "F7er", "FT FtL",
+        "FT FTLi", "FT STL", "Fandom", "Fantasy Tech", "Fascist", "Feminist", "Free Trade", "Future Tech", "Game Player", "General Assembly",
         "Generalite", "Human-Only", "Imperialist", "Independent", "Industrial", "International Federalist", "Invader", "Isolationist", "Issues Player",
-        "Jump Point", "LGBT", "Liberal", "Liberated", "Libertarian", "Magical", "Map", "Mercenary", "Modern Tech", "Monarchist", "Multi-Species", 
-        "National Sovereigntist", "Neutral", "Non-English", "Offsite Chat", "Offsite Forums", "Outer Space", "P2TM", "Pacifist", "Parody", "Past Tech", 
+        "Jump Point", "LGBT", "Liberal", "Liberated", "Libertarian", "Magical", "Map", "Mercenary", "Modern Tech", "Monarchist", "Multi-Species",
+        "National Sovereigntist", "Neutral", "Non-English", "Offsite Chat", "Offsite Forums", "Outer Space", "P2TM", "Pacifist", "Parody", "Past Tech",
         "Patriarchal", "Post Apocalyptic", "Post-Modern Tech", "Puppet Storage", "Recruiter Friendly", "Regional Government", "Religious", "Role Player",
         "Security Council", "Serious", "Silly", "Snarky", "Social", "Socialist", "Sports", "Steampunk", "Surreal", "Theocratic", "Totalitarian",
         "Trading Cards", "Video Game", "World Assembly"

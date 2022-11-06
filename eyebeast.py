@@ -16,7 +16,7 @@ def not_found(e):
 @app.route("/", methods = ["POST", "GET"])
 def gazer():
 
-    # Reject the user if they travelled here directly
+    # Send the user to the splash page if they arrived through any other means
     if request.method != "POST":
         return render_template("main.html")
 
