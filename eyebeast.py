@@ -138,15 +138,15 @@ def gazer():
 
     # Send the response
     return render_template("gazer.html",
-    length = len(data),
-    breaks=breaks,
-    stamps=stamps,
-    regions=regions,
-    wfes=wfes,
-    tags=tags,
-    ros=ros,
-    flags=flags,
-    banners=banners,
+    length  = len(data),
+    breaks  = breaks,
+    stamps  = stamps,
+    regions = regions,
+    wfes    = wfes,
+    tags    = tags,
+    ros     = ros,
+    flags   = flags,
+    banners = banners,
     )
 
     # Slep
