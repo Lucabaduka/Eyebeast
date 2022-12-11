@@ -8,8 +8,9 @@ rec = "/var/www/nightly/rec"
 path = "/var/www/eyebeast"
 flag_path = "/var/www/eyebeast/static/flags"
 banner_path = "/var/www/eyebeast/static/banners"
+headers = {"User-Agent": "Refuge Isle, running Eyebeast's Miner"}
 
-# Initial database creation
+# Form the database if it doesn't exist
 if not os.path.isfile(f"{path}/eyebeast.db"):
     connect = sqlite3.connect(f"{path}/eyebeast.db")
 
@@ -27,6 +28,7 @@ if not os.path.isfile(f"{path}/eyebeast.db"):
     connect.commit()
     connect.close()
 
+# Make these directories if they don't exist
 if not os.path.isdir(flag_path):
     os.mkdir(flagpath)
 if not os.path.isdir(banner_path):
@@ -52,7 +54,7 @@ c = connect.cursor()
 # Easy add
 def insert_record(record):
     with connect:
-        c.execute("INSERT INTO eyebeast VALUES (:stamp, :region, :wfe, :tags, :ros, :flagname, :banner)", 
+        c.execute("INSERT INTO eyebeast VALUES (:stamp, :region, :wfe, :tags, :ros, :flagname, :banner)",
                 {"stamp": record.stamp, "region": record.region, "wfe": record.wfe, "tags": record.tags, "ros": record.ros, "flagname": record.flag, "banner": record.banner})
 
 # Easy subtract
@@ -61,7 +63,9 @@ def remove_record(record):
         c.execute("DELETE from eyebeast WHERE stamp = :stamp AND region = :region",
                 {"stamp": record.stamp, "region": record.region, "wfe": record.wfe, "tags": record.tags, "ros": record.ros, "flagname": record.flag, "banner": record.banner})
 
+# Main
 def main():
+
     # Initialise static variables
     stamp = int(time.time())
 
@@ -89,7 +93,7 @@ def main():
 
         # API call to list of regions by x (tag)
         url = f"https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(' ', '_')}"
-        r = requests.get(url, headers = {'User-Agent': 'Refuge Isle, running Nightly'})
+        r = requests.get(url, headers = headers)
         with open(f"{rec}/tags.xml", "wb") as f:
             f.write(r.content)
             f.close()
@@ -151,7 +155,7 @@ def main():
                 extension = flag[-4:]
                 flagname = f"{stamp}-{region.lower().replace(' ', '_')}{extension}"
                 flagsave = f"{flag_path}/{flagname}"
-                r = requests.get(flag, headers = {'User-Agent': 'Refuge Isle, running Nightly'})
+                r = requests.get(flag, headers = headers)
 
                 # File still exists
                 if "Page Not Found" not in str(r.content):
@@ -168,7 +172,7 @@ def main():
                 if "r" not in banner:
                     bannername = f"{stamp}-{region.lower().replace(' ', '_')}.jpg"
                     bannersave = f"{banner_path}/{bannername}"
-                    r = requests.get(f"https://www.nationstates.net/images/rbanners/uploads/{region.lower().replace(' ', '_')}__{banner}.jpg", headers = {'User-Agent': 'Refuge Isle, running Nightly'})
+                    r = requests.get(f"https://www.nationstates.net/images/rbanners/uploads/{region.lower().replace(' ', '_')}__{banner}.jpg", headers = headers)
 
                     # File still exists
                     if "Page Not Found" not in str(r.content):
