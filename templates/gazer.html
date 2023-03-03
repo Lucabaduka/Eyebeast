@@ -220,7 +220,7 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
                                 <div class="content box data-display">
                                     <div id="ros">
                                     {% for ro in ros %}
-                                        {{ ro | safe}}
+                                        {{ ro | safe }}
                                     {% endfor %}
                                     </div>
                                 </div>
@@ -230,8 +230,8 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
                 </div>
             </div>
         </section>
-
-            <!-- footer -->
+        {{ migration | safe }}
+        <!-- footer -->
 
         <section class="hero is-small">
             <div class="hero-body" style="background-color: #000000ab; display:block;">

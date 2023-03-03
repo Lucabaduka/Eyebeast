@@ -239,12 +239,12 @@ strong {
     font-weight: 350;
 }
 .notfound{
-    background: #131b2db5; 
-    display:block; 
-    position: relative; 
-    top: 5em; 
-    border-top: 2px solid #09f; 
-    border-bottom: 2px solid #09F; 
+    background: #131b2db5;
+    display:block;
+    position: relative;
+    top: 5em;
+    border-top: 2px solid #09f;
+    border-bottom: 2px solid #09F;
     max-height: 313px;
 }
 .homebutton {
@@ -289,13 +289,27 @@ strong {
 .copy:before:not(:disabled) {
     display: none;
     top: -75%;
-    background-image: radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, transparent 20%, #0099ff 20%, transparent 30%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, transparent 10%, #0099ff 15%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%);
+    background-image: radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, transparent 20%, #0099ff 20%, transparent 30%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, transparent 10%, #0099ff 15%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%);
     background-size: 10% 10%, 20% 20%, 15% 15%, 20% 20%, 18% 18%, 10% 10%, 15% 15%, 10% 10%, 18% 18%;
 }
 .copy:after:not(:disabled) {
     display: none;
     bottom: -75%;
-    background-image: radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, transparent 10%, #0099ff 15%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%), radial-gradient(circle, #0099ff 20%, transparent 20%);
+    background-image: radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, transparent 10%, #0099ff 15%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%),
+                      radial-gradient(circle, #0099ff 20%, transparent 20%);
     background-size: 15% 15%, 20% 20%, 18% 18%, 20% 20%, 15% 15%, 10% 10%, 20% 20%;
 }
 .copy:active:not(:disabled) {
@@ -333,4 +347,14 @@ input[type=number] {
 }
 .inactive{
     display: none;
+}
+.transitional-council{
+    position: fixed;
+    background-color: #990303;
+    color: #FFF;
+    border-radius: 5px;
+    border-width: 0px;
+    padding: 10px;
+    width: 50%;
+    transform: translate(50%, 15%);
 }
