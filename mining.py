@@ -111,18 +111,26 @@ def main():
     for x in root.findall("REGION"):
 
         try:
-            flag = None
             flagname = ""
             ros = ""
             tags = ""
-            banner = x.find("BANNER").text
-            region = x.find("NAME").text
-            flag = x.find("FLAG").text
-            wfe = x.find("FACTBOOK").text
 
-            # WFE proceedure
-            if wfe == None:
-                wfe = ""
+            region = x.find("NAME").text
+
+            wfe = ""
+            if x.find("FACTBOOK") != None:
+                if x.find("FACTBOOK").text != None:
+                    wfe = x.find("FACTBOOK").text
+
+            banner = ""
+            if x.find("BANNERURL") != None:
+                if x.find("BANNERURL").text != None:
+                    banner = x.find("BANNERURL").text
+
+            flag = None
+            if x.find("FLAG") != None:
+                if x.find("FLAG").text != None:
+                    flag = x.find("FLAG").text
 
             # RO proceedure
             for y in x.findall("OFFICERS"):
@@ -163,27 +171,25 @@ def main():
                         f.write(r.content)
                         f.close()
                     print(f"Downloaded: {flag}")
-                    time.sleep(1.5)
+                    time.sleep(1.3)
 
             # Banner stuff now
-            if banner == "0":
-                bannername = ""
+            if "/uploads/" in banner:
+                extension = banner.partition(".")[2] # Maybe change if stock banners expand
+                bannername = f"{stamp}-{region.lower().replace(' ', '_')}.{extension}"
+                bannersave = f"{banner_path}/{bannername}"
+                r = requests.get(f"https://www.nationstates.net/{banner}", headers = headers)
+
+                # File still exists
+                if "Page Not Found" not in str(r.content):
+                    with open(bannersave, "wb") as f:
+                        f.write(r.content)
+                        f.close()
+                    print(f"Downloaded: {bannername}")
+                    time.sleep(1.3)
+
             else:
-                if "r" not in banner:
-                    bannername = f"{stamp}-{region.lower().replace(' ', '_')}.jpg"
-                    bannersave = f"{banner_path}/{bannername}"
-                    r = requests.get(f"https://www.nationstates.net/images/rbanners/uploads/{region.lower().replace(' ', '_')}__{banner}.jpg", headers = headers)
-
-                    # File still exists
-                    if "Page Not Found" not in str(r.content):
-                        with open(bannersave, "wb") as f:
-                            f.write(r.content)
-                            f.close()
-                        print(f"Downloaded: {bannername}")
-                        time.sleep(1.5)
-
-                else:
-                    bannername = banner
+                bannername = banner.partition("/images/rbanners/")[2].replace(".jpg", "")  # Maybe change to {extension} if stock banners expand
 
             # Save the entry
             record = Byakuya(stamp, region, wfe, tags, ros, flagname, bannername)
@@ -202,16 +208,22 @@ def main():
             # Acquire record
             record = Byakuya(x[0], x[1], x[2], x[3], x[4], x[5], x[6])
 
-            # Prune flag file
-            if record.flag != "":
-                os.remove(f"{flag_path}/{record.flag}")
-
-            # Prune banner file
-            if "r" not in record.banner and record.banner != "" and record.banner != "0":
-                os.remove(f"{banner_path}/{record.banner}")
-
             # Delete from database
             remove_record(record)
+
+            # Prune flag file
+            if record.flag != "":
+                try:
+                    os.remove(f"{flag_path}/{record.flag}")
+                except:
+                    continue
+
+            # Prune banner file
+            if len(record.banner) < 3 and record.banner != "" and record.banner != "0":
+                try:
+                    os.remove(f"{banner_path}/{record.banner}")
+                except:
+                    continue
 
         except:
             continue
