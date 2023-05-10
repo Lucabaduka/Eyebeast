@@ -50,7 +50,7 @@ tabs ul {
     flex-shrink: 0;
 }
 .footer {
-    padding: 1rem 1rem 1rem;
+    padding: 1.5rem;
 }
 a {
     color: #00f8ff;
@@ -76,6 +76,8 @@ a:hover {
 }
 .bg {
     background-color: #001326;
+    background-image: url('background.jpg');
+    background-repeat: no-repeat;
     background-size: cover;
 }
 .outline{
@@ -89,7 +91,7 @@ a:hover {
 }
 .outline-compact{
     clear: both;
-    background: #17202B;
+    background: #17202BDB;
     border: 5px double #09F;
     padding: 12px;
     border-radius: 5px;
@@ -357,4 +359,8 @@ input[type=number] {
     padding: 10px;
     width: 50%;
     transform: translate(50%, 15%);
+}
+.mask{
+    background-color: #000000ab;
+    display:block;
 }

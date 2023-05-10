@@ -4,9 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="keywords" content="Eyebeast, CalRef Network, Calamity Refuge, NationStates backup, NationStates history"/>
-    <meta name="description" content="Eyebeast is an archival utility from CalRef for region-builders, defenders, and archivists to recover data for a region on NationStates.net.
-
-Use the arrow buttons to flip through six months of weekly snapshots to see what world factbook entiries, regional officers, tags, and flags existed for a region at a given time.">
+    <meta name="description" content="Eyebeast is an archival utility from Calamity Refuge, where operators can recover up to six months data through weekly snapshots of any region on NationStates.net.">
+    <meta name="theme-color" content="#0099FF">
     <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="https://calref.ca/main.css">
@@ -19,7 +18,7 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
 
     <div class="hero is-fullheight">
 
-        <section class="hero is-small">
+        <section class="hero is-small mask">
             <nav class="navbar space" role="navigation" aria-label="main navigation">
                 <div class="navbar-start" style="justify-content: center; width: 100%;">
                     <form action="/" method="POST" class="field has-addons search-box">
@@ -65,30 +64,28 @@ Use the arrow buttons to flip through six months of weekly snapshots to see what
 
         <!-- Footer -->
 
-        <section class="hero is-small">
-            <div class="hero-body" style="background-color: #000000ab; display:block;">
-                <article class="media" style="text-align:left; padding-left: 10px; padding-right: 10px;">
-                    <figure>
-                        <p class="image depth is-64x64">
-                            <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
-                        </p>
-                    </figure>
-                    <div class="media-content">
-                        <p class="white">
-                            <span class="is-size-6">Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><br>
-                            <span class="is-size-6"></span>Copyright 2008-2023
-                        </p>
+        <section class="footer mask">
+            <article class="media" style="text-align:left; padding-left: 10px; padding-right: 10px;">
+                <figure>
+                    <p class="image depth is-64x64">
+                        <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
+                    </p>
+                </figure>
+                <div class="media-content">
+                    <p class="white">
+                        <span class="is-size-6">Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><br>
+                        <span class="is-size-6"></span>Copyright 2008-2023
+                    </p>
+                </div>
+                <div>
+                    <p class="is-size-6 white" style="text-align:center">
+                        <a href="https://ko-fi.com/calref"><img src="https://calref.ca/images/mug.png"></a>
+                    </p>
+                    <p class="is-size-6 white" style="text-align:right">
+                        <span><a class="gold" href="https://ko-fi.com/calref">Support us on Ko-fi</a></span>
+                    </p>
                     </div>
-                    <div>
-                        <p class="is-size-6 white" style="text-align:center">
-                            <a href="https://ko-fi.com/calref"><img src="https://calref.ca/images/mug.png"></a>
-                        </p>
-                        <p class="is-size-6 white" style="text-align:right">
-                            <span><a class="gold" href="https://ko-fi.com/calref">Support us on Ko-fi</a></span>
-                        </p>
-                        </div>
-                </article>
-            </div>
+            </article>
         </section>
 
     </div>
