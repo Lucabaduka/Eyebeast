@@ -3,7 +3,7 @@ import html
 from datetime import datetime
 from flask import Flask, render_template, request
 
-version = "1.0.3"
+version = "1.0.6"
 
 app = Flask(__name__)
 
@@ -101,7 +101,7 @@ def gazer():
 
         # Load regions
         entry = ""
-        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;">{x[1]}</p>
+        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={x[1].lower().replace(' ', '_')}" target="_blank">{x[1]}</a></p>
                                 """
         regions.append(entry)
 

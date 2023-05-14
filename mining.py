@@ -4,11 +4,12 @@ import requests
 import xml.etree.ElementTree as et
 import sqlite3
 
-rec = "/var/www/nightly/rec"
-path = "/var/www/eyebeast"
-flag_path = "/var/www/eyebeast/static/flags"
+VERSION     = "1.0.6"
+rec         = "/var/www/nightly/rec"
+path        = "/var/www/eyebeast"
+flag_path   = "/var/www/eyebeast/static/flags"
 banner_path = "/var/www/eyebeast/static/banners"
-headers = {"User-Agent": "Refuge Isle, running Eyebeast's Miner"}
+headers     = {"User-Agent": f"Refuge Isle, running Eyebeast, v{VERSION}"}
 
 # Form the database if it doesn't exist
 if not os.path.isfile(f"{path}/eyebeast.db"):
@@ -39,12 +40,12 @@ class Byakuya:
     """Helps put things in their place"""
 
     def __init__(self, stamp, region, wfe, tags, ros, flag, banner):
-        self.stamp = stamp
+        self.stamp  = stamp
         self.region = region
-        self.wfe = wfe
-        self.tags = tags
-        self.ros = ros
-        self.flag = flag
+        self.wfe    = wfe
+        self.tags   = tags
+        self.ros    = ros
+        self.flag   = flag
         self.banner = banner
 
 # Establish connection
@@ -71,19 +72,19 @@ def main():
 
     tag_list = [
         "Anarchist", "Anime", "Anti-Capitalist", "Anti-Communist", "Anti-Fascist", "Anti-General Assembly", "Anti-Security Council", "Anti-World Assembly",
-        "Capitalist", "Casual", "Communist", "Conservative", "Cyberpunk", "Defender", "Democratic", "Eco-Friendly", "Egalitarian", "F7er", "FT FtL",
-        "FT FTLi", "FT STL", "Fandom", "Fantasy Tech", "Fascist", "Feminist", "Free Trade", "Future Tech", "Game Player", "General Assembly",
-        "Generalite", "Human-Only", "Imperialist", "Independent", "Industrial", "International Federalist", "Invader", "Isolationist", "Issues Player",
-        "Jump Point", "LGBT", "Liberal", "Liberated", "Libertarian", "Magical", "Map", "Mercenary", "Modern Tech", "Monarchist", "Multi-Species",
-        "National Sovereigntist", "Neutral", "Non-English", "Offsite Chat", "Offsite Forums", "Outer Space", "P2TM", "Pacifist", "Parody", "Past Tech",
-        "Patriarchal", "Post Apocalyptic", "Post-Modern Tech", "Puppet Storage", "Recruiter Friendly", "Regional Government", "Religious", "Role Player",
-        "Security Council", "Serious", "Silly", "Snarky", "Social", "Socialist", "Sports", "Steampunk", "Surreal", "Theocratic", "Totalitarian",
-        "Trading Cards", "Video Game", "World Assembly"
+        "Capitalist", "Casual", "Colony", "Communist", "Conservative", "Cyberpunk", "Defender", "Democratic", "Eco-Friendly", "Egalitarian",
+        "Embassy Collector", "F7er", "FT FtL", "FT FTLi", "FT STL", "Fandom", "Fantasy Tech", "Fascist", "Feminist", "Free Trade", "Frontier", "Future Tech",
+        "Game Player", "General Assembly", "Generalite", "Human-Only", "Imperialist", "Independent", "Industrial", "International Federalist", "Invader",
+        "Isolationist", "Issues Player", "Jump Point", "LGBT", "Liberal", "Liberated", "Libertarian", "Magical", "Map", "Mercenary", "Modern Tech", "Monarchist",
+        "Multi-Species", "National Sovereigntist", "Neutral", "Non-English", "Offsite Chat", "Offsite Forums", "Outer Space", "P2TM", "Pacifist", "Parody",
+        "Password", "Past Tech", "Patriarchal", "Post Apocalyptic", "Post-Modern Tech", "Puppet Storage", "Regional Government", "Religious", "Role Player",
+        "Security Council", "Serious", "Silly", "Snarky", "Social", "Socialist", "Sports", "Steampunk", "Surreal", "Theocratic", "Totalitarian", "Trading Cards",
+        "Video Game", "World Assembly"
         ]
     tag_regions = []
 
-    ro_letters = ["A", "B", "C", "E", "P"]
-    ro_powers = ["Appearance", "Border Control", "Communications", "Embassies", "Polls"]
+    ro_letters = ["A", "B", "C", "E", "P", "S"]
+    ro_powers = ["Appearance", "Border Control", "Communications", "Embassies", "Polls", "Successor"]
 
     # Acquire region tag list
     print("Loading regional tags...")
@@ -101,7 +102,20 @@ def main():
 
         # Parse response and append to list of lists
         root = et.parse(f"{rec}/tags.xml").getroot()
-        insert = (root.find("REGIONS").text).split(",")
+        insert = root.find("REGIONS").text
+
+        # Tag stopped existing
+        if insert == None:
+            insert = []
+
+        # Tag working as expected
+        elif "," in insert:
+            insert = (root.find("REGIONS").text).split(",")
+
+        # Tag contains one item
+        else:
+            pass
+
         tag_regions.append(insert)
 
     print("Tag data loaded.")
@@ -232,4 +246,23 @@ def main():
     connect.close()
 
 if __name__ == "__main__":
-    main()
+
+    # Run mining program
+    try:
+        main()
+
+    # Report any errors to the CalRef discord server
+    except Exception as e:
+        name = "Dispatch Routine"
+        payload = {
+        "username": "Nightly",
+        "embeds": [{
+            "author": {
+                "name": "Eyebeast: Failure",
+                "icon_url": "https://calref.ca/post/busy.png"
+            },
+            "description": f"""The **Eyebeast Miner** encountered the following error:\n\n{e}""",
+            "color":0xf31a71,
+        }],
+    }
+        requests.post("https://discord.com/api/webhooks/1026162476120801422/aGvCnpBAc8mYHigxB9KWHIYw7-MPkqn4q6-jAqSS9anOkrKPM_lX6OMHWNNNtUvgDax4", json=payload)
