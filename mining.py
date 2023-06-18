@@ -230,14 +230,14 @@ def main():
                 try:
                     os.remove(f"{flag_path}/{record.flag}")
                 except:
-                    continue
+                    pass
 
             # Prune banner file
-            if len(record.banner) < 3 and record.banner != "" and record.banner != "0":
+            if len(record.banner) > 3:
                 try:
                     os.remove(f"{banner_path}/{record.banner}")
                 except:
-                    continue
+                    pass
 
         except:
             continue
