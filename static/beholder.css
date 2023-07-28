@@ -11,7 +11,10 @@ body {
     font-size: 1em;
     font-weight: 400;
     line-height: 1.5;
-  }
+}
+.hero.is-fullheight .hero-body, .hero.is-fullheight-with-navbar .hero-body, .hero.is-halfheight .hero-body {
+    align-items: baseline;
+}
 .center {
     justify-content: center;
     text-align: center;
