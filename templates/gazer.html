@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#0099FF">
     <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="https://calref.ca/main.css">
+    <link rel="stylesheet" href="https://calref.ca/bulma.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='beholder.css') }}">
     <title>Eyebeast</title>
 </head>
@@ -27,7 +27,7 @@
                         <div class="control">
                             <button id="button-search" class="button center is-info">Search</button>
                         </div>
-                        <input class="input" id="search" name="region" type="text" placeholder="Search for a region" required>
+                        <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region" required>
                     </form>
                 </div>
             </nav>
@@ -48,7 +48,7 @@
                             </figure>
                             <div class="media-content more-space">
                                 <h1 class="title" style="display:flex">
-                                    <span class="blue space" style="padding-right: 0.5%;">Eyebeast</span>
+                                    <span class="blue space">Eyebeast</span>
                                 </h1>
                                 <p class="subtitle white space" style="display:flex">
                                     Eldritch Archival Utility
@@ -120,7 +120,7 @@
                     <div class="column is-one-third">
                         <div class="content subbox">
                             <h1 class="title is-3 center">
-                                <span class="blue" style="padding-right: 0.5%;">Flag</span>
+                                <span class="blue">Flag</span>
                             </h1>
                             <div class="divider">
                                 <ul></ul>
@@ -142,7 +142,7 @@
                             <div>
                                 <h1 class="title is-3 center">
                                     <button class="copy" onclick="copityopity()" id="copy" style="float: right;" {{breaks[1]}}> Copy </button>
-                                    <span class="blue" style="padding-right: 0.5%;">World Factbook Entry</span>
+                                    <span class="blue">World Factbook Entry</span>
                                 </h1>
 
                             </div>
@@ -188,7 +188,7 @@
                     <div class="column is-half">
                         <div class="content subbox">
                             <h1 class="title is-3 center">
-                                <p class="blue" style="padding-right: 0.5%;">Region Banner</p>
+                                <p class="blue">Region Banner</p>
                             </h1>
                             <div class="divider">
                                 <ul></ul>
@@ -210,7 +210,7 @@
                     <div class="column is-half">
                         <div class="content subbox">
                             <h1 class="title is-3 center">
-                                <span class="blue" style="padding-right: 0.5%;">Regional Officers</span>
+                                <span class="blue">Regional Officers</span>
                             </h1>
                             <div class="divider">
                                 <ul></ul>

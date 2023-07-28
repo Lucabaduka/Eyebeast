@@ -1,3 +1,17 @@
+html {
+    background:
+    radial-gradient(ellipse at top left, #04276a 15%, transparent 60%),
+    radial-gradient(ellipse at bottom left, #08228A 15%, transparent 60%),
+    radial-gradient(ellipse at top right, #1243A0 15%, transparent 60%),
+    radial-gradient(ellipse at bottom right, #014997 15%, #00931e 60%);
+}
+
+body {
+    color: #FFFFFF;
+    font-size: 1em;
+    font-weight: 400;
+    line-height: 1.5;
+  }
 .center {
     justify-content: center;
     text-align: center;
@@ -30,6 +44,8 @@
     border-color: #09F;
     color: #fff;
     width: 100%;
+}
+.button.is-info:not(div.control button) {
     border-radius: 0px;
 }
 .gold{
@@ -73,12 +89,6 @@ a:hover {
 }
 .depth{
     filter: drop-shadow(3px 3px 2px #0000004f);
-}
-.bg {
-    background-color: #001326;
-    background-image: url('background.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 .outline{
     clear: both;
@@ -151,7 +161,7 @@ a:hover {
     outline-style: double;
 }
 .title{
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 .title:not(:last-child){
     margin-bottom: 0.5rem;
@@ -171,6 +181,7 @@ a:hover {
     max-width: 100% !important;
     overflow-y: scroll;
     max-height: 300px;
+    padding: 0;
 }
 .is-one-half{
     margin: 0 auto;
@@ -363,4 +374,18 @@ input[type=number] {
 .mask{
     background-color: #000000ab;
     display:block;
+}
+pre, .content pre {
+    color: #ffffff;
+    background: none;
+    white-space: pre-wrap;
+    word-wrap: normal;
+    padding: 0;
+}
+.content:not(:last-child) {
+    margin-bottom: 0rem;
+}
+.input.bar {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }

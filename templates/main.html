@@ -8,7 +8,7 @@
     <meta name="theme-color" content="#0099FF">
     <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="https://calref.ca/main.css">
+    <link rel="stylesheet" href="https://calref.ca/bulma.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='beholder.css') }}">
     <title>Eyebeast</title>
 </head>
@@ -29,7 +29,7 @@
                             </figure>
                             <div class="media-content more-space">
                                 <h1 class="title is-2" style="display:flex">
-                                    <span class="blue space" style="padding-right: 0.5%;">Eyebeast</span>
+                                    <span class="blue space">Eyebeast</span>
                                 </h1>
                                 <p class="subtitle white space" style="display:flex">
                                     Eldritch Archival Utility
@@ -53,7 +53,7 @@
                                         <div class="control">
                                             <button id="button-search" class="button center is-info">Search</button>
                                         </div>
-                                        <input class="input" id="search" name="region" type="text" placeholder="Search for a region" required>
+                                        <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region" required>
                                     </form>
                                 </div>
                             </nav>
