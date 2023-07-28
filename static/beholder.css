@@ -12,9 +12,14 @@ body {
     font-weight: 400;
     line-height: 1.5;
 }
-.hero.is-fullheight .hero-body, .hero.is-fullheight-with-navbar .hero-body, .hero.is-halfheight .hero-body {
+.hero.is-fullheight .hero-body, .hero-body {
     align-items: baseline;
 }
+.hero-body.splash, .hero.is-fullheight .hero-body.splash  {
+    align-items: center;
+    display: grid;
+}
+
 .center {
     justify-content: center;
     text-align: center;
