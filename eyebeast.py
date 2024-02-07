@@ -16,34 +16,9 @@ def not_found(e):
 @app.route("/", methods = ["POST", "GET"])
 def gazer():
 
-    if request.headers['Host'] == "eyebeast.calref.network":
-        migration = """
-
-    <!-- Migration Notice -->
-
-    <div class="transitional-council center" id="beebeedeebee">
-        <p class="is-size-4 white">
-            <u>Migration Notice</u>
-        </p>
-        <p class="white more-space">
-            This site will be undergoing a domain migration in 2023. You should, ideally, start using <a class="gold" href="https://eyebeast.calref.ca/"><strong>https://eyebeast.calref.ca/</strong></a>.
-        </p>
-        <p class="white more-space">
-            Old URLs will eventually stop working, so you should take this time to change links in areas/publications you control to the new URL schema or let their responsible
-            authority know that they should update the links for however you got here.
-        </p>
-        <button style="margin-bottom: 5px;" class="button is-warning" onclick="window.open('https://forum.calref.ca/index.php?topic=231');">Learn More</button>
-        <button style="margin-bottom: 5px;" class="button is-warning" onclick="this.parentNode.parentNode.removeChild(this.parentNode);">Acknowledge</button>
-    </div>
-
-"""
-    else:
-        migration = ""
-
-
     # Send the user to the splash page if they arrived through any other means
     if request.method != "POST":
-        return render_template("main.html", migration = migration)
+        return render_template("main.html")
 
     # Process the search input
     name = request.form
@@ -172,7 +147,6 @@ def gazer():
     ros       = ros,
     flags     = flags,
     banners   = banners,
-    migration = migration
     )
 
     # Slep
