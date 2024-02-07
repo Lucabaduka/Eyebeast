@@ -9,80 +9,80 @@
     <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="https://calref.ca/bulma.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='beholder.css') }}">
+    <link rel="stylesheet" href="../static/beholder.css">
     <title>Eyebeast</title>
 </head>
-<body class="bg" id="head">
+<body id="head">
 
-    <div class="hero is-fullheight">
+<div class="hero is-fullheight">
 
-        <section class="hero is-small mask">
-            <nav class="navbar space" role="navigation" aria-label="main navigation">
-                <div class="navbar-start" style="justify-content: center; width: 100%;">
-                    <form action="/" method="POST" class="field has-addons search-box">
-                        <div class="control">
-                            <button id="button-search" class="button center is-info">Search</button>
-                        </div>
-                        <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region" required>
-                    </form>
-                </div>
-            </nav>
-        </section>
-
-        <div class="hero-body splash">
-            <section class="hero-body" style="padding:5px">
-                <div class="container outline">
-                    <div class="container subbox">
-                        <article class="media" style="text-align:left">
-                            <figure>
-                                <p class="image depth is-64x64">
-                                    <a href="/"><img src ="{{ url_for('static', filename='eyecon.png') }}"></a>
-                                </p>
-                            </figure>
-                            <div class="media-content more-space">
-                                <h1 class="title is-2" style="display:flex">
-                                    <span class="blue space">404: Not Found</span>
-                                </h1>
-                                <p class="subtitle white space" style="display:flex">
-                                    Region is unknown or cannot be known
-                                </p>
-                            </div>
-                        </article>
-                        <div class="divider">
-                            <ul></ul>
-                        </div>
-
-                        <p class="white text space">
-                        No record was found within the database for the region you mentioned. Try searching for something else.
-                        </p>
+    <section class="hero is-small mask">
+        <nav class="navbar space" role="navigation" aria-label="main navigation">
+            <div class="navbar-start center is-fullwidth">
+                <form action="/" method="POST" class="field has-addons search-box">
+                    <div class="control">
+                        <button id="button-search" class="button center is-info">Search</button>
                     </div>
-                </div>
-            </section>
-        </div>
+                    <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region" required>
+                </form>
+            </div>
+        </nav>
+    </section>
 
-        <!-- Footer -->
+    <div class="hero-body splash">
+        <section class="hero-body" style="padding:5px">
+            <div class="container outline">
+                <div class="container subbox">
+                    <article class="media" style="text-align:left">
+                        <figure>
+                            <p class="image depth is-64x64">
+                                <a href="/"><img src ="{{ url_for('static', filename='eyecon.png') }}"></a>
+                            </p>
+                        </figure>
+                        <div class="media-content more-space">
+                            <h1 class="title is-2" style="display:flex">
+                                <span class="blue space">404: Not Found</span>
+                            </h1>
+                            <p class="subtitle white space is-flex">
+                                Region is unknown or cannot be known
+                            </p>
+                        </div>
+                    </article>
+                    <div class="divider">
+                        <ul></ul>
+                    </div>
 
-        <section class="footer mask">
-            <article class="media media-footer">
-                <figure>
-                    <p class="image depth is-64x64">
-                        <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
-                    </p>
-                </figure>
-                <div class="media-content">
-                    <p class="white">
-                        <span class="is-size-6"></span>Copyright 2008-2024
+                    <p class="white text space">
+                    No record was found within the database for the region you mentioned. Try searching for something else.
                     </p>
                 </div>
-                <div>
-                    <p class="is-size-6 white" style="text-align:center">
-                        <span class="is-size-6">Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><br>
-                    </p>
-                </div>
-            </article>
+            </div>
         </section>
-
     </div>
-    <script src="{{ url_for('static', filename='iris.js') }}"></script>
+
+    <!-- Footer -->
+
+    <section class="footer mask">
+        <article class="media media-footer">
+            <figure>
+                <p class="image depth is-64x64">
+                    <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
+                </p>
+            </figure>
+            <div class="media-content">
+                <p class="is-size-6">Copyright 2008-2024</p>
+            </div>
+            <div>
+                <p class="is-size-6 has-text-centered">
+                    Powered by <a class="gold" href="https://calref.ca/">CalRef</a>
+                </p>
+            </div>
+        </article>
+    </section>
+
+</div>
+
+<script src="{{ url_for('static', filename='iris.js') }}"></script>
+
 </body>
 </html>

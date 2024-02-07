@@ -9,83 +9,83 @@
     <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
     <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <link rel="stylesheet" href="https://calref.ca/bulma.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='beholder.css') }}">
+    <link rel="stylesheet" href="../static/beholder.css">
     <title>Eyebeast</title>
 </head>
-<body class="bg">
+<body>
 
-    <!-- Main -->
+<!-- Main -->
 
-    <div class="hero is-fullheight">
-        <div class="hero-body splash">
-            <section class="hero-body" style="padding:5px">
-                <div class="container outline">
-                    <div class="container subbox">
-                        <article class="media" style="text-align:left">
-                            <figure>
-                                <p class="image depth is-64x64">
-                                    <a href="/"><img src ="{{ url_for('static', filename='eyecon.png') }}"></a>
-                                </p>
-                            </figure>
-                            <div class="media-content more-space">
-                                <h1 class="title is-2" style="display:flex">
-                                    <span class="blue space">Eyebeast</span>
-                                </h1>
-                                <p class="subtitle white space" style="display:flex">
-                                    Eldritch Archival Utility
-                                </p>
-                            </div>
-                        </article>
-                        <div class="divider">
-                            <ul></ul>
+<div class="hero is-fullheight">
+    <div class="hero-body splash">
+        <section class="hero-body p-2">
+            <div class="container outline">
+                <div class="container subbox">
+                    <article class="media has-text-left">
+                        <figure>
+                            <p class="image depth is-64x64">
+                                <a href="/"><img src ="{{ url_for('static', filename='eyecon.png') }}"></a>
+                            </p>
+                        </figure>
+                        <div class="media-content more-space">
+                            <h1 class="title is-2 is-flex">
+                                <span class="blue space">Eyebeast</span>
+                            </h1>
+                            <p class="subtitle white space is-flex">
+                                Eldritch Archival Utility
+                            </p>
                         </div>
-
-                        <!-- Search Bar -->
-
-                        <p class="white text space">
-                        Eyebeast is an archival utility which can help you recover the World Factbook Entries, regional officers, tags, and flags that existed for a region at a given snapshot.
-                        Snapshots are taken weekly and automatically pruned after six months. Enter a region name or URL into the search bar below to see if we can bring up some records.
-                        </p>
-                        <section>
-                            <nav class="navbar space" role="navigation" aria-label="main navigation">
-                                <div class="navbar-start" style="justify-content: center; width: 100%;">
-                                    <form action="/" method="POST" class="field has-addons search-box">
-                                        <div class="control">
-                                            <button id="button-search" class="button center is-info">Search</button>
-                                        </div>
-                                        <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region" required>
-                                    </form>
-                                </div>
-                            </nav>
-                        </section>
+                    </article>
+                    <div class="divider">
+                        <ul></ul>
                     </div>
-                </div>
-            </section>
-        </div>
-        {{ migration | safe }}
-        <!-- Footer -->
 
-        <section class="footer mask">
-            <article class="media media-footer">
-                <figure>
-                    <p class="image depth is-64x64">
-                        <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
+                    <!-- Search Bar -->
+
+                    <p class="white text space">
+                    Eyebeast is an archival utility which can help you recover the World Factbook Entries, regional officers, tags, and flags that existed for a region at a given snapshot.
+                    Snapshots are taken weekly and automatically pruned after six months. Enter a region name or URL into the search bar below to see if we can bring up some records.
                     </p>
-                </figure>
-                <div class="media-content">
-                    <p class="white">
-                        <span class="is-size-6"></span>Copyright 2008-2024
-                    </p>
+                    <section>
+                        <nav class="navbar space" role="navigation" aria-label="main navigation">
+                            <div class="navbar-start center is-fullwidth">
+                                <form action="/" method="POST" class="field has-addons search-box">
+                                    <div class="control">
+                                        <button id="button-search" class="button center is-info">Search</button>
+                                    </div>
+                                    <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region" required>
+                                </form>
+                            </div>
+                        </nav>
+                    </section>
                 </div>
-                <div>
-                    <p class="is-size-6 white" style="text-align:center">
-                        <span class="is-size-6">Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><br>
-                    </p>
-                </div>
-            </article>
+            </div>
         </section>
-
     </div>
-    <script src="{{ url_for('static', filename='iris.js') }}"></script>
+
+    <!-- Footer -->
+
+    <section class="footer mask">
+        <article class="media media-footer">
+            <figure>
+                <p class="image depth is-64x64">
+                    <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
+                </p>
+            </figure>
+            <div class="media-content">
+                <p class="is-size-6">Copyright 2008-2024</p>
+            </div>
+            <div>
+                <p class="is-size-6 has-text-centered">
+                    Powered by <a class="gold" href="https://calref.ca/">CalRef</a>
+                </p>
+            </div>
+        </article>
+    </section>
+
+</div>
+
+<script src="{{ url_for('static', filename='iris.js') }}"></script>
+
 </body>
 </html>
