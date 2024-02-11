@@ -18,20 +18,20 @@
 
 <div class="hero is-fullheight">
     <div class="hero-body splash">
-        <section class="hero-body p-2">
+        <section class="hero-body px-2">
             <div class="container outline">
                 <div class="container subbox">
                     <article class="media has-text-left">
                         <figure>
                             <p class="image depth is-64x64">
-                                <a href="/"><img src ="{{ url_for('static', filename='eyecon.png') }}"></a>
+                                <a href="/"><img src ="../static/eyecon.png"></a>
                             </p>
                         </figure>
                         <div class="media-content more-space">
                             <h1 class="title is-2 is-flex">
                                 <span class="blue space">Eyebeast</span>
                             </h1>
-                            <p class="subtitle white space is-flex">
+                            <p class="subtitle space is-flex">
                                 Eldritch Archival Utility
                             </p>
                         </div>
@@ -42,7 +42,7 @@
 
                     <!-- Search Bar -->
 
-                    <p class="white text space">
+                    <p class="space">
                     Eyebeast is an archival utility which can help you recover the World Factbook Entries, regional officers, tags, and flags that existed for a region at a given snapshot.
                     Snapshots are taken weekly and automatically pruned after six months. Enter a region name or URL into the search bar below to see if we can bring up some records.
                     </p>
@@ -65,23 +65,20 @@
 
     <!-- Footer -->
 
-    <section class="footer mask">
-        <article class="media media-footer">
-            <figure>
-                <p class="image depth is-64x64">
-                    <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
+    <footer class="footer is-flex center">
+        <article class="media-footer is-flex">
+            <figure class="px-1">
+                <p class="image depth is-32x32">
+                    <a href="https://calref.ca/"><img src="https://calref.ca/images/icon_white.png"></a>
                 </p>
             </figure>
             <div class="media-content">
-                <p class="is-size-6">Copyright 2008-2024</p>
-            </div>
-            <div>
-                <p class="is-size-6 has-text-centered">
-                    Powered by <a class="gold" href="https://calref.ca/">CalRef</a>
+                <p class="is-size-6">
+                    <span>Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><span>, © 2008-2024</span>
                 </p>
             </div>
         </article>
-    </section>
+    </footer>
 
 </div>
 

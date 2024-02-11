@@ -36,21 +36,21 @@
     <!-- Main -->
 
     <section class="hero-body">
-        <div class="container outline-compact" style="max-width: 95%;">
-            <div class="columns mb-0">
+        <div class="container outline" style="max-width: 95%;">
+            <div class="columns p-2 mb-0">
                 <div class="column is-half py-0">
 
-                    <article class="media" style="text-align:left">
+                    <article class="media has-text-left">
                         <figure>
                             <p class="image depth is-64x64">
-                                <a href="/"><img src ="{{ url_for('static', filename='eyecon.png') }}"></a>
+                                <a href="/"><img src ="../static/eyecon.png"></a>
                             </p>
                         </figure>
                         <div class="media-content more-space">
                             <h1 class="title is-flex">
                                 <span class="blue space">Eyebeast</span>
                             </h1>
-                            <p class="subtitle white space is-flex">
+                            <p class="subtitle space is-flex">
                                 Eldritch Archival Utility
                             </p>
                         </div>
@@ -86,9 +86,9 @@
 
             <div class="space"></div>
 
-            <div class="columns" style="margin-bottom: 10px;">
-                <div class="column left">
-                    <p class="white space">
+            <div class="columns mb-3">
+                <div class="column">
+                    <p class="space">
                         Use the nav buttons to flip through snapshots and find native-created data. Tap the flags and banners to download them.
                         Snapshots are weekly and pruned at six months.
                     </p>
@@ -96,19 +96,18 @@
 
                 <!-- Nav Buttons -->
 
-                <div class="column has-text-right" style="margin-top: 15px;">
-                    <div class="is-fullhd center" style="display:flex;">
-                        <div style="width: 50px;">
-                            <input class="input center" id="indexBox" type="number" value="1" style="min-width: 45px;" disabled>
+                <div class="column mflex">
+                    <div class="column mline is-flex">
+                        <input class="input center" id="indexBox" type="number" style="width: 3em;" value="1" disabled="">
+
+                        <span class="space">/ </span><span class="space" id="length">{{length}}</span>
+                    </div>
+                    <div class="column center is-flex">
+                        <div class="px-2">
+                            <button class="button is-info py-5 px-5" id="forward" onclick="downity()" disabled="">◀ Forward</button>
                         </div>
-                        <span class="white space">/ </span><span class="white space" id="length">{{length}}</span>
-                        <div class="space"></div>
-                        <div class="is-one-third">
-                            <button class="button is-info" id="forward" onclick="downity()" disabled>◀ Forward</button>
-                        </div>
-                        <div class="space"></div>
-                        <div class="is-one-third">
-                            <button class="button is-info" id="backward" onclick="uppity()" {{breaks[0]}}>Backward ▶</button>
+                        <div class="px-2">
+                            <button class="button is-info py-5 px-5" id="backward" onclick="uppity()" {{breaks[0]}}="">Backward ▶</button>
                         </div>
                     </div>
                 </div>
@@ -118,14 +117,14 @@
 
             <div class="columns is-multiline">
                 <div class="column is-one-third">
-                    <div class="content subbox">
+                    <div class="content subbox tall">
                         <h1 class="title is-3 center">
                             <span class="blue">Flag</span>
                         </h1>
                         <div class="divider">
                             <ul></ul>
                         </div>
-                        <p class="center white space">
+                        <p class="center space">
                             <div class="center" id="flags">
                             {% for flag in flags %}
                                 {{ flag | safe }}
@@ -138,10 +137,10 @@
                 <!-- WFE Results -->
 
                 <div class="column is-half">
-                    <div class="content subbox">
+                    <div class="content subbox tall">
                         <div>
                             <h1 class="title is-3 center">
-                                <button class="copy" onclick="copityopity()" id="copy" style="float: right;" {{breaks[1]}}> Copy </button>
+                                <button class="copy is-pulled-right" onclick="copityopity()" id="copy" {{breaks[1]}}> Copy </button>
                                 <span class="blue">World Factbook Entry</span>
                             </h1>
 
@@ -149,8 +148,8 @@
                         <div class="divider">
                             <ul></ul>
                         </div>
-                        <p class="center white space">
-                            <div class="content box data-display">
+                        <p class="center space">
+                            <div class="content data-display">
                                 <div id="wfes">
                                 {% for wfe in wfes %}
                                     {{ wfe | safe}}
@@ -164,15 +163,15 @@
                 <!-- Tag Results -->
 
                 <div class="column">
-                    <div class="content subbox">
+                    <div class="content subbox tall">
                         <h1 class="title is-3 center">
                             <span class="blue" style="padding-right: 0.5%;">Tags</span>
                         </h1>
                         <div class="divider">
                             <ul></ul>
                         </div>
-                        <p class="center white space" style="font-size: 80%;">
-                            <div class="content box data-display">
+                        <p class="center space" style="font-size: 80%;">
+                            <div class="content data-display">
                                 <div id="tags">
                                 {% for tag in tags %}
                                     {{ tag | safe}}
@@ -186,15 +185,15 @@
                 <!-- Banner Results -->
 
                 <div class="column is-half">
-                    <div class="content subbox">
+                    <div class="content subbox tall">
                         <h1 class="title is-3 center">
                             <p class="blue">Region Banner</p>
                         </h1>
                         <div class="divider">
                             <ul></ul>
                         </div>
-                        <p class="center white space" style="font-size: 80%;">
-                            <div class="content box data-display">
+                        <p class="center space" style="font-size: 80%;">
+                            <div class="content data-display">
                                 <div id="banners">
                                 {% for banner in banners %}
                                     {{ banner | safe }}
@@ -208,15 +207,15 @@
                 <!-- Officer Results -->
 
                 <div class="column is-half">
-                    <div class="content subbox">
+                    <div class="content subbox tall">
                         <h1 class="title is-3 center">
                             <span class="blue">Regional Officers</span>
                         </h1>
                         <div class="divider">
                             <ul></ul>
                         </div>
-                        <p class="center white space" style="font-size: 80%;">
-                            <div class="content box data-display">
+                        <p class="center space" style="font-size: 80%;">
+                            <div class="content data-display">
                                 <div id="ros">
                                 {% for ro in ros %}
                                     {{ ro | safe }}
@@ -232,23 +231,20 @@
 
     <!-- footer -->
 
-    <section class="footer mask">
-        <article class="media media-footer">
-            <figure>
-                <p class="image depth is-64x64">
-                    <a href="https://calref.ca/"><img src="https://calref.ca/images/icon.png"></a>
+    <footer class="footer is-flex center">
+        <article class="media-footer is-flex">
+            <figure class="px-1">
+                <p class="image depth is-32x32">
+                    <a href="https://calref.ca/"><img src="https://calref.ca/images/icon_white.png"></a>
                 </p>
             </figure>
             <div class="media-content">
-                <p class="is-size-6">Copyright 2008-2024</p>
-            </div>
-            <div>
-                <p class="is-size-6 has-text-centered">
-                    Powered by <a class="gold" href="https://calref.ca/">CalRef</a>
+                <p class="is-size-6">
+                    <span>Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><span>, © 2008-2024</span>
                 </p>
             </div>
         </article>
-    </section>
+    </footer>
 
 </div>
 

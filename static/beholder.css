@@ -1,5 +1,22 @@
 /* Main */
 
+@media only screen and (max-width: 767px) {
+    .mflex {
+        display: block;
+    }
+    .mline {
+        justify-content: center;
+    }
+}
+@media only screen and (min-width: 768px) {
+    .mflex {
+        display: flex;
+    }
+    .mline {
+        justify-content: end;
+    }
+}
+
 html {
     background:
     radial-gradient(ellipse at top left, #064494 30%, #042afb2e 40%),
@@ -7,7 +24,6 @@ html {
     radial-gradient(ellipse at top right, #00529F 20%, #248cca80 50%),
     radial-gradient(ellipse at bottom right, #001626 20%, #00AAFD 35%);
 }
-
 body {
     color: #FFFFFF;
     font-size: 1em;
@@ -24,6 +40,9 @@ body {
 .is-fullwidth {
     width: 100%;
 }
+.tall {
+    height: 100%;
+}
 
 /* Text */
 
@@ -36,6 +55,9 @@ body {
 }
 .title:not(:last-child) {
     margin-bottom: 0.5rem;
+}
+.subtitle {
+    color: #FFFFFF;
 }
 .is-2 {
     font-weight: 300;
@@ -96,33 +118,25 @@ a:hover {
     padding: 10px;
     margin: 0 auto;
 }
-.outline-compact {
-    clear: both;
-    background: #17202BDB;
-    border: 5px double #09F;
-    padding: 12px;
-    border-radius: 5px;
-    margin: 0 auto;
-}
 .divider {
     border-bottom-color: #09F;
     border-bottom-style: solid;
     border-bottom-width: 1px;
     position: relative;
 }
-.subbox {
-    background: #0F1720;
-    border: 1px solid #4C4C4D;
+.inbox {
+    background: #0B1120A8;
+    border: 1px solid #1e4ca6c2;
+    border-radius: 2px;
     padding: 16px;
     max-width: 100% !important;
-    height: 100%;
+    overflow: auto;
 }
-.box {
+.subbox {
     background: #0F1720;
+    border: 1px solid #185877;
+    padding: 16px;
     max-width: 100% !important;
-    overflow-y: scroll;
-    max-height: 300px;
-    padding: 0;
 }
 .media-content {
     flex-basis: auto;
@@ -155,7 +169,12 @@ a:hover {
     padding-right: 10px;
 }
 .footer {
-    padding: 1rem;
+    padding: 0.5rem;
+    background-color: #00000029;
+    color: #ffffff;
+    text-align: center;
+    text-shadow: 1px 1px 2px #0f0f0f5e;
+    box-shadow: 0 -1px 2px #b1b1b10f
 }
 
 /* Button Classes */
@@ -283,15 +302,14 @@ a:hover {
 
 /* Data Classes */
 
-.data-display {
-    overflow-y: scroll;
-}
 .data-display::-webkit-scrollbar {
     display: none;
 }
 .data-display {
     -ms-overflow-style: none;
     scrollbar-width: none;
+    max-height: 325px;
+    overflow-y: scroll;
 }
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
@@ -306,7 +324,7 @@ input[type=number] {
 }
 
 .mask {
-    background-color: #000000ab;
+    background-color: #00000029;
     display:block;
 }
 pre, .content pre {
