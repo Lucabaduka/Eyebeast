@@ -1,19 +1,24 @@
-// Eyebeast search functions
+// Eyebeast search function
+const form = document.querySelector("form");
+form?.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-const init = function(){
+    // Collect Data
+    const formData = new FormData(form);
+    const searchTerm = formData.get("region")?.toString();
 
-    // Click listener
-    document.getElementById('button-search').addEventListener('click', send);
-}
+    // Clean Data
+    let stripNS = searchTerm.replace("https://www.nationstates.net/region=", "");
+    let cleanTerm = stripNS.toLowerCase().replace(/ /g, "_");
+    let bleachedTerm = cleanTerm.replace(/[^a-z A-Z 0-9-_]+/g, "");
 
-const send = function(ev) {
+    // Transfer Data
+    const url = new URL("/", window.location.origin);
+    url.searchParams.set("region", bleachedTerm)
+    window.location.assign(url.toString());
+});
 
-    // Clean and return search results
-    var region_name = document.getElementById("search");
-    return region_name.value;
-
-}
-
+// Eyebeast copy function
 function copityopity() {
 
     // get the thingies
@@ -24,6 +29,4 @@ function copityopity() {
     document.getElementById('copy').innerHTML = "Copied";
     document.getElementById('copy').classList.add('copied');
 
-}
-
-document.addEventListener('DOMContentLoaded', init);
+};

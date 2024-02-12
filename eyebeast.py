@@ -1,11 +1,14 @@
+import os
 import sqlite3
 import html
 from datetime import datetime
 from flask import Flask, render_template, request
 
-version = "1.0.7"
+version = "1.1.0"
 
 app = Flask(__name__)
+
+PATH = os.path.dirname(__file__)
 
 # Errors
 @app.errorhandler(404)
@@ -16,14 +19,24 @@ def not_found(e):
 @app.route("/", methods = ["POST", "GET"])
 def gazer():
 
-    # Send the user to the splash page if they arrived through any other means
-    if request.method != "POST":
-        return render_template("main.html")
 
-    # Process the search input
-    name = request.form
-    region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
-    region = region.replace(" ", "_")
+    # Pull the URL
+    url_params = request.args
+    region = url_params.get("region", None)
+
+    # Direct request
+    if region != None:
+        region = region.lower().strip().replace(" ", "_")
+
+    # Normal Eyebeast request
+    elif request.form:
+        name = request.form
+        region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
+        region = region.replace(" ", "_")
+
+    # We have no idea what is happening
+    else:
+        return render_template("main.html")
 
     # Trashy RCE thwarting
     junk = ["<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>",
@@ -37,7 +50,7 @@ def gazer():
 
     # Connect to the database and search for the input
     data = []
-    connect = sqlite3.connect("/var/www/eyebeast/eyebeast.db")
+    connect = sqlite3.connect(f"{PATH}/eyebeast.db")
     c = connect.cursor()
     c.execute("SELECT * FROM eyebeast WHERE LOWER(REPLACE(region, ' ', '_')) = ? order by stamp desc;", (region,))
 
