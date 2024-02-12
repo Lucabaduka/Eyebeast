@@ -17,16 +17,3 @@ form?.addEventListener("submit", (e) => {
     url.searchParams.set("region", bleachedTerm)
     window.location.assign(url.toString());
 });
-
-// Eyebeast copy function
-function copityopity() {
-
-    // get the thingies
-    var copyText = document.querySelectorAll(".wfes:not(.inactive)");
-    navigator.clipboard.writeText(copyText[0].innerText);
-
-    // change the thingies
-    document.getElementById('copy').innerHTML = "Copied";
-    document.getElementById('copy').classList.add('copied');
-
-};
