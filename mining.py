@@ -93,7 +93,7 @@ def main():
         insert = []
 
         # API call to list of regions by x (tag)
-        url = f"https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(' ', '_')}"
+        url = f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}"""
         r = requests.get(url, headers = headers)
         with open(f"{rec}/tags.xml", "wb") as f:
             f.write(r.content)
@@ -175,8 +175,8 @@ def main():
             # Flag stuff now
             if flag != None:
                 extension = flag[-4:]
-                flagname = f"{stamp}-{region.lower().replace(' ', '_')}{extension}"
-                flagsave = f"{flag_path}/{flagname}"
+                flagname = f"""{stamp}-{region.lower().replace(" ", "_")}{extension}"""
+                flagsave = f"""{flag_path}/{flagname}"""
                 r = requests.get(flag, headers = headers)
 
                 # File still exists
@@ -190,9 +190,9 @@ def main():
             # Banner stuff now
             if "/uploads/" in banner:
                 extension = banner.partition(".")[2] # Maybe change if stock banners expand
-                bannername = f"{stamp}-{region.lower().replace(' ', '_')}.{extension}"
-                bannersave = f"{banner_path}/{bannername}"
-                r = requests.get(f"https://www.nationstates.net/{banner}", headers = headers)
+                bannername = f"""{stamp}-{region.lower().replace(" ", "_")}.{extension}"""
+                bannersave = f"""{banner_path}/{bannername}"""
+                r = requests.get(f"""https://www.nationstates.net/{banner}""", headers = headers)
 
                 # File still exists
                 if "Page Not Found" not in str(r.content):
@@ -214,7 +214,7 @@ def main():
 
     # Vanquishing module
     prune = stamp - 15552000 # six months
-    c.execute(f"SELECT * FROM eyebeast WHERE stamp < {prune}")
+    c.execute(f"""SELECT * FROM eyebeast WHERE stamp < {prune}""")
 
     for x in c.fetchall():
         try:
@@ -228,14 +228,14 @@ def main():
             # Prune flag file
             if record.flag != "":
                 try:
-                    os.remove(f"{flag_path}/{record.flag}")
+                    os.remove(f"""{flag_path}/{record.flag}""")
                 except:
                     pass
 
             # Prune banner file
             if len(record.banner) > 3:
                 try:
-                    os.remove(f"{banner_path}/{record.banner}")
+                    os.remove(f"""{banner_path}/{record.banner}""")
                 except:
                     pass
 
