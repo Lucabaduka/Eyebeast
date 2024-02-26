@@ -4,7 +4,7 @@ import requests
 import xml.etree.ElementTree as et
 import sqlite3
 
-VERSION     = "1.0.6"
+VERSION     = "1.1.1"
 rec         = "/var/www/nightly/rec"
 path        = "/var/www/eyebeast"
 flag_path   = "/var/www/eyebeast/static/flags"
@@ -92,31 +92,38 @@ def main():
         print(f"Loading {x}")
         insert = []
 
-        # API call to list of regions by x (tag)
-        url = f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}"""
-        r = requests.get(url, headers = headers)
-        with open(f"{rec}/tags.xml", "wb") as f:
-            f.write(r.content)
-            f.close()
-        time.sleep(2)
+        try:
+            # API call to list of regions by x (tag)
+            url = f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}"""
+            r = requests.get(url, headers = headers)
+            with open(f"{rec}/tags.xml", "wb") as f:
+                f.write(r.content)
+                f.close()
+            time.sleep(2)
 
-        # Parse response and append to list of lists
-        root = et.parse(f"{rec}/tags.xml").getroot()
-        insert = root.find("REGIONS").text
+            # Parse response and append to list of lists
+            root = et.parse(f"{rec}/tags.xml").getroot()
+            insert = root.find("REGIONS").text
 
-        # Tag stopped existing
-        if insert == None:
-            insert = []
+            # Tag stopped existing
+            if insert == None:
+                insert = []
 
-        # Tag working as expected
-        elif "," in insert:
-            insert = (root.find("REGIONS").text).split(",")
+            # Tag working as expected
+            elif "," in insert:
+                insert = (root.find("REGIONS").text).split(",")
 
-        # Tag contains one item
-        else:
-            pass
+            # Tag contains one item
+            else:
+                pass
 
-        tag_regions.append(insert)
+            tag_regions.append(insert)
+
+        # likely invoked if NationStates ever deletes a tag without notice
+        except:
+
+            # In which case we will just move on
+            continue
 
     print("Tag data loaded.")
 

@@ -4,7 +4,7 @@ import html
 from datetime import datetime
 from flask import Flask, render_template, request
 
-version = "1.1.0"
+version = "1.1.1"
 
 app = Flask(__name__)
 
