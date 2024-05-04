@@ -93,7 +93,8 @@ a {
     text-decoration: none;
 }
 a:hover {
-    color: #09f;
+    font-style: italic;
+    color: #ecc906;
 }
 .media {
     align-items: center;
@@ -143,6 +144,7 @@ a:hover {
     flex-grow: 1;
     flex-shrink: 1;
     text-align: left;
+    margin-top: 5px;
 }
 .content blockquote:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content p:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child), .content ul:not(:last-child){
     margin-bottom: 0em;
@@ -318,6 +320,7 @@ input::-webkit-inner-spin-button {
 }
 input[type=number] {
   -moz-appearance: textfield;
+  appearance: textfield;
 }
 .inactive {
     display: none;
