@@ -70,52 +70,51 @@ def gazer():
     ros = []
     flags = []
     banners = []
-    counter = 1
 
-    for x in data:
+    for count, value in enumerate(data):
 
         # Initialise hidden
-        if counter == 1:
+        if count == 0:
             hide = ""
         else:
             hide = " inactive"
 
         # Load timestamps
         entry = ""
-        entry = datetime.utcfromtimestamp(x[0]).strftime('%B %d, %Y')
+        entry = datetime.utcfromtimestamp(value[0]).strftime('%B %d, %Y')
         pstamp = f"""<p class="center stamps{hide}">Entry from {entry}</p>
                                 """
         stamps.append(pstamp)
 
         # Load regions
         entry = ""
-        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={x[1].lower().replace(' ', '_')}" target="_blank">{x[1]}</a></p>
+        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={value[1].lower().replace(' ', '_')}" target="_blank">{value[1]}</a></p>
                                 """
         regions.append(entry)
 
         # Load WFEs
         entry = ""
-        pwfe = html.unescape(x[2])
+        pwfe = html.unescape(value[2])
         entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">{pwfe}</pre>
                                     """
         wfes.append(entry)
 
         # Load tags
         entry = ""
-        entry = f"""<pre class="data-display tags{hide}">{x[3]}</pre>
+        entry = f"""<pre class="data-display tags{hide}">{value[3]}</pre>
                                     """
         tags.append(entry)
 
         # Load ROs
         entry = ""
-        entry = f"""<pre class="data-display ros{hide}">{x[4]}</pre>
+        entry = f"""<pre class="data-display ros{hide}">{value[4]}</pre>
                                     """
         ros.append(entry)
 
         # Load flags
         entry = ""
-        if x[5] != "":
-            pflag = f"""<a href="static/flags/{x[5]}" download><img src ="static/flags/{x[5]}"></a>"""
+        if value[5] != "":
+            pflag = f"""<a href="static/flags/{value[5]}" download><img src ="static/flags/{value[5]}"></a>"""
             entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>
                                     """
         else:
@@ -125,16 +124,13 @@ def gazer():
 
         # Format banners
         entry = ""
-        if x[6] == "":
+        if value[6] == "":
             entry = f"""<pre class="data-display banners{hide}"></pre>"""
-        elif len(x[6]) < 3:
-            entry = f"""<pre class="data-display banners{hide}"><p class="gold" style="font-size: 10pt;">This is a stock banner. Select it in the region's admin menu.</p><img src ="https://www.nationstates.net/images/rbanners/{x[6]}"></pre>"""
+        elif len(value[6]) < 3:
+            entry = f"""<pre class="data-display banners{hide}"><p class="gold" style="font-size: 10pt;">This is a stock banner. Select it in the region's admin menu.</p><img src ="https://www.nationstates.net/images/rbanners/{value[6]}"></pre>"""
         else:
-            entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{x[6]}" download><img src ="static/banners/{x[6]}"></a></pre>"""
+            entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{value[6]}" download><img src ="static/banners/{value[6]}"></a></pre>"""
         banners.append(entry)
-
-        # Next
-        counter += 1
 
     # Initialise break buttons
     breaks = []
@@ -144,7 +140,7 @@ def gazer():
     else:
         breaks.append("")
 
-    if x[2] == "":
+    if value[2] == "":
         breaks.append("disabled")
     else:
         breaks.append("")
