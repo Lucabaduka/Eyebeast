@@ -38,12 +38,6 @@ def gazer():
     else:
         return render_template("main.html")
 
-    # Trashy RCE thwarting
-    junk = ["<script>", "</script>", "<div>", "</div>", "<pre>", "</pre>", "<p>", "</p>",
-            "<a ", "</a>", "href=", "src=", "<body>", "</body>", "<style>", "</style>"]
-    for x in junk:
-        region.replace(x, "")
-
     # The search data is garbage
     if region.replace("_", "").isalnum() is False:
         return render_template("404.html")
@@ -63,12 +57,12 @@ def gazer():
         return render_template("404.html")
 
     # We assume we have results to deliver at this point
-    stamps = []
+    stamps  = []
     regions = []
-    wfes = []
-    tags = []
-    ros = []
-    flags = []
+    wfes    = []
+    tags    = []
+    ros     = []
+    flags   = []
     banners = []
 
     for count, value in enumerate(data):
@@ -82,44 +76,37 @@ def gazer():
         # Load timestamps
         entry = ""
         entry = datetime.utcfromtimestamp(value[0]).strftime('%B %d, %Y')
-        pstamp = f"""<p class="center stamps{hide}">Entry from {entry}</p>
-                                """
+        pstamp = f"""<p class="center stamps{hide}">Entry from {entry}</p>"""
         stamps.append(pstamp)
 
         # Load regions
         entry = ""
-        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={value[1].lower().replace(' ', '_')}" target="_blank">{value[1]}</a></p>
-                                """
+        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={value[1].lower().replace(' ', '_')}" target="_blank">{value[1]}</a></p>"""
         regions.append(entry)
 
         # Load WFEs
         entry = ""
         pwfe = html.unescape(value[2])
-        entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">{pwfe}</pre>
-                                    """
+        entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">{pwfe}</pre>"""
         wfes.append(entry)
 
         # Load tags
         entry = ""
-        entry = f"""<pre class="data-display tags{hide}">{value[3]}</pre>
-                                    """
+        entry = f"""<pre class="data-display tags{hide}">{value[3]}</pre>"""
         tags.append(entry)
 
         # Load ROs
         entry = ""
-        entry = f"""<pre class="data-display ros{hide}">{value[4]}</pre>
-                                    """
+        entry = f"""<pre class="data-display ros{hide}">{value[4]}</pre>"""
         ros.append(entry)
 
         # Load flags
         entry = ""
         if value[5] != "":
             pflag = f"""<a href="static/flags/{value[5]}" download><img src ="static/flags/{value[5]}"></a>"""
-            entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>
-                                    """
+            entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>"""
         else:
-            entry = """<pre class="data-display flags"></pre>
-                                    """
+            entry = """<pre class="data-display flags"></pre>"""
         flags.append(entry)
 
         # Format banners

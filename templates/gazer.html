@@ -21,7 +21,7 @@
     <!-- Permanent Search Bar -->
 
     <header class="hero is-small mask">
-        <nav class="navbar space" role="navigation" aria-label="main navigation">
+        <nav class="navbar" role="navigation" aria-label="main navigation">
             <div class="navbar-start center is-fullwidth">
                 <form class="field has-addons search-box form">
                     <input type="submit" value="Search" id="search" class="button is-info search">
@@ -39,11 +39,9 @@
                 <div class="column is-half py-0">
 
                     <article class="media has-text-left">
-                        <figure>
-                            <p class="image depth is-64x64">
-                                <a href="/"><img src ="../static/eyecon.png"></a>
-                            </p>
-                        </figure>
+                        <p class="image depth is-64x64">
+                            <a href="/"><img src ="../static/eyecon.png"></a>
+                        </p>
                         <div class="media-content more-space">
                             <h1 class="title is-flex">
                                 <span class="blue space">Eyebeast</span>
@@ -52,7 +50,6 @@
                                 Eldritch Archival Utility
                             </p>
                         </div>
-
                     </article>
 
                 </div>
@@ -94,16 +91,15 @@
 
                 <div class="column mflex">
                     <div class="column mline is-flex">
-                        <input class="input center" id="indexBox" type="number" style="width: 3em;" value="1" disabled="">
-
+                        <input class="input center" id="indexBox" type="number" style="width: 3em;" value="1" disabled>
                         <span class="space">/ </span><span class="space" id="length">{{length}}</span>
                     </div>
                     <div class="column center is-flex">
                         <div class="px-2">
-                            <button class="button is-info py-5 px-5" id="forward" onclick="downity()" disabled="">◀ Forward</button>
+                            <button class="button is-info py-5 px-5" id="forward" onclick="downity()" disabled>◀ Forward</button>
                         </div>
                         <div class="px-2">
-                            <button class="button is-info py-5 px-5" id="backward" onclick="uppity()" {{breaks[0]}}="">Backward ▶</button>
+                            <button class="button is-info py-5 px-5" id="backward" onclick="uppity()" {{breaks[0]}}>Backward ▶</button>
                         </div>
                     </div>
                 </div>
@@ -144,15 +140,13 @@
 
                         <hr>
 
-                        <p class="center space">
-                            <div class="content data-display">
-                                <div id="wfes">
-                                {% for wfe in wfes %}
-                                    {{ wfe | safe}}
-                                {% endfor %}
-                                </div>
+                        <div class="content data-display">
+                            <div class="mt-2" id="wfes">
+                            {% for wfe in wfes %}
+                                {{ wfe | safe}}
+                            {% endfor %}
                             </div>
-                        </p>
+                        </div>
                     </div>
                 </div>
 
@@ -161,20 +155,18 @@
                 <div class="column">
                     <div class="content subbox tall">
                         <h1 class="title is-3 center">
-                            <span class="blue" style="padding-right: 0.5%;">Tags</span>
+                            <span class="blue pr-1">Tags</span>
                         </h1>
 
                         <hr>
 
-                        <p class="center space" style="font-size: 80%;">
-                            <div class="content data-display">
-                                <div id="tags">
-                                {% for tag in tags %}
-                                    {{ tag | safe}}
-                                {% endfor %}
-                                </div>
+                        <div class="content data-display">
+                            <div class="mt-2" id="tags">
+                            {% for tag in tags %}
+                                {{ tag | safe}}
+                            {% endfor %}
                             </div>
-                        </p>
+                        </div>
                     </div>
                 </div>
 
@@ -188,15 +180,13 @@
 
                         <hr>
 
-                        <p class="center space" style="font-size: 80%;">
-                            <div class="content data-display">
-                                <div id="banners">
-                                {% for banner in banners %}
-                                    {{ banner | safe }}
-                                {% endfor %}
-                                </div>
+                        <div class="content data-display">
+                            <div class="mt-2" id="banners">
+                            {% for banner in banners %}
+                                {{ banner | safe }}
+                            {% endfor %}
                             </div>
-                        </p>
+                        </div>
                     </div>
                 </div>
 
@@ -210,15 +200,13 @@
 
                         <hr>
 
-                        <p class="center space" style="font-size: 80%;">
-                            <div class="content data-display">
-                                <div id="ros">
-                                {% for ro in ros %}
-                                    {{ ro | safe }}
-                                {% endfor %}
-                                </div>
+                        <div class="content data-display">
+                            <div class="mt-2" id="ros">
+                            {% for ro in ros %}
+                                {{ ro | safe }}
+                            {% endfor %}
                             </div>
-                        </p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -227,7 +215,7 @@
 
     <!-- footer -->
 
-    <footer class="footer is-flex center">
+    <footer class="is-flex center">
         <div class="media-footer is-flex">
             <p class="image depth is-32x32">
                 <a href="https://calref.ca/"><img src="https://calref.ca/images/icon_white.png"></a>
