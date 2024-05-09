@@ -1,6 +1,12 @@
-# Eyebeast - Eldritch Archival Utility
+# Eyebeast - Eldritch Archival Utility ![Version 1.1.1](https://img.shields.io/badge/Version-1.1.1-0099ff)
 ##### A utility for region-builders, defenders, and researchers to recover region data on NationStates.
-![Eyebeast v1.1.1](https://img.shields.io/badge/Eyebeast-v1.1.1-0099ff) ![Flask v2.1.3](https://img.shields.io/badge/Flask-v2.1.3-0099ff) ![Python v3.9](https://img.shields.io/badge/Python-v3.9-0099ff)
+
+### Front End
+![HTML 5](https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white&style=flat) ![CSS 3](https://img.shields.io/badge/-CSS3-1572B6?logo=css3&logoColor=white&style=flat) ![JavaScript](https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat)
+
+### Back End
+<img src="https://img.shields.io/badge/-Python%203-3776AB?logo=python&logoColor=white&style=flat" alt="python3"> <img src="https://img.shields.io/badge/-SQLite%203-003B57?logo=sqlite&logoColor=white&style=flat" alt="SQLite"> <img src="https://img.shields.io/badge/-Flask%203-000000?logo=flask&logoColor=white&style=flat" alt="Flask">
+
 
 ## Overview
 Eyebeast allows you to browse up to six months of data for a given region on NationStates, organised into snapshots of how the region looked at a particular point in time. In the main production application, these snapshots are taken as a component of Nightly, Calamity Refuge's main maintenance and processing routine.
