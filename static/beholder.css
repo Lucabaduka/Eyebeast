@@ -77,14 +77,12 @@ body {
     color:#ffd700;
 }
 
-tabs ul {
-    align-items: center;
-    border-bottom-color: #FFFFFF75;
-    border-bottom-style: solid;
-    border-bottom-width: 2px;
-    display: flex;
-    flex-grow: 1;
-    flex-shrink: 0;
+hr {
+    background-color: #09F;
+    border: none;
+    display: block;
+    height: 1px;
+    margin: 0;
 }
 
 a {
@@ -185,11 +183,10 @@ a:hover {
     background-color: #0224644f;
     border-color: #09F;
     color: #fff;
-    width: 100%;
 }
-.button.is-info:not(div.control button) {
-    border-radius: 0px;
-}
+.button.search {
+    left: 3px;
+  }
 .button.is-info.is-hovered, .button.is-info:hover {
     background-color: #0099FF;
     border-color: transparent;

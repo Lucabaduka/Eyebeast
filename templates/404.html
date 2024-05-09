@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Eyebeast, CalRef Network, Calamity Refuge, NationStates backup, NationStates history"/>
+    <meta name="keywords" content="Eyebeast, CalRef Network, Calamity Refuge, NationStates backup, NationStates history">
     <meta name="description" content="Eyebeast is an archival utility from Calamity Refuge, where operators can recover up to six months data through weekly snapshots of any region on NationStates.net.">
     <meta name="theme-color" content="#0099FF">
     <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
@@ -12,33 +12,33 @@
     <link rel="stylesheet" href="../static/beholder.css">
     <title>Eyebeast</title>
 </head>
-<body id="head">
+<body>
 
 <div class="hero is-fullheight">
 
-    <section class="hero is-small mask">
-        <nav class="navbar" role="navigation" aria-label="main navigation">
+    <!-- Permanent Search Bar -->
+
+    <header class="hero is-small mask">
+        <nav class="navbar space" role="navigation" aria-label="main navigation">
             <div class="navbar-start center is-fullwidth">
-                <form action="/" method="GET" class="field has-addons search-box">
-                    <div class="control">
-                        <button id="button-search" class="button center is-info">Search</button>
-                    </div>
-                    <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region" required>
+                <form class="field has-addons search-box form">
+                    <input type="submit" value="Search" id="search" class="button is-info search">
+                    <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
                 </form>
             </div>
         </nav>
-    </section>
+    </header>
 
-    <div class="hero-body splash">
+    <!-- Main -->
+
+    <main class="hero-body splash">
         <section class="hero-body px-2">
             <div class="container outline">
                 <div class="container subbox">
                     <article class="media has-text-left">
-                        <figure>
-                            <p class="image depth is-64x64">
-                                <a href="/"><img src ="../static/eyecon.png"></a>
-                            </p>
-                        </figure>
+                        <p class="image depth is-64x64">
+                            <a href="/"><img src ="../static/eyecon.png"></a>
+                        </p>
                         <div class="media-content more-space">
                             <h1 class="title is-2 is-flex">
                                 <span class="blue space">404: Not Found</span>
@@ -48,40 +48,37 @@
                             </p>
                         </div>
                     </article>
-                    <div class="divider">
-                        <ul></ul>
-                    </div>
+
+                    <hr>
 
                     <p class="space">
-                    No record was found within the database for the region you mentioned. Try searching for something else.
+                        No record was found within the database for the region you mentioned. Try searching for something else.
                     </p>
                 </div>
             </div>
         </section>
-    </div>
+    </main>
 
     <!-- Footer -->
 
     <footer class="footer is-flex center">
-        <article class="media-footer is-flex">
-            <figure class="px-1">
-                <p class="image depth is-32x32">
-                    <a href="https://calref.ca/"><img src="https://calref.ca/images/icon_white.png"></a>
-                </p>
-            </figure>
-            <div class="media-content">
+        <div class="media-footer is-flex">
+            <p class="image depth is-32x32">
+                <a href="https://calref.ca/"><img src="https://calref.ca/images/icon_white.png"></a>
+            </p>
+            <div class="media-content px-1">
                 <p class="is-size-6">
                     <span>Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
                 </p>
             </div>
-        </article>
-        <article class="media-footer is-flex">
+        </div>
+        <div class="media-footer is-flex">
             <div class="media-content">
                 <p class="is-size-6 ml-1">
                     <span> | <a class="gold" href="https://calref.ca/">Support Our Servers</a></span><span></span>
                 </p>
             </div>
-        </article>
+        </div>
     </footer>
 
 </div>

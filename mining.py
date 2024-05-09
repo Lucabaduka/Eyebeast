@@ -4,7 +4,7 @@ import requests
 import xml.etree.ElementTree as et
 import sqlite3
 
-VERSION     = "1.1.1"
+VERSION     = "1.1.2"
 rec         = "/var/www/nightly/rec"
 path        = "/var/www/eyebeast"
 flag_path   = "/var/www/eyebeast/static/flags"

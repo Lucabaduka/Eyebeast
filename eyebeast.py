@@ -4,7 +4,7 @@ import html
 from datetime import datetime
 from flask import Flask, render_template, request
 
-version = "1.1.1"
+version = "1.1.2"
 
 app = Flask(__name__)
 
@@ -52,7 +52,7 @@ def gazer():
     data = []
     connect = sqlite3.connect(f"{PATH}/eyebeast.db")
     c = connect.cursor()
-    c.execute("SELECT * FROM eyebeast WHERE LOWER(REPLACE(region, ' ', '_')) = ? order by stamp desc;", (region,))
+    c.execute("""SELECT * FROM eyebeast WHERE LOWER(REPLACE(region, ' ', '_')) = ? order by stamp desc;""", (region,))
 
     # Process results
     for x in c.fetchall():
