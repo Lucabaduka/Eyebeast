@@ -57,11 +57,6 @@ hr {
     height: 1px;
     margin: 0;
 }
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
 input[type=number] {
   -moz-appearance: textfield;
   appearance: textfield;
@@ -79,12 +74,13 @@ pre, .content pre {
 .content blockquote:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content p:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child), .content ul:not(:last-child){
     margin-bottom: 0em;
 }
-
 .content table td, .content table th {
     border: none;
     color: inherit;
 }
-
+.content:not(:last-child) {
+    margin-bottom: 0rem;
+}
 .hero.is-fullheight .hero-body, .hero-body {
     align-items: baseline;
 }
@@ -122,6 +118,11 @@ pre, .content pre {
     padding: 10px;
     margin: 0 auto;
 }
+.space {
+    padding-top: 10px;
+    padding-bottom: 2px;
+    padding-left: 10px;
+}
 .subbox {
     background: #0F1720;
     border: 1px solid #185877;
@@ -151,11 +152,6 @@ pre, .content pre {
     font-weight: 300;
     background-color: Transparent;
 }
-.is-6 {
-    font-weight: 300;
-    color: #838383;
-    background-color: Transparent;
-}
 .blue {
     color: #0099FF;
     text-shadow: 1px 1px 1px #030739e0;
@@ -167,26 +163,8 @@ pre, .content pre {
     align-items: center;
     text-align: -moz-center;
 }
-.white {
-    color: #FFF;
-    text-shadow: 1px 1px 1px #030739e0;
-}
 .depth {
     filter: drop-shadow(3px 3px 2px #0000004f);
-}
-
-/* Spacing Help */
-
-.space {
-    padding-top: 10px;
-    padding-bottom: 2px;
-    padding-left: 10px;
-}
-.more-space {
-    padding-top: 0px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
 }
 
 /* Button Classes */
@@ -289,18 +267,13 @@ pre, .content pre {
     max-width: 850px;
 }
 
-/* Data Classes */
+/* Misc Classes */
 
-.data-display::-webkit-scrollbar {
-    display: none;
-}
 .data-display {
     -ms-overflow-style: none;
-    scrollbar-width: none;
     max-height: 325px;
     overflow-y: scroll;
 }
-
 .inactive {
     display: none;
 }
@@ -308,6 +281,8 @@ pre, .content pre {
     background-color: #00000029;
     display:block;
 }
-.content:not(:last-child) {
-    margin-bottom: 0rem;
+.tag:not(body).is-info {
+    background-color: #09F;
+    color: #fff;
+    float: right;
 }
