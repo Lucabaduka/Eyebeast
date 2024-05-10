@@ -2,7 +2,7 @@ import os
 import sqlite3
 import html
 from datetime import datetime
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, abort
 
 version = "1.1.2"
 
@@ -10,15 +10,50 @@ app = Flask(__name__)
 
 PATH = os.path.dirname(__file__)
 
-# Errors
+################
+#              #
+#    Errors    #
+#              #
+################
+
+# 404
 @app.errorhandler(404)
-def not_found(e):
-    return render_template("404.html")
+def error_404(e):
+
+    title    = "404: Not Found"
+    subtitle = "Region is unknown or cannot be known"
+    text     = """No record was found within the database for the region you mentioned. Try searching for something else."""
+
+    return render_template("page.html",
+    title    = title,
+    subtitle = subtitle,
+    text     = text
+    )
+
+# 500
+@app.errorhandler(500)
+def error_500(e):
+
+    title    = "500: Internal Server Error"
+    subtitle = "The server's brain has exploded"
+    text     = """Something about your last interaction triggered a fault in the Eyebeast software or in the server's
+    configuration. If it keeps happening, feel free to report it to Refuge administration."""
+
+    return render_template("page.html",
+    title    = title,
+    subtitle = subtitle,
+    text     = text
+    )
+
+################
+#              #
+# Main Routing #
+#              #
+################
 
 # Main
 @app.route("/", methods = ["POST", "GET"])
 def gazer():
-
 
     # Pull the URL
     url_params = request.args
@@ -40,7 +75,7 @@ def gazer():
 
     # The search data is garbage
     if region.replace("_", "").isalnum() is False:
-        return render_template("404.html")
+        abort(404)
 
     # Connect to the database and search for the input
     data = []
@@ -54,16 +89,16 @@ def gazer():
 
     # The entry was not found
     if len(data) == 0:
-        return render_template("404.html")
+        abort(404)
 
     # We assume we have results to deliver at this point
-    stamps  = []
-    regions = []
-    wfes    = []
-    tags    = []
-    ros     = []
-    flags   = []
-    banners = []
+    stamps   = []
+    regions  = []
+    wfes     = [[], []]
+    tags     = []
+    ros      = []
+    flags    = []
+    banners  = []
 
     for count, value in enumerate(data):
 
@@ -74,50 +109,45 @@ def gazer():
             hide = " inactive"
 
         # Load timestamps
-        entry = ""
-        entry = datetime.utcfromtimestamp(value[0]).strftime('%B %d, %Y')
-        pstamp = f"""<p class="center stamps{hide}">Entry from {entry}</p>"""
-        stamps.append(pstamp)
+        stamp = datetime.utcfromtimestamp(value[0]).strftime('%B %d, %Y')
+        stamp_entry = f"""<p class="center stamps{hide}">Entry from {stamp}</p>"""
+        stamps.append(stamp_entry)
 
         # Load regions
-        entry = ""
-        entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={value[1].lower().replace(' ', '_')}" target="_blank">{value[1]}</a></p>"""
-        regions.append(entry)
+        region_entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={value[1].lower().replace(' ', '_')}" target="_blank">{value[1]}</a></p>"""
+        regions.append(region_entry)
 
         # Load WFEs
-        entry = ""
-        pwfe = html.unescape(value[2])
-        entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">{pwfe}</pre>"""
-        wfes.append(entry)
+        wrapper_entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">"""
+        wfe_entry = html.unescape(value[2])
+
+        wfes[0].append(wrapper_entry)
+        wfes[1].append(wfe_entry)
 
         # Load tags
-        entry = ""
-        entry = f"""<pre class="data-display tags{hide}">{value[3]}</pre>"""
-        tags.append(entry)
+        tag_entry = f"""<pre class="data-display tags{hide}">{value[3]}</pre>"""
+        tags.append(tag_entry)
 
         # Load ROs
-        entry = ""
-        entry = f"""<pre class="data-display ros{hide}">{value[4]}</pre>"""
-        ros.append(entry)
+        ro_entry = f"""<pre class="data-display ros{hide}">{value[4]}</pre>"""
+        ros.append(ro_entry)
 
         # Load flags
-        entry = ""
         if value[5] != "":
             pflag = f"""<a href="static/flags/{value[5]}" download><img src ="static/flags/{value[5]}"></a>"""
-            entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>"""
+            flag_entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>"""
         else:
-            entry = """<pre class="data-display flags"></pre>"""
-        flags.append(entry)
+            flag_entry = """<pre class="data-display flags"></pre>"""
+        flags.append(flag_entry)
 
         # Format banners
-        entry = ""
         if value[6] == "":
-            entry = f"""<pre class="data-display banners{hide}"></pre>"""
+            banner_entry = f"""<pre class="data-display banners{hide}"></pre>"""
         elif len(value[6]) < 3:
-            entry = f"""<pre class="data-display banners{hide}"><p class="gold" style="font-size: 10pt;">This is a stock banner. Select it in the region's admin menu.</p><img src ="https://www.nationstates.net/images/rbanners/{value[6]}"></pre>"""
+            banner_entry = f"""<pre class="data-display banners{hide}"><p class="gold" style="font-size: 10pt;">This is a stock banner. Select it in the region's admin menu.</p><img src ="https://www.nationstates.net/images/rbanners/{value[6]}"></pre>"""
         else:
-            entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{value[6]}" download><img src ="static/banners/{value[6]}"></a></pre>"""
-        banners.append(entry)
+            banner_entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{value[6]}" download><img src ="static/banners/{value[6]}"></a></pre>"""
+        banners.append(banner_entry)
 
     # Initialise break buttons
     breaks = []

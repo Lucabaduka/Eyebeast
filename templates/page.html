@@ -13,11 +13,23 @@
     <title>Eyebeast</title>
 </head>
 <body>
-    <script>0</script>
-
-<!-- Main -->
 
 <div class="hero is-fullheight">
+
+<!-- Permanent Search Bar -->
+
+<header class="hero is-small mask">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+        <div class="navbar-start center is-fullwidth">
+            <form class="field has-addons search-box form">
+                <input type="submit" value="Search" id="search" class="button is-info search">
+                <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
+            </form>
+        </div>
+    </nav>
+</header>
+
+<!-- Main -->
 
 <main class="hero-body splash">
     <section class="hero-body px-2">
@@ -30,34 +42,19 @@
                     </p>
                     <div class="media-content more-space">
                         <h1 class="title is-2 is-flex blue space">
-                            Eyebeast
+                            {{ title | safe }}
                         </h1>
                         <p class="subtitle space is-flex">
-                            Eldritch Archival Utility
+                            {{ subtitle | safe }}
                         </p>
                     </div>
                 </article>
 
                 <hr>
 
-                <!-- Search Bar -->
-
                 <p class="space">
-                    Eyebeast is a data archival utility designed to help recover recently lost data for a given NationStates region.
-                    Data is organised into weekly snapshots of the region, featuring a region's flags, banners, search tags, regional
-                    officers, and world factbook entries if any were present to be recorded. Snapshots are retained for six months,
-                    then pruned from the server. Use the field below to search for a region.
+                    {{ text | safe }}
                 </p>
-                <section>
-                    <nav class="navbar" role="navigation" aria-label="main navigation">
-                        <div class="navbar-start center is-fullwidth">
-                            <form class="field has-addons search-box form">
-                                <input type="submit" value="Search" id="search" class="button is-info search">
-                                <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
-                            </form>
-                        </div>
-                    </nav>
-                </section>
             </div>
         </div>
     </section>
