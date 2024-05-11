@@ -46,9 +46,9 @@
                         <h1 class="title is-flex blue space">
                             Eyebeast
                         </h1>
-                        <p class="subtitle space is-flex">
+                        <h4 class="subtitle space is-flex">
                             Eldritch Archival Utility
-                        </p>
+                        </h4>
                     </div>
                 </article>
 
@@ -77,12 +77,12 @@
 
         <hr class="mb-2">
 
-        <div class="columns mb-0">
-            <div class="column">
+        <section class="columns mb-0">
+            <aside class="column">
                 <p class="space">
                     Use the nav buttons to flip through up to six months of weekly snapshots. Tap the flags and banners to download them.
                 </p>
-            </div>
+            </aside>
 
             <!-- Nav Buttons -->
 
@@ -100,11 +100,11 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </section>
 
         <!-- Flag Results -->
 
-        <div class="columns is-multiline">
+        <section class="columns is-multiline">
             <div class="column is-one-third">
                 <div class="content subbox tall">
                     <h1 class="title is-3 center">
@@ -123,14 +123,13 @@
 
             <!-- WFE Results -->
 
-            <div class="column is-half">
+            <article class="column is-half">
                 <div class="content subbox tall">
                     <div>
                         <h1 class="title is-3 center">
                             <button class="copy is-pulled-right" onclick="copityopity()" id="copy" {{breaks[1]}}> Copy </button>
                             <span class="blue">World Factbook Entry</span>
                         </h1>
-
                     </div>
 
                     <hr>
@@ -143,11 +142,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Tag Results -->
 
-            <div class="column">
+            <article class="column">
                 <div class="content subbox tall">
                     <h1 class="title is-3 center">
                         <span class="blue pr-1">Tags</span>
@@ -163,11 +162,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Banner Results -->
 
-            <div class="column is-half">
+            <article class="column is-half">
                 <div class="content subbox tall">
                     <h1 class="title is-3 center">
                         <p class="blue">Region Banner</p>
@@ -183,11 +182,11 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </article>
 
             <!-- Officer Results -->
 
-            <div class="column is-half">
+            <article class="column is-half">
                 <div class="content subbox tall">
                     <h1 class="title is-3 center">
                         <span class="blue">Regional Officers</span>
@@ -203,8 +202,8 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
+            </article>
+        </section>
     </div>
 </main>
 
@@ -213,18 +212,12 @@
 <footer class="is-flex center">
     <div class="media-footer is-flex">
         <figure class="image depth is-32x32">
-            <a href="https://calref.ca/"><img src="../static/icon.png"></a>
+            <a href="https://calref.ca/"><img src="{{ url_for('static', filename='icon.png') }}"></a>
         </figure>
         <div class="media-content px-1">
             <p class="is-size-6">
-                <span>Powered by <a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
-            </p>
-        </div>
-    </div>
-    <div class="media-footer is-flex">
-        <div class="media-content">
-            <p class="is-size-6 ml-1">
-                <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span><span></span>
+                <span><a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
+                <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span>
             </p>
         </div>
     </div>

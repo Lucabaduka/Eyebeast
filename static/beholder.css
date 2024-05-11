@@ -71,18 +71,9 @@ pre, .content pre {
 
 /* Containers */
 
-.content blockquote:not(:last-child), .content dl:not(:last-child), .content ol:not(:last-child), .content p:not(:last-child), .content pre:not(:last-child), .content table:not(:last-child), .content ul:not(:last-child){
-    margin-bottom: 0em;
-}
 .content table td, .content table th {
     border: none;
     color: inherit;
-}
-.content:not(:last-child) {
-    margin-bottom: 0rem;
-}
-.hero.is-fullheight .hero-body, .hero-body {
-    align-items: baseline;
 }
 .hero-body {
     padding: 2rem 0rem;
@@ -169,7 +160,7 @@ pre, .content pre {
 
 /* Button Classes */
 
-.button.is-info {
+.button.is-info, .button.is-info:focus:not(:disabled) {
     background-color: #0224644f;
     border-color: #09F;
     color: #fff;
@@ -177,17 +168,7 @@ pre, .content pre {
 .button.search {
     left: 3px;
 }
-.button.is-info.is-hovered, .button.is-info:hover {
-    background-color: #0099FF;
-    border-color: transparent;
-    color: #fff;
-}
-.button.is-hovered, .button:hover:not(:disabled) {
-    background-color: #0099FF;
-    border-color: transparent;
-    color: #fff;
-}
-.button.is-focused:not(:active), .button:focus:not(:active):not(:disabled) {
+.button:hover:not(:disabled) {
     background-color: #0099FF;
     border-color: transparent;
     color: #fff;
@@ -247,7 +228,7 @@ pre, .content pre {
     display: flex;
     position: fixed;
     bottom: 10px;
-    right: 30px;
+    right: 15px;
     z-index: 99;
     background-color: #02246491;
     border-color: #09F;
