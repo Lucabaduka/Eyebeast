@@ -69,9 +69,9 @@ def gazer():
         region = name['region'].replace("https://www.nationstates.net/region=", "").strip().lower()
         region = region.replace(" ", "_")
 
-    # We have no idea what is happening
+    # Operator is arriving
     else:
-        return render_template("main.html")
+        return render_template("splash.html")
 
     # The search data is garbage
     if region.replace("_", "").isalnum() is False:

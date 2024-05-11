@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="keywords" content="Eyebeast, CalRef Network, Calamity Refuge, NationStates backup, NationStates history">
-    <meta name="description" content="Eyebeast is an archival utility from Calamity Refuge, where operators can recover up to six months data through weekly snapshots of any region on NationStates.net.">
-    <meta name="theme-color" content="#0099FF">
-    <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
-    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-    <link rel="stylesheet" href="https://calref.ca/bulma.css">
-    <link rel="stylesheet" href="../static/beholder.css">
-    <title>Eyebeast</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="Eyebeast, CalRef Network, Calamity Refuge, NationStates backup, NationStates history">
+  <meta name="description" content="Eyebeast is an archival utility from Calamity Refuge, where operators can recover up to six months data through weekly snapshots of any region on NationStates.net.">
+  <meta name="theme-color" content="#0099FF">
+  <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
+  <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <link rel="stylesheet" href="https://calref.ca/bulma.css">
+  <link rel="stylesheet" href="../static/beholder.css">
+  <title>Eyebeast</title>
 </head>
 <body id="top">
 
@@ -21,212 +21,212 @@
 <!-- Permanent Search Bar -->
 
 <header class="hero is-small mask">
-    <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-start center is-fullwidth">
-            <form class="field has-addons search-box form">
-                <input type="submit" value="Search" id="search" class="button is-info search">
-                <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
-            </form>
-        </div>
-    </nav>
+  <nav class="navbar" role="navigation" aria-label="main navigation">
+    <div class="navbar-start center is-fullwidth">
+      <form class="field has-addons search-box form">
+        <input type="submit" value="Search" id="search" class="button is-info search">
+        <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
+      </form>
+    </div>
+  </nav>
 </header>
 
 <!-- Main -->
 
 <main class="hero-body">
-    <div class="container outline" style="max-width: 95%;">
-        <div class="columns p-2 mb-0">
-            <div class="column is-half py-0">
+  <div class="container outline" style="max-width: 95%;">
+    <div class="columns p-2 mb-0">
+      <div class="column is-half py-0">
 
-                <article class="media has-text-left">
-                    <figure class="image is-64x64">
-                        <a href="/"><img src ="../static/eyecon.png"></a>
-                    </figure>
-                    <div class="media-content mb-3">
-                        <h1 class="title is-flex blue space">
-                            Eyebeast
-                        </h1>
-                        <h4 class="subtitle space is-flex">
-                            Eldritch Archival Utility
-                        </h4>
-                    </div>
-                </article>
+        <article class="media has-text-left">
+          <figure class="image is-64x64">
+            <a href="/"><img src ="../static/eyecon.png"></a>
+          </figure>
+          <div class="media-content mb-3">
+            <h1 class="title is-flex blue space">
+              Eyebeast
+            </h1>
+            <h4 class="subtitle space is-flex">
+              Eldritch Archival Utility
+            </h4>
+          </div>
+        </article>
 
+      </div>
+
+      <!-- Names and Stamps -->
+
+      <div class="column is-half pt-0">
+
+        <div class="gold">
+          <div class="center">
+            <div id="regions">
+            {% for region in regions %}
+              {{ region | safe }}
+            {% endfor %}
             </div>
-
-            <!-- Names and Stamps -->
-
-            <div class="column is-half pt-0">
-
-                <div class="gold">
-                    <div class="center">
-                        <div id="regions">
-                        {% for region in regions %}
-                            {{ region | safe }}
-                        {% endfor %}
-                        </div>
-                        <div id="stamps">
-                        {% for stamp in stamps %}
-                            {{ stamp | safe }}
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
+            <div id="stamps">
+            {% for stamp in stamps %}
+              {{ stamp | safe }}
+            {% endfor %}
             </div>
+          </div>
         </div>
-
-        <hr class="mb-2">
-
-        <section class="columns mb-0">
-            <aside class="column">
-                <p class="space">
-                    Use the nav buttons to flip through up to six months of weekly snapshots. Tap the flags and banners to download them.
-                </p>
-            </aside>
-
-            <!-- Nav Buttons -->
-
-            <div class="column mflex">
-                <div class="column mline is-flex">
-                    <input class="input center" id="indexBox" type="number" style="width: 3em;" value="1" disabled>
-                    <span class="space">/ </span><span class="space" id="length">{{length}}</span>
-                </div>
-                <div class="column center is-flex">
-                    <div class="px-2">
-                        <button class="button is-info py-5 px-5" id="forward" onclick="downity()" disabled>◀ Forward</button>
-                    </div>
-                    <div class="px-2">
-                        <button class="button is-info py-5 px-5" id="backward" onclick="uppity()" {{breaks[0]}}>Backward ▶</button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Flag Results -->
-
-        <section class="columns is-multiline">
-            <div class="column is-one-third">
-                <div class="content subbox tall">
-                    <h1 class="title is-3 center">
-                        <span class="blue">Flag</span>
-                    </h1>
-
-                    <hr>
-
-                    <div class="mt-2 center" id="flags">
-                    {% for flag in flags %}
-                        {{ flag | safe }}
-                    {% endfor %}
-                    </div>
-                </div>
-            </div>
-
-            <!-- WFE Results -->
-
-            <article class="column is-half">
-                <div class="content subbox tall">
-                    <div>
-                        <h1 class="title is-3 center">
-                            <button class="copy is-pulled-right" onclick="copityopity()" id="copy" {{breaks[1]}}> Copy </button>
-                            <span class="blue">World Factbook Entry</span>
-                        </h1>
-                    </div>
-
-                    <hr>
-
-                    <div class="content data-display">
-                        <div class="mt-2" id="wfes">
-                        {% for count in range(wfes[0] | length) %}
-                            {{wfes[0][count] | safe}}{{wfes[1][count]}}</pre>
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Tag Results -->
-
-            <article class="column">
-                <div class="content subbox tall">
-                    <h1 class="title is-3 center">
-                        <span class="blue pr-1">Tags</span>
-                    </h1>
-
-                    <hr>
-
-                    <div class="content data-display">
-                        <div class="mt-2" id="tags">
-                        {% for tag in tags %}
-                            {{ tag | safe}}
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Banner Results -->
-
-            <article class="column is-half">
-                <div class="content subbox tall">
-                    <h1 class="title is-3 center">
-                        <p class="blue">Region Banner</p>
-                    </h1>
-
-                    <hr>
-
-                    <div class="content data-display">
-                        <div class="mt-2" id="banners">
-                        {% for banner in banners %}
-                            {{ banner | safe }}
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </article>
-
-            <!-- Officer Results -->
-
-            <article class="column is-half">
-                <div class="content subbox tall">
-                    <h1 class="title is-3 center">
-                        <span class="blue">Regional Officers</span>
-                    </h1>
-
-                    <hr>
-
-                    <div class="content data-display">
-                        <div class="mt-2" id="ros">
-                        {% for ro in ros %}
-                            {{ ro | safe }}
-                        {% endfor %}
-                        </div>
-                    </div>
-                </div>
-            </article>
-        </section>
+      </div>
     </div>
+
+    <hr class="mb-2">
+
+    <section class="columns mb-0">
+      <aside class="column">
+        <p class="space">
+          Use the nav buttons to flip through up to six months of weekly snapshots. Tap the flags and banners to download them.
+        </p>
+      </aside>
+
+      <!-- Nav Buttons -->
+
+      <div class="column mflex">
+        <div class="column mline is-flex">
+          <input class="input center" id="indexBox" type="number" style="width: 3em;" value="1" disabled>
+          <span class="space">/ </span><span class="space" id="length">{{length}}</span>
+        </div>
+        <div class="column center is-flex">
+          <div class="px-2">
+            <button class="button is-info py-5 px-5" id="forward" onclick="downity()" disabled>◀ Forward</button>
+          </div>
+          <div class="px-2">
+            <button class="button is-info py-5 px-5" id="backward" onclick="uppity()" {{breaks[0]}}>Backward ▶</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Flag Results -->
+
+    <section class="columns is-multiline">
+      <div class="column is-one-third">
+        <div class="content subbox tall">
+          <h1 class="title is-3 center">
+            <span class="blue">Flag</span>
+          </h1>
+
+          <hr>
+
+          <div class="mt-2 center" id="flags">
+          {% for flag in flags %}
+            {{ flag | safe }}
+          {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <!-- WFE Results -->
+
+      <article class="column is-half">
+        <div class="content subbox tall">
+          <div>
+            <h1 class="title is-3 center">
+              <button class="copy is-pulled-right" onclick="copityopity()" id="copy" {{breaks[1]}}> Copy </button>
+              <span class="blue">World Factbook Entry</span>
+            </h1>
+          </div>
+
+          <hr>
+
+          <div class="content data-display">
+            <div class="mt-2" id="wfes">
+            {% for count in range(wfes[0] | length) %}
+              {{wfes[0][count] | safe}}{{wfes[1][count]}}</pre>
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Tag Results -->
+
+      <article class="column">
+        <div class="content subbox tall">
+          <h1 class="title is-3 center">
+            <span class="blue pr-1">Tags</span>
+          </h1>
+
+          <hr>
+
+          <div class="content data-display">
+            <div class="mt-2" id="tags">
+            {% for tag in tags %}
+              {{ tag | safe}}
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Banner Results -->
+
+      <article class="column is-half">
+        <div class="content subbox tall">
+          <h1 class="title is-3 center">
+            <p class="blue">Region Banner</p>
+          </h1>
+
+          <hr>
+
+          <div class="content data-display">
+            <div class="mt-2" id="banners">
+            {% for banner in banners %}
+              {{ banner | safe }}
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Officer Results -->
+
+      <article class="column is-half">
+        <div class="content subbox tall">
+          <h1 class="title is-3 center">
+            <span class="blue">Regional Officers</span>
+          </h1>
+
+          <hr>
+
+          <div class="content data-display">
+            <div class="mt-2" id="ros">
+            {% for ro in ros %}
+              {{ ro | safe }}
+            {% endfor %}
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
 </main>
 
 <!-- footer -->
 
 <footer class="is-flex center">
-    <div class="media-footer is-flex">
-        <figure class="image depth is-32x32">
-            <a href="https://calref.ca/"><img src="{{ url_for('static', filename='icon.png') }}"></a>
-        </figure>
-        <div class="media-content px-1">
-            <p class="is-size-6">
-                <span><a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
-                <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span>
-            </p>
-        </div>
+  <div class="media-footer is-flex">
+    <figure class="image depth is-32x32">
+      <a href="https://calref.ca/"><img src="{{ url_for('static', filename='icon.png') }}"></a>
+    </figure>
+    <div class="media-content px-1">
+      <p class="is-size-6">
+        <span><a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
+        <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span>
+      </p>
     </div>
+  </div>
 </footer>
 
 </div>
 
-    <script src="{{ url_for('static', filename='iris.js') }}"></script>
-    <script src="{{ url_for('static', filename='retina.js') }}"></script>
+  <script src="{{ url_for('static', filename='iris.js') }}"></script>
+  <script src="{{ url_for('static', filename='retina.js') }}"></script>
 
 </body>
 </html>
