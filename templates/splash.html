@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,16 +26,16 @@
 
         <article class="media has-text-left">
           <figure class="image is-64x64">
-            <a href="/"><img src ="../static/eyecon.png"></a>
+            <a href="/"><img src="../static/eyecon.png" alt="logo" aria-label="Return to splash page"></a>
           </figure>
           <div class="media-content mb-3">
             <span class="tag is-info">v1.1.2</span>
             <h1 class="title is-2 is-flex blue space">
               Eyebeast
             </h1>
-            <h4 class="subtitle space is-flex">
+            <h2 class="subtitle space is-flex">
               Eldritch Archival Utility
-            </h4>
+            </h2>
           </div>
         </article>
 
@@ -69,7 +69,9 @@
 <footer class="is-flex center">
   <div class="media-footer is-flex">
     <figure class="image depth is-32x32">
-      <a href="https://calref.ca/"><img src="{{ url_for('static', filename='icon.png') }}"></a>
+      <a href="https://calref.ca/">
+        <img src="{{ url_for('static', filename='icon.png') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge">
+      </a>
     </figure>
     <div class="media-content px-1">
       <p class="is-size-6">

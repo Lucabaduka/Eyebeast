@@ -2,7 +2,7 @@ import os
 import sqlite3
 import html
 from datetime import datetime
-from flask import Flask, render_template, request, abort
+from flask import Flask, render_template, request, abort, send_from_directory
 
 version = "1.1.2"
 
@@ -177,6 +177,11 @@ def gazer():
 
     # Slep
     connect.close()
+
+# Robits
+@app.route('/robots.txt')
+def robits():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 if __name__ == "__main__":
     app.run()
