@@ -211,27 +211,24 @@ def main():
 
             wfe = ""
             if x.find("FACTBOOK") != None:
-                if x.find("FACTBOOK").text != None:
-                    wfe = x.find("FACTBOOK").text
+                wfe = x.find("FACTBOOK").text
 
             banner = ""
             if x.find("BANNERURL") != None:
-                if x.find("BANNERURL").text != None:
-                    banner = x.find("BANNERURL").text
+                banner = x.find("BANNERURL").text
 
             flag = None
             if x.find("FLAG") != None:
-                if x.find("FLAG").text != None:
-                    flag = x.find("FLAG").text
+                flag = x.find("FLAG").text
 
-            # RO proceedure
+            # RO procedure
             for y in x.findall("OFFICERS"):
                 for z in y.findall("OFFICER"):
                     if ros != "":
                         ros += "\n\n"
 
-                    officer = z.find("NATION").text
-                    if officer is not None:
+                    if z.find("NATION") != None:
+                        officer = z.find("NATION").text
                         office = z.find("OFFICE").text
                         permissions = z.find("AUTHORITY").text
                         powers = ""
