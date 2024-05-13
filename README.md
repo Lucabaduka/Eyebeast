@@ -40,6 +40,13 @@ Simply clone the repository into the directory of your choosing, or download the
 
 Activate the environment with `source path/bin/activate` and install the requirements with `pip install -r requirements.txt`.
 
+The only file of Eyebeast that needs to be configured is `mining.py`, which contains three setable options in a configuration area.
+- `NIGHTLY` asks if the Eyebeast is running as a component of Nightly or needs to download the dump itself.
+- `OPERATOR` asks for your required [user agent](https://www.nationstates.net/pages/api.html#terms), ideally your main nation name or email.
+- `WEBHOOKS` allows you to place any webhooks to which you would like errors to post
+
+If running locally, you can just run `eyebeast.py` in your virtual environment.
+
 Eyebeast is designed to run on `mod_wsgi` but can be set up on something less reprehensible if one is feeling adventurous. A semi-workable sample config for Apache2 includes, but is not limited to, the following:
 
 ```
@@ -57,11 +64,12 @@ WSGIProcessGroup eyebeast
    </Directory>
 </VirtualHost>
 ```
-
-The only file of Eyebeast that needs to be configured is `mining.py`, which contains three setable options. The first is whether Eyebeast is running as a component of Nightly, or needs to download the dump itself. The second is a user agent which reports who you are when interacting with the NationStates servers. Finally, the last option allows you to report any issues the mining script encounters to a Discord webhook.
-
 ## History
 
 Eyebeast was created by [Refuge Isle](https://www.nationstates.net/nation=refuge_isle), originally in February 2021. It began as an experiment to programatically download region flags to replace the Taijitu flag recovery site, which had not worked for at least five years at the time, as well as to save additional data like region tags which The Grey Wardens' [WFE Index](https://greywardens.xyz/tools/wfe_index/) did not. The user-interface left something to be desired, as one could only traverse the files by manually adjusting the URL.
 
 Eventually, in August 2022, it was [released](https://forum.calref.ca/index.php?topic=9.msg3853#msg3853) as a properly developed web app, with improved storage methods, picked up an actual user interface, and gained the ability to recover region banners. In November 2022, Eyebeast received the distinction of being awarded the NS Defender tech contribution of that year.
+
+## Required Disclosures
+
+I am a NationStates staff member, and therefore I am required to provide a disclaimer that operators of this tool should not assume it to be legal. It remains the player's responsibility to ensure any tools they use comply with the [Script Rules](https://forum.nationstates.net/viewtopic.php?p=16394966#p16394966).
