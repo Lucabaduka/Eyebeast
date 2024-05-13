@@ -64,6 +64,8 @@ WSGIProcessGroup eyebeast
    </Directory>
 </VirtualHost>
 ```
+Do not forget to set up a weekly cron job for `mining.py`, such as with Linux'`crontab` utility.
+
 ## History
 
 Eyebeast was created by [Refuge Isle](https://www.nationstates.net/nation=refuge_isle), originally in February 2021. It began as an experiment to programatically download region flags to replace the Taijitu flag recovery site, which had not worked for at least five years at the time, as well as to save additional data like region tags which The Grey Wardens' [WFE Index](https://greywardens.xyz/tools/wfe_index/) did not. The user-interface left something to be desired, as one could only traverse the files by manually adjusting the URL.
