@@ -3,37 +3,27 @@ import time
 import requests
 import xml.etree.ElementTree as et
 import sqlite3
+import zlib
 
-VERSION     = "1.1.2"
-rec         = "/var/www/nightly/rec"
-path        = "/var/www/eyebeast"
-flag_path   = "/var/www/eyebeast/static/flags"
-banner_path = "/var/www/eyebeast/static/banners"
-headers     = {"User-Agent": f"Refuge Isle, running Eyebeast, v{VERSION}"}
+#######################################
+# ---        Configuration        --- #
+#######################################
 
-# Form the database if it doesn't exist
-if not os.path.isfile(f"{path}/eyebeast.db"):
-    connect = sqlite3.connect(f"{path}/eyebeast.db")
+NIGHTLY   = False                      # If run on CalRef servers, this should probably be True
+OPERATOR  = "Default"                 # Set to the string of the operator's main nation.
+WEBHOOKS  = [                         # Should be a list of Discord webhook URL strings to receive a copy of the report.
+    
+]
 
-    c = connect.cursor()
-    c.execute("""CREATE TABLE eyebeast (
-            stamp integer,
-            region text,
-            wfe text,
-            tags text,
-            ros text,
-            flag text,
-            banner text
-            )""")
+#######################################
+# --- Do not edit below this line --- #
+#######################################
 
-    connect.commit()
-    connect.close()
-
-# Make these directories if they don't exist
-if not os.path.isdir(flag_path):
-    os.mkdir(flagpath)
-if not os.path.isdir(banner_path):
-    os.mkdir(banner_path)
+VERSION     = "1.2.0"
+PATH        = os.path.dirname(__file__)
+HEADERS     = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
+connect     = sqlite3.connect(f"{PATH}/eyebeast.db")
+c           = connect.cursor()
 
 # Do you know the difference between you and I? It's a class
 class Byakuya:
@@ -48,21 +38,96 @@ class Byakuya:
         self.flag   = flag
         self.banner = banner
 
-# Establish connection
-connect = sqlite3.connect(f"{path}/eyebeast.db")
-c = connect.cursor()
+# API Call
+# Called every time we make a request to NationStates
+def api_call(url):
+    r = requests.get(url, headers = HEADERS)
+    time.sleep(1.2)
+    return r.text
 
-# Easy add
+# Clean Up
+# Called to clean up data dump files when not in use and prevent repeat data
+def clean_up(record_path):
+    for roots, dirs, files in os.walk(record_path):
+        for x in files:
+            cleanup = os.path.join(roots, x)
+            os.remove(cleanup)
+
+# Dump Handle
+# Called if Nightly doesn't handle getting the NS Data dump
+def dump_handle(record_path):
+
+    # Wipe down the table
+    clean_up(record_path)
+
+    # Acquire data dump
+    print("Acquiring data dump. . .")
+    url = "https://www.nationstates.net/pages/regions.xml.gz"
+    r = requests.get(url, headers = HEADERS)
+    with open(f"{record_path}/regions.xml.gz", "wb") as f:
+        f.write(r.content)
+        f.close()
+
+    # Extract XML file from gunzip via chunking
+    print("Extracting. . .")
+    CHUNKSIZE = 1024
+    with open(f"{record_path}/regions.xml", "wb") as extracted:
+        d = zlib.decompressobj(16+zlib.MAX_WBITS)
+        f = open(f"{record_path}/regions.xml.gz","rb")
+        buffer=f.read(CHUNKSIZE)
+        while buffer:
+            out = d.decompress(buffer)
+            extracted.write(out)
+            buffer=f.read(CHUNKSIZE)
+        out = d.flush()
+        extracted.close()
+
+# Insert New
+# Called when adding entries to the database
 def insert_record(record):
     with connect:
         c.execute("INSERT INTO eyebeast VALUES (:stamp, :region, :wfe, :tags, :ros, :flagname, :banner)",
                 {"stamp": record.stamp, "region": record.region, "wfe": record.wfe, "tags": record.tags, "ros": record.ros, "flagname": record.flag, "banner": record.banner})
 
-# Easy subtract
+# Delete Old
+# Called when removing entries from the database
 def remove_record(record):
     with connect:
         c.execute("DELETE from eyebeast WHERE stamp = :stamp AND region = :region",
                 {"stamp": record.stamp, "region": record.region, "wfe": record.wfe, "tags": record.tags, "ros": record.ros, "flagname": record.flag, "banner": record.banner})
+
+# Self-right
+# Called to create missing files and directories, returns record path
+def self_righting():
+
+    # Form the database if it doesn't exist
+    if not os.path.isfile(f"{PATH}/eyebeast.db"):
+        connect = sqlite3.connect(f"{PATH}/eyebeast.db")
+
+        c = connect.cursor()
+        c.execute("""CREATE TABLE eyebeast (
+                stamp integer,
+                region text,
+                wfe text,
+                tags text,
+                ros text,
+                flag text,
+                banner text
+                )""")
+
+        connect.commit()
+        connect.close()
+
+    if NIGHTLY:
+        record_path = "/var/www/nightly/rec"
+    else:
+        if not os.path.isdir(f"{PATH}/rec"):
+            os.mkdir(f"{PATH}/rec")
+
+        record_path = f"{PATH}/rec"
+        dump_handle(record_path)
+
+    return record_path
 
 # Main
 def main():
@@ -70,40 +135,45 @@ def main():
     # Initialise static variables
     stamp = int(time.time())
 
+    # At some point, it would be nice to replace this list with an API call, but no such API shard exists at present
     tag_list = [
-        "Anarchist", "Anime", "Anti-Capitalist", "Anti-Communist", "Anti-Fascist", "Anti-General Assembly", "Anti-Security Council", "Anti-World Assembly",
-        "Capitalist", "Casual", "Colony", "Communist", "Conservative", "Cyberpunk", "Defender", "Democratic", "Eco-Friendly", "Egalitarian",
-        "Embassy Collector", "F7er", "FT FtL", "FT FTLi", "FT STL", "Fandom", "Fantasy Tech", "Fascist", "Feminist", "Free Trade", "Frontier", "Future Tech",
-        "Game Player", "General Assembly", "Generalite", "Human-Only", "Imperialist", "Independent", "Industrial", "International Federalist", "Invader",
-        "Isolationist", "Issues Player", "Jump Point", "LGBT", "Liberal", "Liberated", "Libertarian", "Magical", "Map", "Mercenary", "Modern Tech", "Monarchist",
-        "Multi-Species", "National Sovereigntist", "Neutral", "Non-English", "Offsite Chat", "Offsite Forums", "Outer Space", "P2TM", "Pacifist", "Parody",
-        "Password", "Past Tech", "Patriarchal", "Post Apocalyptic", "Post-Modern Tech", "Puppet Storage", "Regional Government", "Religious", "Role Player",
-        "Security Council", "Serious", "Silly", "Snarky", "Social", "Socialist", "Sports", "Steampunk", "Surreal", "Theocratic", "Totalitarian", "Trading Cards",
-        "Video Game", "World Assembly"
+        "Anarchist", "Anime", "Anti-Capitalist", "Anti-Communist", "Anti-Fascist", "Anti-General Assembly", "Anti-Security Council",
+        "Anti-World Assembly", "Capitalist", "Casual", "Colony", "Communist", "Conservative", "Cyberpunk", "Defender", "Democratic",
+        "Eco-Friendly", "Egalitarian", "Embassy Collector", "F7er", "FT FtL", "FT FTLi", "FT STL", "Fandom", "Fantasy Tech",
+        "Fascist", "Feminist", "Free Trade", "Frontier", "Future Tech", "Game Player", "General Assembly", "Generalite",
+        "Human-Only", "Imperialist", "Independent", "Industrial", "International Federalist", "Invader", "Isolationist",
+        "Issues Player", "Jump Point", "LGBT", "Liberal", "Liberated", "Libertarian", "Magical", "Map", "Mercenary", "Modern Tech",
+        "Monarchist", "Multi-Species", "National Sovereigntist", "Neutral", "Non-English", "Offsite Chat", "Offsite Forums",
+        "Outer Space", "P2TM", "Pacifist", "Parody", "Password", "Past Tech", "Patriarchal", "Post Apocalyptic", "Post-Modern Tech",
+        "Puppet Storage", "Regional Government", "Religious", "Role Player", "Security Council", "Serious", "Silly", "Snarky",
+        "Social", "Socialist", "Sports", "Steampunk", "Surreal", "Theocratic", "Totalitarian", "Trading Cards", "Video Game",
+        "World Assembly"
         ]
     tag_regions = []
 
-    ro_letters = ["A", "B", "C", "E", "P", "S"]
-    ro_powers = ["Appearance", "Border Control", "Communications", "Embassies", "Polls", "Successor"]
+    ros_dict = {
+        "A": "Appearance",
+        "B": "Border Control",
+        "C": "Communications",
+        "E": "Embassies",
+        "P": "Polls",
+        "S": "Successor",
+        "X": "Executive",
+        "W": "World Assembly"
+        }
 
     # Acquire region tag list
     print("Loading regional tags...")
     for x in tag_list:
         print(f"Loading {x}")
-        insert = []
 
         try:
             # API call to list of regions by x (tag)
-            url = f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}"""
-            r = requests.get(url, headers = headers)
-            with open(f"{rec}/tags.xml", "wb") as f:
-                f.write(r.content)
-                f.close()
-            time.sleep(2)
+            data = api_call(f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}""")
 
             # Parse response and append to list of lists
-            root = et.parse(f"{rec}/tags.xml").getroot()
-            insert = root.find("REGIONS").text
+            root = et.fromstring(data)
+            insert = root.find("REGIONS")
 
             # Tag stopped existing
             if insert == None:
@@ -111,11 +181,11 @@ def main():
 
             # Tag working as expected
             elif "," in insert:
-                insert = (root.find("REGIONS").text).split(",")
+                insert = root.find("REGIONS").text.split(",")
 
             # Tag contains one item
             else:
-                pass
+                insert = root.find("REGIONS").text
 
             tag_regions.append(insert)
 
@@ -128,7 +198,8 @@ def main():
     print("Tag data loaded.")
 
     # Parse region dump
-    root = et.parse(f"{rec}/regions.xml").getroot()
+    record_path = self_righting()
+    root = et.parse(f"{record_path}/regions.xml").getroot()
     for x in root.findall("REGION"):
 
         try:
@@ -164,9 +235,9 @@ def main():
                         office = z.find("OFFICE").text
                         permissions = z.find("AUTHORITY").text
                         powers = ""
-                        for i in ro_letters:
+                        for i in ros_dict:
                             if i in permissions:
-                                powers += ro_powers[ro_letters.index(i)] + " • "
+                                powers += ros_dict[i] + " • "
                         if len(powers) > 3:
                             powers = powers[:-3]
 
@@ -183,31 +254,31 @@ def main():
             if flag != None:
                 extension = flag[-4:]
                 flagname = f"""{stamp}-{region.lower().replace(" ", "_")}{extension}"""
-                flagsave = f"""{flag_path}/{flagname}"""
-                r = requests.get(flag, headers = headers)
+                flagsave = f"""{PATH}/static/flags/{flagname}"""
+                r = requests.get(flag, headers = HEADERS)
 
                 # File still exists
-                if "Page Not Found" not in str(r.content):
+                if r.status_code == 200:
                     with open(flagsave, "wb") as f:
                         f.write(r.content)
                         f.close()
                     print(f"Downloaded: {flag}")
-                    time.sleep(1.3)
+                    time.sleep(1.2)
 
             # Banner stuff now
             if "/uploads/" in banner:
                 extension = banner.partition(".")[2] # Maybe change if stock banners expand
                 bannername = f"""{stamp}-{region.lower().replace(" ", "_")}.{extension}"""
-                bannersave = f"""{banner_path}/{bannername}"""
-                r = requests.get(f"""https://www.nationstates.net/{banner}""", headers = headers)
+                bannersave = f"""{PATH}/static/banners/{bannername}"""
+                r = requests.get(f"""https://www.nationstates.net/{banner}""", headers = HEADERS)
 
                 # File still exists
-                if "Page Not Found" not in str(r.content):
+                if r.status_code == 200:
                     with open(bannersave, "wb") as f:
                         f.write(r.content)
                         f.close()
                     print(f"Downloaded: {bannername}")
-                    time.sleep(1.3)
+                    time.sleep(1.2)
 
             else:
                 bannername = banner.partition("/images/rbanners/")[2].replace(".jpg", "")  # Maybe change to {extension} if stock banners expand
@@ -218,6 +289,9 @@ def main():
 
         except:
             continue
+
+    # Wipe down the table again
+    clean_up(record_path)
 
     # Vanquishing module
     prune = stamp - 15552000 # six months
@@ -235,14 +309,14 @@ def main():
             # Prune flag file
             if record.flag != "":
                 try:
-                    os.remove(f"""{flag_path}/{record.flag}""")
+                    os.remove(f"""{PATH}/static/flags/{record.flag}""")
                 except:
                     pass
 
             # Prune banner file
             if len(record.banner) > 3:
                 try:
-                    os.remove(f"""{banner_path}/{record.banner}""")
+                    os.remove(f"""{PATH}/static/banners/{record.banner}""")
                 except:
                     pass
 
@@ -258,7 +332,7 @@ if __name__ == "__main__":
     try:
         main()
 
-    # Report any errors to the CalRef discord server
+    # Report any errors to discord webhooks
     except Exception as e:
         name = "Dispatch Routine"
         payload = {
@@ -272,4 +346,5 @@ if __name__ == "__main__":
             "color":0xf31a71,
         }],
     }
-        requests.post("https://discord.com/api/webhooks/1026162476120801422/aGvCnpBAc8mYHigxB9KWHIYw7-MPkqn4q6-jAqSS9anOkrKPM_lX6OMHWNNNtUvgDax4", json=payload)
+        for x in WEBHOOKS:
+            requests.post(x, json=payload)
