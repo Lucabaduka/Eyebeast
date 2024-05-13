@@ -1,4 +1,4 @@
-# Eyebeast: Eldritch Archival Utility ![Version 1.1.2](https://img.shields.io/badge/Version-1.1.2-0099ff)
+# Eyebeast: Eldritch Archival Utility ![Version 1.2.0](https://img.shields.io/badge/Version-1.2.0-0099ff)
 
 Eyebeast is a data archival utility designed to help recover recently lost data for a given region on NationStates. Data is organised into snapshots of how the region looked at a particular point in time. Every snapshot attempts to record the following, if available:
 - Proper name formatting
@@ -8,7 +8,7 @@ Eyebeast is a data archival utility designed to help recover recently lost data 
 - Search tags
 - Regional Officers
 
-Snapshots can be taken by operating `mining.py` on a cron job. In production, this job is scheduled to start at 01:00 Pacific Time, every Monday, typically concluding around 10:00 to 12:00 noon. After a snapshot's timestamp reaches six months of age, its its record is pruned from the database and applicable flag and banner image files are removed from the server.
+Snapshots can be taken by configuring, then operating `mining.py` on a cron job. In production, this job is scheduled to start at 01:00 Pacific Time, every Monday, typically concluding around 10:00 to 12:00 noon. After a snapshot's timestamp reaches six months of age, its its record is pruned from the database and applicable flag and banner image files are removed from the server.
 
 **Live:** https://eyebeast.calref.ca/
 

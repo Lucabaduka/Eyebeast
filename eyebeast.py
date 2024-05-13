@@ -4,11 +4,10 @@ import html
 from datetime import datetime
 from flask import Flask, render_template, request, abort, send_from_directory
 
-version = "1.1.2"
+VERSION     = "1.2.0"
+PATH        = os.path.dirname(__file__)
+app         = Flask(__name__)
 
-app = Flask(__name__)
-
-PATH = os.path.dirname(__file__)
 
 ################
 #              #
