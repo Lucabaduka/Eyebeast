@@ -131,7 +131,7 @@ def gazer():
             pflag = f"""<a href="static/flags/{value[5]}" download><img src ="static/flags/{value[5]}"></a>"""
             flag_entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>"""
         else:
-            flag_entry = """<pre class="data-display flags"></pre>"""
+            flag_entry = f"""<pre class="data-display flags{hide}"></pre>"""
         flags.append(flag_entry)
 
         # Format banners

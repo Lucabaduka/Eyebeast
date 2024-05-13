@@ -9,10 +9,10 @@ import zlib
 # ---        Configuration        --- #
 #######################################
 
-NIGHTLY   = False                      # If run on CalRef servers, this should probably be True
+NIGHTLY   = True                      # If run on CalRef servers, this should probably be True
 OPERATOR  = "Default"                 # Set to the string of the operator's main nation.
 WEBHOOKS  = [                         # Should be a list of Discord webhook URL strings to receive a copy of the report.
-    
+
 ]
 
 #######################################
@@ -180,7 +180,7 @@ def main():
                 insert = []
 
             # Tag working as expected
-            elif "," in insert:
+            elif "," in root.find("REGIONS").text:
                 insert = root.find("REGIONS").text.split(",")
 
             # Tag contains one item
