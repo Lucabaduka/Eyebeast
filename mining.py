@@ -180,12 +180,8 @@ def main():
                 insert = []
 
             # Tag working as expected
-            elif "," in root.find("REGIONS").text:
-                insert = root.find("REGIONS").text.split(",")
-
-            # Tag contains one item
             else:
-                insert = root.find("REGIONS").text
+                insert = root.find("REGIONS").text.split(",")
 
             tag_regions.append(insert)
 
