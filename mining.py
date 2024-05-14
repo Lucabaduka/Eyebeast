@@ -9,10 +9,10 @@ import zlib
 # ---        Configuration        --- #
 #######################################
 
-NIGHTLY   = True                      # If run on CalRef servers, this should probably be True
-OPERATOR  = "Default"                 # Set to the string of the operator's main nation.
+NIGHTLY   = True                      # Should be True if run on CalRef servers, should be False if not.
+OPERATOR  = "Default"                 # Should be the operator's main nation or email address.
 WEBHOOKS  = [                         # Should be a list of Discord webhook URL strings to receive a copy of the report.
-
+    
 ]
 
 #######################################
@@ -202,11 +202,9 @@ def main():
     root = et.parse(f"{record_path}/regions.xml").getroot()
     for x in root.findall("REGION"):
 
+        # We basically wrap everything in try-excepts because of the high
+        # probability of NationStates delivering bullshit data at some point
         try:
-            flagname = ""
-            ros = ""
-            tags = ""
-
             region = x.find("NAME").text
 
             wfe = ""
@@ -222,6 +220,7 @@ def main():
                 flag = x.find("FLAG").text
 
             # RO procedure
+            ros = ""
             for y in x.findall("OFFICERS"):
                 for z in y.findall("OFFICER"):
                     if ros != "":
@@ -241,6 +240,7 @@ def main():
                         ros += f"""{officer} | {office}\n{powers}"""
 
             # Tag stuff now
+            tags = ""
             for y in tag_regions:
                 if region in y:
                     tags += tag_list[tag_regions.index(y)] + "\n"
@@ -248,6 +248,7 @@ def main():
                 tags = tags[:-1]
 
             # Flag stuff now
+            flagname = ""
             if flag != None:
                 extension = flag[-4:]
                 flagname = f"""{stamp}-{region.lower().replace(" ", "_")}{extension}"""
@@ -331,17 +332,18 @@ if __name__ == "__main__":
 
     # Report any errors to discord webhooks
     except Exception as e:
-        name = "Dispatch Routine"
         payload = {
-        "username": "Nightly",
-        "embeds": [{
+        "embeds": [
+            {
+            "description": f"""{e}""",
+            "color": 0xf31a71,
             "author": {
-                "name": "Eyebeast: Failure",
+                "name": "The Eyebeast Miner encountered an error:",
                 "icon_url": "https://calref.ca/post/busy.png"
-            },
-            "description": f"""The **Eyebeast Miner** encountered the following error:\n\n{e}""",
-            "color":0xf31a71,
-        }],
-    }
+            }
+            }
+        ],
+        }
+
         for x in WEBHOOKS:
             requests.post(x, json=payload)
