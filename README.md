@@ -15,7 +15,7 @@
 </tr></table>
 
 ## Overview
-Eyebeast is a data archival utility designed to help recover recently lost data for a given region on NationStates. Data is organised into snapshots of how the region looked at a particular point in time. Every snapshot attempts to record the following, if available:
+Eyebeast is a data archival utility designed to help recover recently lost data for a given region on [NationStates.net](https://www.nationstates.net/). Data is organised into snapshots of how a region looked at a particular point in time. Every snapshot attempts to record the following, if available:
 - Proper name formatting
 - Regional flag
 - Regional banner
@@ -36,16 +36,16 @@ Outside the splash page, the search bar will always be at the top of the screen 
 
 Minimum Python version: 3.8
 
-Simply clone the repository into the directory of your choosing, or download the repository as a zip and extract it to where it will be run. You may wish to operate through a virtual environment and, if you're running python 3.11, you'll *definitely* want to do that. Slap one up today with `python3 -m venv path` with the `path` being wherever you want to put it.
+Simply clone the repository into the directory of your choosing, or download the repository as a zip and extract it to where it will be run.
 
-Activate the environment with `source path/bin/activate` and install the requirements with `pip install -r requirements.txt`.
+You may wish to operate through a virtual environment and, if you're running python 3.11, you'll *definitely* want to do that. Slap one up today with `python3 -m venv path` with the `path` being wherever you want to put it. Activate the environment with `source path/bin/activate` and install the requirements with `pip install -r requirements.txt`.
 
-The only file of Eyebeast that needs to be configured is `mining.py`, which contains three setable options in a configuration area.
+The only Eyebeast file to configure is `mining.py`, which contains three variable options in its configuration area.
 - `NIGHTLY` asks if the Eyebeast is running as a component of Nightly or needs to download the dump itself.
 - `OPERATOR` asks for your required [user agent](https://www.nationstates.net/pages/api.html#terms), ideally your main nation name or email.
 - `WEBHOOKS` allows you to place any webhooks to which you would like errors to post
 
-If running locally, you can just run `eyebeast.py` in your virtual environment.
+Do not forget to set up a weekly cron job for `mining.py`, such as with Linux' `crontab` utility. If running locally, you can just run `eyebeast.py` in your virtual environment at this point.
 
 Eyebeast is designed to run on `mod_wsgi` but can be set up on something less reprehensible if one is feeling adventurous. A semi-workable sample config for Apache2 includes, but is not limited to, the following:
 
@@ -64,14 +64,13 @@ WSGIProcessGroup eyebeast
    </Directory>
 </VirtualHost>
 ```
-Do not forget to set up a weekly cron job for `mining.py`, such as with Linux'`crontab` utility.
 
 ## History
 
-Eyebeast was created by [Refuge Isle](https://www.nationstates.net/nation=refuge_isle), originally in February 2021. It began as an experiment to programatically download region flags to replace the Taijitu flag recovery site, which had not worked for at least five years at the time, as well as to save additional data like region tags which The Grey Wardens' [WFE Index](https://greywardens.xyz/tools/wfe_index/) did not. The user-interface left something to be desired, as one could only traverse the files by manually adjusting the URL.
+Eyebeast was created by [Refuge Isle](https://www.nationstates.net/nation=refuge_isle), in February 2021. It began as a private python experiment to programatically download region flags in place of the Taijitu flag recovery site, which had not worked for at least five years at that time. It was also intended to save additional data like region tags and regional officers, which The Grey Wardens' [WFE Index](https://greywardens.xyz/tools/wfe_index/) did not record. The user-interface left something to be desired, however, as one could only traverse the files by manually adjusting the URL.
 
-Eventually, in August 2022, it was [released](https://forum.calref.ca/index.php?topic=9.msg3853#msg3853) as a properly developed web app, with improved storage methods, picked up an actual user interface, and gained the ability to recover region banners. In November 2022, Eyebeast received the distinction of being awarded the NS Defender tech contribution of that year.
+Eventually, in August 2022, it [released](https://forum.calref.ca/index.php?topic=9.msg3853#msg3853) as a properly developed web app with improved storage methods, picked up an actual user interface, and gained the ability to recover region banners. In November 2022, Eyebeast received the distinction of being awarded the NS Defender tech contribution of that year.
 
 ## Required Disclosures
 
-I am a NationStates staff member, and therefore I am required to provide a disclaimer that operators of this tool should not assume it to be legal. It remains the player's responsibility to ensure any tools they use comply with the [Script Rules](https://forum.nationstates.net/viewtopic.php?p=16394966#p16394966).
+I am a NationStates staff member; therefore, I am required to provide a disclaimer that operators of this tool should not assume it to be legal. It remains the player's responsibility to ensure any tools they use comply with the [Script Rules](https://forum.nationstates.net/viewtopic.php?p=16394966#p16394966).
