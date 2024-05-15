@@ -65,7 +65,7 @@ def gazer():
 
     # Operator is arriving
     else:
-        return render_template("splash.html")
+        return render_template("splash.html", version = VERSION)
 
     # The search data is garbage
     if region.replace("_", "").isalnum() is False:

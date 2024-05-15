@@ -130,10 +130,9 @@ pre, .content pre {
     justify-content: center;
     text-align: center;
 }
-.title {
-    font-weight: 300 !important;
-}
-.title:not(:last-child) {
+.title, .title:not(:last-child) {
+    font-weight: 300;
+    background-color: Transparent;
     margin-bottom: 0.5rem;
 }
 .subtitle {
