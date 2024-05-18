@@ -25,6 +25,7 @@ WEBHOOKS = [                          # Should be a list of Discord webhook URL 
 VERSION  = "1.3.0"
 HEADERS  = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
 LIMIT    = 1.2
+DEBUG    = False
 PATH     = os.path.dirname(__file__)
 
 # Establish logging
