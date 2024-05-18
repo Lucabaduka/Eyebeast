@@ -87,7 +87,7 @@ pre, .content pre {
     border: 1px solid #1e4ca6c2;
     border-radius: 2px;
     padding: 16px;
-    max-width: 100% !important;
+    max-width: 100%;
     overflow: auto;
 }
 .is-fullwidth {
@@ -118,7 +118,7 @@ pre, .content pre {
     background: #0F1720;
     border: 1px solid #185877;
     padding: 16px;
-    max-width: 100% !important;
+    max-width: 100%;
 }
 .tall {
     height: 100%;
