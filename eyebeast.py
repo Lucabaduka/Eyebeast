@@ -1,24 +1,12 @@
 import os
 import html
-import logging
 import sqlite3
 from datetime import datetime
 from flask import Flask, render_template, request, abort, send_from_directory
-from logging.handlers import RotatingFileHandler
 
 VERSION = "1.3.0"
 PATH    = os.path.dirname(__file__)
 app     = Flask(__name__)
-
-#######################################
-# ---           Logging           --- #
-#######################################
-
-logger = logging.getLogger()
-file_handler = RotatingFileHandler("error.log", maxBytes=10240, backupCount=2)
-file_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]"))
-file_handler.setLevel(logging.WARNING)
-logger.addHandler(file_handler)
 
 #######################################
 # ---           Errors            --- #

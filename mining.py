@@ -30,7 +30,7 @@ PATH     = os.path.dirname(__file__)
 
 # Establish logging
 logger = logging.getLogger()
-file_handler = RotatingFileHandler("error.log", maxBytes=10240, backupCount=2)
+file_handler = RotatingFileHandler(f"{PATH}/error.log", maxBytes=10240, backupCount=2)
 file_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]"))
 logger.addHandler(file_handler)
 
