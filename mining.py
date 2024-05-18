@@ -1,9 +1,11 @@
 import os
-import time
+import logging
 import requests
-import xml.etree.ElementTree as et
 import sqlite3
+import time
+import xml.etree.ElementTree as et
 import zlib
+from logging.handlers import RotatingFileHandler
 
 #######################################
 # ---        Configuration        --- #
@@ -12,17 +14,27 @@ import zlib
 NIGHTLY  = True                       # Should be True if run on CalRef servers, should be False if not.
 OPERATOR = "Default"                  # Should be the operator's main nation or email address.
 WEBHOOKS = [                          # Should be a list of Discord webhook URL strings to receive a copy of the report.
-
+    
 ]
 
 #######################################
 # --- Do not edit below this line --- #
 #######################################
 
-VERSION  = "1.2.0"
-PATH     = os.path.dirname(__file__)
+# Initialise global variables
+VERSION  = "1.3.0"
 HEADERS  = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
-connect  = sqlite3.connect(f"{PATH}/eyebeast.db")
+LIMIT    = 1.2
+PATH     = os.path.dirname(__file__)
+
+# Establish logging
+logger = logging.getLogger()
+file_handler = RotatingFileHandler("error.log", maxBytes=10240, backupCount=2)
+file_handler.setFormatter(logging.Formatter("%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]"))
+logger.addHandler(file_handler)
+
+# Establish database connection
+connect  = sqlite3.connect(f"{PATH}/eyebeast.db", timeout=60)
 c        = connect.cursor()
 
 # Do you know the difference between you and I? It's a class
@@ -42,8 +54,21 @@ class Byakuya:
 # Called every time we make a request to NationStates
 def api_call(url):
     r = requests.get(url, headers=HEADERS)
-    time.sleep(1.2)
+    time.sleep(LIMIT)
     return r.text
+
+# Downloads a specific file if it exists
+# Called for every flag and banner download
+def pull_file(url):
+    r = requests.get(url, headers=HEADERS)
+    time.sleep(LIMIT)
+
+    # File still exists
+    if r.status_code == 200:
+        return r.content
+
+    # File does not exist
+        return False
 
 # Clean Up
 # Called to clean up data dump files when not in use and prevent repeat data
@@ -68,7 +93,7 @@ def dump_handle(record_path):
         f.write(r.content)
         f.close()
 
-    # Extract XML file from gunzip via chunking
+    # Extract XML file from archive via chunking
     print("Extracting. . .")
     CHUNKSIZE = 1024
     with open(f"{record_path}/regions.xml", "wb") as extracted:
@@ -102,7 +127,7 @@ def insert_record(record):
 # Called when removing entries from the database
 def remove_record(record):
     with connect:
-        c.execute("""DELETE from eyebeast WHERE stamp = :stamp AND region = :region""",
+        c.execute("""DELETE FROM eyebeast WHERE stamp = :stamp AND region = :region""",
             {
                 "stamp"    : record.stamp,
                 "region"   : record.region,
@@ -118,12 +143,8 @@ def remove_record(record):
 # Called to create missing files and directories, returns record path
 def self_righting():
 
-    # Form the database if it doesn't exist
-    if not os.path.isfile(f"{PATH}/eyebeast.db"):
-        connect = sqlite3.connect(f"{PATH}/eyebeast.db")
-
-        c = connect.cursor()
-        c.execute("""CREATE TABLE eyebeast (
+    with connect:
+        c.execute("""CREATE TABLE IF NOT EXISTS eyebeast (
                 stamp integer,
                 region text,
                 wfe text,
@@ -135,7 +156,6 @@ def self_righting():
         )
 
         connect.commit()
-        connect.close()
 
     if NIGHTLY:
         record_path = "/var/www/nightly/rec"
@@ -282,7 +302,10 @@ def main():
         # Likely invoked if NationStates unexpectedly deletes a tag
         # In which case we will just move on
         except:
-            continue
+            if DEBUG:
+                raise
+            else:
+                continue
 
     print("Tag data loaded.")
 
@@ -340,34 +363,39 @@ def main():
             # Flag stuff now
             flagname = ""
             if flag != None:
+
+                # Sort out the file name
                 extension = flag[-4:]
                 flagname = f"{stamp}-{link_name}{extension}"
                 flagsave = f"{PATH}/static/flags/{flagname}"
-                r = requests.get(flag, headers=HEADERS)
+
+                # Make request
+                response = pull_file(flag)
 
                 # File still exists
-                if r.status_code == 200:
+                if response != False:
                     with open(flagsave, "wb") as f:
-                        f.write(r.content)
+                        f.write(response)
                         f.close()
                     print(f"Downloaded: {flag}")
-                    time.sleep(1.2)
 
             # Banner stuff now
             extension = banner.partition(".")[2]
             if "/uploads/" in banner:
 
+                # Sort out the file name
                 bannername = (f"{stamp}-{link_name}.{extension}")
                 bannersave = f"{PATH}/static/banners/{bannername}"
-                r = requests.get(f"https://www.nationstates.net/{banner}", headers=HEADERS)
+
+                # Make request
+                response = pull_file(f"https://www.nationstates.net/{banner}")
 
                 # File still exists
-                if r.status_code == 200:
+                if response != False:
                     with open(bannersave, "wb") as f:
-                        f.write(r.content)
+                        f.write(response)
                         f.close()
                     print(f"Downloaded: {bannername}")
-                    time.sleep(1.2)
 
             else:
                 bannername = banner.partition("/images/rbanners/")[2].replace(f".{extension}", "")
@@ -378,7 +406,10 @@ def main():
 
         # Almost certainly junk data received
         except:
-            continue
+            if DEBUG:
+                raise
+            else:
+                continue
 
     # Wipe down the table again
     clean_up(record_path)
@@ -412,7 +443,10 @@ def main():
 
         # Move to the next region if some error happens that we didn't already account for
         except:
-            continue
+            if DEBUG:
+                raise
+            else:
+                continue
 
     # Close database
     connect.close()
@@ -430,11 +464,15 @@ if __name__ == "__main__":
                 "description": f"""{e}""",
                 "color": 0xF31A71,
                 "author": {
-                    "name": "The Eyebeast Miner encountered an error:",
+                    "name": "Error: Eybeast Miner",
                     "icon_url": "https://calref.ca/post/busy.png",
+                },
+                "footer": {
+                    "text": "Details output to the error log."
                 }
             }]
         }
 
         for x in WEBHOOKS:
             requests.post(x, json=payload)
+        logger.error(e)

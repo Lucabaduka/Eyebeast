@@ -1,4 +1,4 @@
-# Eyebeast: Eldritch Archival Utility ![Version 1.2.0](https://img.shields.io/badge/Version-1.2.0-0099ff)
+# Eyebeast: Eldritch Archival Utility ![Version 1.3.0](https://img.shields.io/badge/Version-1.3.0-0099ff)
 
 <table align="center"><tr>
 <td align="center">
