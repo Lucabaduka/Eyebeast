@@ -67,7 +67,7 @@ def gazer():
     else:
         return render_template("splash.html", version = VERSION)
 
-    # The search data is garbage
+    # Operator probably disabled the front-end form validation
     if region.replace("_", "").isalnum() is False:
         abort(404)
 
@@ -86,13 +86,13 @@ def gazer():
         abort(404)
 
     # We assume we have results to deliver at this point
-    stamps   = []
-    regions  = []
-    wfes     = [[], []]
-    tags     = []
-    ros      = []
-    flags    = []
-    banners  = []
+    stamps  = []
+    regions = []
+    wfes    = [[], []]
+    tags    = []
+    ros     = []
+    flags   = []
+    banners = []
 
     for count, value in enumerate(data):
 
@@ -134,7 +134,7 @@ def gazer():
             flag_entry = f"""<pre class="data-display flags{hide}"></pre>"""
         flags.append(flag_entry)
 
-        # Format banners
+        # Load banners
         if value[6] == "":
             banner_entry = f"""<pre class="data-display banners{hide}"></pre>"""
         elif len(value[6]) < 3:
@@ -143,7 +143,7 @@ def gazer():
             banner_entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{value[6]}" download><img src ="static/banners/{value[6]}"></a></pre>"""
         banners.append(banner_entry)
 
-    # Initialise break buttons
+    # Disable buttons when they can't flip to new snapshots
     breaks = []
 
     if len(data) == 1:
@@ -158,15 +158,15 @@ def gazer():
 
     # Send the response
     return render_template("gazer.html",
-    length    = len(data),
-    breaks    = breaks,
-    stamps    = stamps,
-    regions   = regions,
-    wfes      = wfes,
-    tags      = tags,
-    ros       = ros,
-    flags     = flags,
-    banners   = banners,
+    length  = len(data),
+    breaks  = breaks,
+    stamps  = stamps,
+    regions = regions,
+    wfes    = wfes,
+    tags    = tags,
+    ros     = ros,
+    flags   = flags,
+    banners = banners,
     )
 
     # Slep

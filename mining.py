@@ -9,21 +9,21 @@ import zlib
 # ---        Configuration        --- #
 #######################################
 
-NIGHTLY   = True                      # Should be True if run on CalRef servers, should be False if not.
-OPERATOR  = "Default"                 # Should be the operator's main nation or email address.
-WEBHOOKS  = [                         # Should be a list of Discord webhook URL strings to receive a copy of the report.
-    
+NIGHTLY  = True                       # Should be True if run on CalRef servers, should be False if not.
+OPERATOR = "Default"                  # Should be the operator's main nation or email address.
+WEBHOOKS = [                          # Should be a list of Discord webhook URL strings to receive a copy of the report.
+
 ]
 
 #######################################
 # --- Do not edit below this line --- #
 #######################################
 
-VERSION     = "1.2.0"
-PATH        = os.path.dirname(__file__)
-HEADERS     = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
-connect     = sqlite3.connect(f"{PATH}/eyebeast.db")
-c           = connect.cursor()
+VERSION  = "1.2.0"
+PATH     = os.path.dirname(__file__)
+HEADERS  = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
+connect  = sqlite3.connect(f"{PATH}/eyebeast.db")
+c        = connect.cursor()
 
 # Do you know the difference between you and I? It's a class
 class Byakuya:
@@ -41,7 +41,7 @@ class Byakuya:
 # API Call
 # Called every time we make a request to NationStates
 def api_call(url):
-    r = requests.get(url, headers = HEADERS)
+    r = requests.get(url, headers=HEADERS)
     time.sleep(1.2)
     return r.text
 
@@ -63,7 +63,7 @@ def dump_handle(record_path):
     # Acquire data dump
     print("Acquiring data dump. . .")
     url = "https://www.nationstates.net/pages/regions.xml.gz"
-    r = requests.get(url, headers = HEADERS)
+    r = requests.get(url, headers=HEADERS)
     with open(f"{record_path}/regions.xml.gz", "wb") as f:
         f.write(r.content)
         f.close()
@@ -72,13 +72,13 @@ def dump_handle(record_path):
     print("Extracting. . .")
     CHUNKSIZE = 1024
     with open(f"{record_path}/regions.xml", "wb") as extracted:
-        d = zlib.decompressobj(16+zlib.MAX_WBITS)
-        f = open(f"{record_path}/regions.xml.gz","rb")
-        buffer=f.read(CHUNKSIZE)
+        d = zlib.decompressobj(16 + zlib.MAX_WBITS)
+        f = open(f"{record_path}/regions.xml.gz", "rb")
+        buffer = f.read(CHUNKSIZE)
         while buffer:
             out = d.decompress(buffer)
             extracted.write(out)
-            buffer=f.read(CHUNKSIZE)
+            buffer = f.read(CHUNKSIZE)
         out = d.flush()
         extracted.close()
 
@@ -86,15 +86,33 @@ def dump_handle(record_path):
 # Called when adding entries to the database
 def insert_record(record):
     with connect:
-        c.execute("INSERT INTO eyebeast VALUES (:stamp, :region, :wfe, :tags, :ros, :flagname, :banner)",
-                {"stamp": record.stamp, "region": record.region, "wfe": record.wfe, "tags": record.tags, "ros": record.ros, "flagname": record.flag, "banner": record.banner})
+        c.execute("""INSERT INTO eyebeast VALUES (:stamp, :region, :wfe, :tags, :ros, :flagname, :banner)""",
+            {
+                "stamp"    : record.stamp,
+                "region"   : record.region,
+                "wfe"      : record.wfe,
+                "tags"     : record.tags,
+                "ros"      : record.ros,
+                "flagname" : record.flag,
+                "banner"   : record.banner,
+            }
+        )
 
 # Delete Old
 # Called when removing entries from the database
 def remove_record(record):
     with connect:
-        c.execute("DELETE from eyebeast WHERE stamp = :stamp AND region = :region",
-                {"stamp": record.stamp, "region": record.region, "wfe": record.wfe, "tags": record.tags, "ros": record.ros, "flagname": record.flag, "banner": record.banner})
+        c.execute("""DELETE from eyebeast WHERE stamp = :stamp AND region = :region""",
+            {
+                "stamp"    : record.stamp,
+                "region"   : record.region,
+                "wfe"      : record.wfe,
+                "tags"     : record.tags,
+                "ros"      : record.ros,
+                "flagname" : record.flag,
+                "banner"   : record.banner,
+            }
+        )
 
 # Self-right
 # Called to create missing files and directories, returns record path
@@ -113,7 +131,8 @@ def self_righting():
                 ros text,
                 flag text,
                 banner text
-                )""")
+                )"""
+        )
 
         connect.commit()
         connect.close()
@@ -137,18 +156,91 @@ def main():
 
     # At some point, it would be nice to replace this list with an API call, but no such API shard exists at present
     tag_list = [
-        "Anarchist", "Anime", "Anti-Capitalist", "Anti-Communist", "Anti-Fascist", "Anti-General Assembly", "Anti-Security Council",
-        "Anti-World Assembly", "Capitalist", "Casual", "Colony", "Communist", "Conservative", "Cyberpunk", "Defender", "Democratic",
-        "Eco-Friendly", "Egalitarian", "Embassy Collector", "F7er", "FT FtL", "FT FTLi", "FT STL", "Fandom", "Fantasy Tech",
-        "Fascist", "Feminist", "Free Trade", "Frontier", "Future Tech", "Game Player", "General Assembly", "Generalite",
-        "Human-Only", "Imperialist", "Independent", "Industrial", "International Federalist", "Invader", "Isolationist",
-        "Issues Player", "Jump Point", "LGBT", "Liberal", "Liberated", "Libertarian", "Magical", "Map", "Mercenary", "Modern Tech",
-        "Monarchist", "Multi-Species", "National Sovereigntist", "Neutral", "Non-English", "Offsite Chat", "Offsite Forums",
-        "Outer Space", "P2TM", "Pacifist", "Parody", "Password", "Past Tech", "Patriarchal", "Post Apocalyptic", "Post-Modern Tech",
-        "Puppet Storage", "Regional Government", "Religious", "Role Player", "Security Council", "Serious", "Silly", "Snarky",
-        "Social", "Socialist", "Sports", "Steampunk", "Surreal", "Theocratic", "Totalitarian", "Trading Cards", "Video Game",
-        "World Assembly"
-        ]
+        "Anarchist",
+        "Anime",
+        "Anti-Capitalist",
+        "Anti-Communist",
+        "Anti-Fascist",
+        "Anti-General Assembly",
+        "Anti-Security Council",
+        "Anti-World Assembly",
+        "Capitalist",
+        "Casual",
+        "Colony",
+        "Communist",
+        "Conservative",
+        "Cyberpunk",
+        "Defender",
+        "Democratic",
+        "Eco-Friendly",
+        "Egalitarian",
+        "Embassy Collector",
+        "F7er",
+        "FT FtL",
+        "FT FTLi",
+        "FT STL",
+        "Fandom",
+        "Fantasy Tech",
+        "Fascist",
+        "Feminist",
+        "Free Trade",
+        "Frontier",
+        "Future Tech",
+        "Game Player",
+        "General Assembly",
+        "Generalite",
+        "Human-Only",
+        "Imperialist",
+        "Independent",
+        "Industrial",
+        "International Federalist",
+        "Invader",
+        "Isolationist",
+        "Issues Player",
+        "Jump Point",
+        "LGBT",
+        "Liberal",
+        "Liberated",
+        "Libertarian",
+        "Magical",
+        "Map",
+        "Mercenary",
+        "Modern Tech",
+        "Monarchist",
+        "Multi-Species",
+        "National Sovereigntist",
+        "Neutral",
+        "Non-English",
+        "Offsite Chat",
+        "Offsite Forums",
+        "Outer Space",
+        "P2TM",
+        "Pacifist",
+        "Parody",
+        "Password",
+        "Past Tech",
+        "Patriarchal",
+        "Post Apocalyptic",
+        "Post-Modern Tech",
+        "Puppet Storage",
+        "Regional Government",
+        "Religious",
+        "Role Player",
+        "Security Council",
+        "Serious",
+        "Silly",
+        "Snarky",
+        "Social",
+        "Socialist",
+        "Sports",
+        "Steampunk",
+        "Surreal",
+        "Theocratic",
+        "Totalitarian",
+        "Trading Cards",
+        "Video Game",
+        "World Assembly",
+    ]
     tag_regions = []
 
     ros_dict = {
@@ -159,8 +251,8 @@ def main():
         "P": "Polls",
         "S": "Successor",
         "X": "Executive",
-        "W": "World Assembly"
-        }
+        "W": "World Assembly",
+    }
 
     # Acquire region tag list
     print("Loading regional tags...")
@@ -169,7 +261,9 @@ def main():
 
         try:
             # API call to list of regions by x (tag)
-            data = api_call(f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}""")
+            data = api_call(
+                f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}"""
+            )
 
             # Parse response and append to list of lists
             root = et.fromstring(data)
@@ -185,10 +279,9 @@ def main():
 
             tag_regions.append(insert)
 
-        # likely invoked if NationStates ever deletes a tag without notice
+        # Likely invoked if NationStates unexpectedly deletes a tag
+        # In which case we will just move on
         except:
-
-            # In which case we will just move on
             continue
 
     print("Tag data loaded.")
@@ -202,6 +295,7 @@ def main():
         # probability of NationStates delivering bullshit data at some point
         try:
             region = x.find("NAME").text
+            link_name = region.lower().replace(" ", "_")
 
             wfe = ""
             if x.find("FACTBOOK") != None:
@@ -247,9 +341,9 @@ def main():
             flagname = ""
             if flag != None:
                 extension = flag[-4:]
-                flagname = f"""{stamp}-{region.lower().replace(" ", "_")}{extension}"""
-                flagsave = f"""{PATH}/static/flags/{flagname}"""
-                r = requests.get(flag, headers = HEADERS)
+                flagname = f"{stamp}-{link_name}{extension}"
+                flagsave = f"{PATH}/static/flags/{flagname}"
+                r = requests.get(flag, headers=HEADERS)
 
                 # File still exists
                 if r.status_code == 200:
@@ -260,11 +354,12 @@ def main():
                     time.sleep(1.2)
 
             # Banner stuff now
+            extension = banner.partition(".")[2]
             if "/uploads/" in banner:
-                extension = banner.partition(".")[2] # Maybe change if stock banners expand
-                bannername = f"""{stamp}-{region.lower().replace(" ", "_")}.{extension}"""
-                bannersave = f"""{PATH}/static/banners/{bannername}"""
-                r = requests.get(f"""https://www.nationstates.net/{banner}""", headers = HEADERS)
+
+                bannername = (f"{stamp}-{link_name}.{extension}")
+                bannersave = f"{PATH}/static/banners/{bannername}"
+                r = requests.get(f"https://www.nationstates.net/{banner}", headers=HEADERS)
 
                 # File still exists
                 if r.status_code == 200:
@@ -275,12 +370,13 @@ def main():
                     time.sleep(1.2)
 
             else:
-                bannername = banner.partition("/images/rbanners/")[2].replace(".jpg", "")  # Maybe change to {extension} if stock banners expand
+                bannername = banner.partition("/images/rbanners/")[2].replace(f".{extension}", "")
 
             # Save the entry
             record = Byakuya(stamp, region, wfe, tags, ros, flagname, bannername)
             insert_record(record)
 
+        # Almost certainly junk data received
         except:
             continue
 
@@ -288,7 +384,7 @@ def main():
     clean_up(record_path)
 
     # Vanquishing module
-    prune = stamp - 15552000 # six months
+    prune = stamp - 15552000  # six months
     c.execute(f"""SELECT * FROM eyebeast WHERE stamp < {prune}""")
 
     for x in c.fetchall():
@@ -303,17 +399,18 @@ def main():
             # Prune flag file
             if record.flag != "":
                 try:
-                    os.remove(f"""{PATH}/static/flags/{record.flag}""")
+                    os.remove(f"{PATH}/static/flags/{record.flag}")
                 except:
                     pass
 
             # Prune banner file
             if len(record.banner) > 3:
                 try:
-                    os.remove(f"""{PATH}/static/banners/{record.banner}""")
+                    os.remove(f"{PATH}/static/banners/{record.banner}")
                 except:
                     pass
 
+        # Move to the next region if some error happens that we didn't already account for
         except:
             continue
 
@@ -329,16 +426,14 @@ if __name__ == "__main__":
     # Report any errors to discord webhooks
     except Exception as e:
         payload = {
-        "embeds": [
-            {
-            "description": f"""{e}""",
-            "color": 0xf31a71,
-            "author": {
-                "name": "The Eyebeast Miner encountered an error:",
-                "icon_url": "https://calref.ca/post/busy.png"
-            }
-            }
-        ],
+            "embeds": [{
+                "description": f"""{e}""",
+                "color": 0xF31A71,
+                "author": {
+                    "name": "The Eyebeast Miner encountered an error:",
+                    "icon_url": "https://calref.ca/post/busy.png",
+                }
+            }]
         }
 
         for x in WEBHOOKS:
