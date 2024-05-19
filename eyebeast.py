@@ -128,7 +128,7 @@ def gazer():
 
         # Load flags
         if value[5] != "":
-            pflag = f"""<a href="static/flags/{value[5]}" download><img src ="static/flags/{value[5]}"></a>"""
+            pflag = f"""<a href="static/flags/{value[5]}" download><img alt="flag from {stamp}" src="static/flags/{value[5]}"></a>"""
             flag_entry = f"""<pre class="data-display flags{hide}">{pflag}</pre>"""
         else:
             flag_entry = f"""<pre class="data-display flags{hide}"></pre>"""
@@ -140,7 +140,7 @@ def gazer():
         elif len(value[6]) < 3:
             banner_entry = f"""<pre class="data-display banners{hide}"><p class="gold" style="font-size: 10pt;">This is a stock banner. Select it in the region's admin menu.</p><img src ="https://www.nationstates.net/images/rbanners/{value[6]}"></pre>"""
         else:
-            banner_entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{value[6]}" download><img src ="static/banners/{value[6]}"></a></pre>"""
+            banner_entry = f"""<pre class="data-display banners{hide}"><a href="static/banners/{value[6]}" download><img alt="banner from {stamp}" src="static/banners/{value[6]}"></a></pre>"""
         banners.append(banner_entry)
 
     # Disable buttons when they can't flip to new snapshots
