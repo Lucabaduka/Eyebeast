@@ -3,7 +3,7 @@
 <table align="center"><tr>
 <td align="center">
 
-<img src="https://img.shields.io/badge/-HTML5-E34F26?logo=html5&logoColor=white&style=flat" alt="HTML5"> <img src="https://img.shields.io/badge/-Bulma-00D1B2?logo=bulma&logoColor=white&style=flat" alt="CSS 3"> <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat" alt="JavaScript">
+<img src="https://img.shields.io/badge/-Bulma-00D1B2?logo=bulma&logoColor=white&style=flat" alt="CSS 3"> <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat" alt="JavaScript">
 <br>Front End
 
 </td><td align="center">
@@ -15,7 +15,7 @@
 </tr></table>
 
 ## Overview
-Eyebeast is a data archival utility designed to help recover recently lost data for a given region on [NationStates.net](https://www.nationstates.net/). Data is organised into snapshots of how a region looked at a particular point in time. Every snapshot attempts to record the following, if available:
+Eyebeast is a data archival utility designed to help recover recently lost data for a given region on [NationStates.net](https://www.nationstates.net/). Data is organised into snapshots of how a region looked at a particular point in time, and retained in the database for six months. Every snapshot attempts to record the following, if available:
 - Proper name formatting
 - Regional flag
 - Regional banner
@@ -23,14 +23,12 @@ Eyebeast is a data archival utility designed to help recover recently lost data 
 - Search tags
 - Regional Officers
 
-Snapshots can be taken by configuring, then operating `mining.py` on a cron job. In production, this job is scheduled to start at 01:00 Pacific Time, every Monday, typically concluding around 10:00. After a snapshot's timestamp reaches six months of age, its record is pruned from the database and applicable flag and banner image files are removed from the server.
-
 **The official Eyebeast website is located here:** https://eyebeast.calref.ca/
 
 ## Operator Usage
-The splash page is a simple search box, where an operator may input a region name, or a region's URL. On submission, and if a region could be located in the database, the operator will be taken to a results page. The operator may flip through available snapshots with the `◀ Forward` and `Backward ▶` nav buttons. World Factbook Entries can be copied with the `Copy` button on the page, and flags or banners can be downloaded with a simple left click or device tap.
+The splash page is a simple search box, where an operator may input a region name, or a region's URL. On submission, the operator will be taken to a results page if results could be found, or a 404 page if they couldn't. In the results, the operator may flip through available snapshots with the `◀ Forward` and `Backward ▶` nav buttons. World Factbook Entries can be copied with the `Copy` button on the page, and flags or banners can be downloaded with a simple left click or device tap.
 
-Outside the splash page, the search bar will always be at the top of the screen so the operator may move on to additional regions if necessary. On mobile, a floating anchor button will be in the bottom right corner of the screen to better navigate results pages with larger volumes of data.
+Outside of the splash page, the search bar will always be at the top of the screen so the operator may move on to additional regions if necessary. On mobile, a floating anchor button will be in the bottom right corner of the screen to better navigate results pages with larger volumes of data.
 
 ## Installation and Configuration
 
@@ -71,29 +69,16 @@ WSGIProcessGroup eyebeast
 </VirtualHost>
 ```
 
-## Misc. Notes
+## Notes, Disclosures, Etc.
 
-Eyebeast used a Bulma v0.9 CSS framework, but Bulma elected to redo their framework with dart sass in v1, bloating the file size to 730Kb. So now Eyebeast uses a 100% coverage, minified version, compiled from `beholder.css` and CalRef's [v0.9.4](https://calref.ca/bulma.css) local copy, 73 times smaller.
+I am a NationStates staff member; therefore, I am required to provide a disclaimer that operators of this tool should not assume it to be legal. It remains the player's responsibility to ensure any tools they use comply with the [Script Rules](https://forum.nationstates.net/viewtopic.php?p=16394966#p16394966).
 
-There is a `DEBUG` variable in `mining.py` that, when set to `True`, will cause it to die on every mining error and post them to `error.log`. By default, this is set to `False` because I assume the probability of NationStates feeding me corrupted data is orders of magnitude greater than the probability of Eyebeast bugging on its own. So, in normal operation, I'd like it to keep on making mining attempts instead of dying on a region with some kind of impossible response that I can't account for, four hours in. It's good to turn this setting on for testing when making substantial changes, or perhaps if running the miner as a one-off for other non-typical reasons.
+Eyebeast uses a Bulma v0.9.4 CSS framework, in minified file compiled from `beholder.css` and CalRef's [v0.9.4](https://calref.ca/bulma.css) local copy.
+
+There is a `DEBUG` variable in `mining.py` that, when set to `True`, will cause it to die on every mining error and post them to `error.log`. By default, this is set to `False` because I assume the probability of NationStates feeding me corrupted data is orders of magnitude greater than the probability of Eyebeast bugging on its own. In normal operation, the miner should keep making mining attempts instead of dying on a random region four hours in, but if making substantial changes, it's good to test with this turned on, or when running the miner of atypical reasons.
 
 ### History
 
-Eyebeast was created by [Refuge Isle](https://www.nationstates.net/nation=refuge_isle), in February 2021. It began as a private python experiment to programatically download region flags in place of the Taijitu flag recovery site, which had not worked for at least five years at that time. It was also intended to save additional data like region tags and regional officers, which The Grey Wardens' [WFE Index](https://greywardens.xyz/tools/wfe_index/) did not record. The user-interface left something to be desired, however, as one could only traverse the files by manually adjusting the URL.
+Eyebeast was created in February 2021. It began as a private python experiment to programatically download region flags in place of the Taijitu flag recovery site, which had not worked for at least five years at that time. It was also intended to save additional data like region tags and regional officers, which The Grey Wardens' [WFE Index](https://greywardens.xyz/tools/wfe_index/) did not record. The a user-interface did not exist, as one could only traverse the files by manually adjusting the URL, but it could restore flag data at least.
 
-Eventually, in August 2022, it [released](https://forum.calref.ca/index.php?topic=9.msg3853#msg3853) as a properly developed web app with improved storage methods, picked up an actual user interface, and gained the ability to recover region banners. In November 2022, Eyebeast received the distinction of being voted the NS Defender tech contribution of that year.
-
-### Frequently Asked Questions
-
-**Q:** *"I don't like how you've done up any of this. It's not pythonic."*<br>
-**A:** That's not a question, but alright.
-
-**Q:** *"I especially don't like how you use docstrings."*<br>
-**A:** I don't like how you presumed I would care what you think.
-
-**Q:** *"Seriously, docstrings are only for function/class descriptions and multiline comments."*<br>
-**A:** I am begging you. Please, God, go outside. Visit a library. Visit a park. Talk to a woman. Something something the world is out there if you're brave enough to see it.
-
-### Required Disclosures
-
-I am a NationStates staff member; therefore, I am required to provide a disclaimer that operators of this tool should not assume it to be legal. It remains the player's responsibility to ensure any tools they use comply with the [Script Rules](https://forum.nationstates.net/viewtopic.php?p=16394966#p16394966).
+In August 2022, it was [remade](https://forum.calref.ca/index.php?topic=9.msg3853#msg3853) as a properly developed web app with improved storage methods, picked up an actual user interface, and gained the ability to recover region banners. In November 2022, Eyebeast received the distinction of being voted the NS Defender tech contribution of that year.
