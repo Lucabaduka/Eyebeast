@@ -73,7 +73,7 @@ WSGIProcessGroup eyebeast
 
 ## Misc. Notes
 
-Eyebeast uses a [Bulma](https://bulma.io/) CSS framework, but the templates are set to CalRef's local copy in case Bulma gets hit by a meteor, or otherwise ceases to exist unexpectedly.
+Eyebeast used a Bulma v0.9 CSS framework, but Bulma elected to redo their framework with dart sass in v1, bloating the file size to 730Kb. So now Eyebeast uses a 100% coverage, minified version, compiled from `beholder.css` and CalRef's [v0.9.4](https://calref.ca/bulma.css) local copy, 73 times smaller.
 
 There is a `DEBUG` variable in `mining.py` that, when set to `True`, will cause it to die on every mining error and post them to `error.log`. By default, this is set to `False` because I assume the probability of NationStates feeding me corrupted data is orders of magnitude greater than the probability of Eyebeast bugging on its own. So, in normal operation, I'd like it to keep on making mining attempts instead of dying on a region with some kind of impossible response that I can't account for, four hours in. It's good to turn this setting on for testing when making substantial changes, or perhaps if running the miner as a one-off for other non-typical reasons.
 

@@ -8,8 +8,7 @@
   <meta name="theme-color" content="#0099FF">
   <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
-  <link rel="stylesheet" href="https://calref.ca/bulma.css">
-  <link rel="stylesheet" href="../static/beholder.css">
+  <link rel="stylesheet" href="../static/beholder-min.css">
   <title>Eyebeast</title>
 </head>
 <body id="top">
@@ -88,7 +87,7 @@
 
       <div class="column mflex">
         <div class="column mline is-flex">
-          <label class="p-2" for="snapshot">Page</label>
+          <label class="p-2" for="indexBox">Page</label>
           <input name="snapshot" class="input center" id="indexBox" type="number" style="width: 3em;" value="1" disabled>
           <span class="space">/ </span><span class="space" id="length">{{length}}</span>
         </div>
