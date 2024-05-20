@@ -7,13 +7,20 @@ import xml.etree.ElementTree as et
 import zlib
 from logging.handlers import RotatingFileHandler
 
-#######################################
-# ---        Configuration        --- #
+########################################################################################################
+#                                     #                                                                #
+#           Eyebeast  1.3.0           # This is the mining script for Eyebeast. A description of notes #
+#     Copyright 2024, Luca McGrath    # and how to use it are in the README.md provided. This code is  #
+#                                     # licensed under AGPL-3.0, found in the LICENSE file.            #
+#                                     #                                                                #
+#             Python 3.8+             #         https://github.com/Lucabaduka/Eyebeast                 #
+########################################################################################################
+# ---   v    Configuration    v   --- #
 #######################################
 
-NIGHTLY  = True                       # Should be True if run on CalRef servers, should be False if not.
-OPERATOR = "Default"                  # Should be the operator's main nation or email address.
-WEBHOOKS = [                          # Should be a list of Discord webhook URL strings to receive a copy of the report.
+NIGHTLY  = True                       # Should be True if run on CalRef servers, should be False if not
+OPERATOR = "Default"                  # Should be the operator's main nation or email address
+WEBHOOKS = [                          # Should be a list of Discord webhook URL strings to receive errors
     
 ]
 
@@ -278,13 +285,13 @@ def main():
     # Acquire region tag list
     print("Loading regional tags...")
     for x in tag_list:
+
         print(f"Loading {x}")
+        clean_name = x.lower().replace(" ", "_")
 
         try:
             # API call to list of regions by x (tag)
-            data = api_call(
-                f"""https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={x.replace(" ", "_")}"""
-            )
+            data = api_call(f"https://www.nationstates.net/cgi-bin/api.cgi?q=regionsbytag;tags={clean_name}")
 
             # Parse response and append to list of lists
             root = et.fromstring(data)
@@ -319,7 +326,7 @@ def main():
         # probability of NationStates delivering bullshit data at some point
         try:
             region = x.find("NAME").text
-            link_name = region.lower().replace(" ", "_")
+            clean_name = region.lower().replace(" ", "_")
 
             wfe = ""
             if x.find("FACTBOOK") != None:
@@ -367,7 +374,7 @@ def main():
 
                 # Sort out the file name
                 extension = flag[-4:]
-                flagname = f"{stamp}-{link_name}{extension}"
+                flagname = f"{stamp}-{clean_name}{extension}"
                 flagsave = f"{PATH}/static/flags/{flagname}"
 
                 # Make request
@@ -385,7 +392,7 @@ def main():
             if "/uploads/" in banner:
 
                 # Sort out the file name
-                bannername = (f"{stamp}-{link_name}.{extension}")
+                bannername = f"{stamp}-{clean_name}.{extension}"
                 bannersave = f"{PATH}/static/banners/{bannername}"
 
                 # Make request
