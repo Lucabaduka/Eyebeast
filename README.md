@@ -1,18 +1,9 @@
 # Eyebeast: Eldritch Archival Utility ![Version 1.3.0](https://img.shields.io/badge/Version-1.3.0-0099ff)
 
-<table align="center"><tr>
-<td align="center">
-
+<table align="center"><tr><td align="center">
 <img src="https://img.shields.io/badge/-Bulma-00D1B2?logo=bulma&logoColor=white&style=flat" alt="CSS 3"> <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat" alt="JavaScript">
-<br>Front End
-
-</td><td align="center">
-
-<img src="https://img.shields.io/badge/-Python%203-3776AB?logo=python&logoColor=white&style=flat" alt="python3"> <img src="https://img.shields.io/badge/-Flask-000000?logo=flask&logoColor=white&style=flat" alt="Flask"> <img src="https://img.shields.io/badge/-SQLite%203-003B57?logo=sqlite&logoColor=white&style=flat" alt="SQLite">
-<br>Back End
-
-</td>
-</tr></table>
+<br>
+<img src="https://img.shields.io/badge/-Python%203-3776AB?logo=python&logoColor=white&style=flat" alt="python3"> <img src="https://img.shields.io/badge/-Flask-000000?logo=flask&logoColor=white&style=flat" alt="Flask"> <img src="https://img.shields.io/badge/-SQLite%203-003B57?logo=sqlite&logoColor=white&style=flat" alt="SQLite"></td></tr></table>
 
 ## Overview
 Eyebeast is a data archival utility designed to help recover recently lost data for a given region on [NationStates.net](https://www.nationstates.net/). Data is organised into snapshots of how a region looked at a particular point in time, and retained in the database for six months. Every snapshot attempts to record the following, if available:
