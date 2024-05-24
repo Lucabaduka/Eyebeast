@@ -25,7 +25,7 @@ Outside of the splash page, the search bar will always be at the top of the scre
 
 Minimum Python version: 3.8
 
-1. Clone the repository into the directory of your choosing, or download the repository upload/extract it to where it will be run.
+1. Clone the repository into the directory of your choosing, or download the repository and upload/extract it to where it will be run.
 
 2. Like all Python programs, you should run this through a virtual environment. Slap one up today with `python3 -m venv path` where `path` is wherever you want to put your virtual environment.
 
