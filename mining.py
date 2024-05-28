@@ -21,7 +21,7 @@ from logging.handlers import RotatingFileHandler
 NIGHTLY  = True                       # Should be True if run on CalRef servers, should be False if not
 OPERATOR = "Default"                  # Should be the operator's main nation or email address
 WEBHOOKS = [                          # Should be a list of Discord webhook URL strings to receive errors
-    
+
 ]
 
 #######################################
@@ -29,7 +29,7 @@ WEBHOOKS = [                          # Should be a list of Discord webhook URL 
 #######################################
 
 # Initialise global variables
-VERSION  = "1.3.0"
+VERSION  = "1.3.1"
 HEADERS  = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
 LIMIT    = 1.2
 DEBUG    = False

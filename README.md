@@ -1,4 +1,4 @@
-# Eyebeast: Eldritch Archival Utility ![Version 1.3.0](https://img.shields.io/badge/Version-1.3.0-0099ff)
+# Eyebeast: Eldritch Archival Utility ![Version 1.3.1](https://img.shields.io/badge/Version-1.3.1-0099ff)
 
 <table align="center"><tr><td align="center">
 <img src="https://img.shields.io/badge/-Bulma-00D1B2?logo=bulma&logoColor=white&style=flat" alt="CSS 3"> <img src="https://img.shields.io/badge/-JavaScript-F7DF1E?logo=javascript&logoColor=white&style=flat" alt="JavaScript">
