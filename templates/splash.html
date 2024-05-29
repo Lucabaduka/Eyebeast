@@ -18,51 +18,49 @@
 
 <div class="hero is-fullheight">
 
-<main class="hero-body splash">
-  <section class="hero-body px-2">
-    <div class="container outline">
-      <div class="subbox">
+<main class="hero-body px-2">
+  <div class="container outline">
+    <div class="subbox">
 
-        <article class="media has-text-left">
-          <figure class="image is-64x64">
-            <a href="/"><img src="../static/eyecon.png" alt="logo" aria-label="Return to splash page"></a>
-          </figure>
-          <div class="media-content mb-3">
-            <span class="tag is-info">v{{ version }}</span>
-            <h1 class="title is-flex blue space">
-              Eyebeast
-            </h1>
-            <h2 class="subtitle space is-flex">
-              Eldritch Archival Utility
-            </h2>
+      <article class="media has-text-left">
+        <figure class="image is-64x64">
+          <a href="/"><img src="../static/eyecon.png" alt="logo" aria-label="Return to splash page"></a>
+        </figure>
+        <div class="media-content mb-3">
+          <span class="tag is-info">v{{ version }}</span>
+          <h1 class="title is-flex blue space">
+            Eyebeast
+          </h1>
+          <h2 class="subtitle space is-flex">
+            Eldritch Archival Utility
+          </h2>
+        </div>
+      </article>
+
+      <hr>
+
+      <!-- Search Bar -->
+
+      <p class="space">
+        Eyebeast is a data archival utility designed to help recover recently lost data for a given NationStates region.
+        Data is organised into weekly snapshots of the region, featuring a region's flags, banners, search tags, regional
+        officers, and world factbook entries if any were present to be recorded. Snapshots are retained for six months.
+      </p>
+      <p class="space center">
+        Use the field below to search for a region.
+      </p>
+      <section>
+        <nav class="navbar" role="navigation" aria-label="main navigation">
+          <div class="navbar-start center is-fullwidth">
+            <form class="field has-addons search-box form">
+              <input type="submit" value="Search" id="search" class="button is-info search">
+              <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
+            </form>
           </div>
-        </article>
-
-        <hr>
-
-        <!-- Search Bar -->
-
-        <p class="space">
-          Eyebeast is a data archival utility designed to help recover recently lost data for a given NationStates region.
-          Data is organised into weekly snapshots of the region, featuring a region's flags, banners, search tags, regional
-          officers, and world factbook entries if any were present to be recorded. Snapshots are retained for six months.
-        </p>
-        <p class="space center">
-          Use the field below to search for a region.
-        </p>
-        <section>
-          <nav class="navbar" role="navigation" aria-label="main navigation">
-            <div class="navbar-start center is-fullwidth">
-              <form class="field has-addons search-box form">
-                <input type="submit" value="Search" id="search" class="button is-info search">
-                <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
-              </form>
-            </div>
-          </nav>
-        </section>
-      </div>
+        </nav>
+      </section>
     </div>
-  </section>
+  </div>
 </main>
 
 <!-- Footer -->
