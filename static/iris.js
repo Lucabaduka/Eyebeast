@@ -1,5 +1,5 @@
 // Eyebeast search function
-const form = document.querySelector("form");
+const form = document.querySelector("search-box");
 form?.addEventListener("submit", (e) => {
     e.preventDefault();
 
