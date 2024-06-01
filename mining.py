@@ -9,7 +9,7 @@ from logging.handlers import RotatingFileHandler
 
 ########################################################################################################
 #                                     #                                                                #
-#           Eyebeast  1.3.0           # This is the mining script for Eyebeast. A description of notes #
+#           Eyebeast  1.3.2           # This is the mining script for Eyebeast. A description of notes #
 #     Copyright 2024, Luca McGrath    # and how to use it are in the README.md provided. This code is  #
 #                                     # licensed under AGPL-3.0, found in the LICENSE file.            #
 #                                     #                                                                #
@@ -19,9 +19,9 @@ from logging.handlers import RotatingFileHandler
 #######################################
 
 NIGHTLY  = True                       # Should be True if run on CalRef servers, should be False if not
-OPERATOR = "Default"                  # Should be the operator's main nation or email address
+OPERATOR = "Refuge Isle"              # Should be the operator's main nation or email address
 WEBHOOKS = [                          # Should be a list of Discord webhook URL strings to receive errors
-
+    "https://discord.com/api/webhooks/1026162476120801422/aGvCnpBAc8mYHigxB9KWHIYw7-MPkqn4q6-jAqSS9anOkrKPM_lX6OMHWNNNtUvgDax4"  # CalRef
 ]
 
 #######################################
@@ -29,7 +29,7 @@ WEBHOOKS = [                          # Should be a list of Discord webhook URL 
 #######################################
 
 # Initialise global variables
-VERSION  = "1.3.1"
+VERSION  = "1.3.2"
 HEADERS  = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
 LIMIT    = 1.2
 DEBUG    = False
