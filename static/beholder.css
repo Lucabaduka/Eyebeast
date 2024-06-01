@@ -316,7 +316,6 @@ pre, .content pre {
 }
 .mask {
   background-color: #0000004f;
-  display:block;
 }
 .tag:not(body).is-info {
   background-color: #09F;
