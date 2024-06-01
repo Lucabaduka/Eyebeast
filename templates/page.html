@@ -9,21 +9,34 @@
   <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="../static/beholder-min.css">
-  <title>Eyebeast</title>
+  <title>Eyebeast - {{ title | safe }}</title>
 </head>
 <body>
 
 <div class="hero is-fullheight">
 
-<!-- Permanent Search Bar -->
+<!-- Nav Bar -->
 
-<header class="hero is-small mask">
-  <nav class="navbar" role="navigation" aria-label="main navigation">
-    <div class="navbar-start center is-fullwidth">
-      <form class="field has-addons search-box form">
-        <input type="submit" value="Search" id="search" class="button is-info search">
-        <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
-      </form>
+<header class="mask">
+  <nav class="navbar is-flex">
+    <div class="navbar-brand mgrow">
+        <a href="https://calref.ca/" class="navbar-item depth glowm">
+            <img height="48" width="48" src="{{ url_for('static', filename='icon.svg') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge">
+            <span class="mslim">CalRef</span>
+        </a>
+    </div>
+
+    <form class="search-box is-flex-grow-3">
+      <input type="submit" id="search" class="button search center is-info" value="Search">
+      <input class="input bar" name="region" id="search" type="text" placeholder="Search for a region" required>
+    </form>
+
+    <div class="navbar-menu is-flex-grow-1">
+      <div class="navbar-end">
+        <a href="https://calref.ca/dot/" class="navbar-item depth"><i class="ico ico-dot"></i>Dot</a>
+        <a href="https://eyebeast.calref.ca/" class="navbar-item depth"><i class="ico ico-eyebeast"></i>Eyebeast</a>
+        <a href="https://tart.calref.ca/" class="navbar-item depth"><i class="ico ico-tart"></i>Tart.CalRef</a>
+      </div>
     </div>
   </nav>
 </header>
@@ -37,7 +50,9 @@
 
         <article class="media has-text-left">
           <p class="image is-64x64">
-            <a href="/"><img src="../static/eyecon.png" alt="logo" aria-label="Return to splash page"></a>
+            <a href="/">
+              <img height="64" width="64" src="{{ url_for('static', filename='eyebeast_logo.svg') }}" alt="logo" aria-label="Return to splash page">
+            </a>
           </p>
           <div class="media-content mb-3">
             <h1 class="title is-flex blue space">
@@ -64,16 +79,12 @@
 <footer class="is-flex center">
   <div class="media-footer is-flex">
     <figure class="image depth is-32x32">
-      <a href="https://calref.ca/">
-        <img src="{{ url_for('static', filename='icon.png') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge">
-      </a>
+      <a href="https://calref.ca/"><img height="32" width="32" src="{{ url_for('static', filename='icon.svg') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge"></a>
     </figure>
-    <div class="media-content px-1">
-      <p class="is-size-6">
+      <p class="media-content is-size-6 px-1">
         <span><a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
         <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span>
       </p>
-    </div>
   </div>
 </footer>
 

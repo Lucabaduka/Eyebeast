@@ -9,14 +9,34 @@
   <meta property="og:image" content="{{ url_for('static', filename='eyecon.png') }}">
   <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='favicon.ico') }}">
   <link rel="stylesheet" href="../static/beholder-min.css">
-  <title>Eyebeast</title>
+  <title>Eyebeast - NationStates Region Data Recovery</title>
 </head>
 <body>
-  <script>0</script>
 
 <!-- Main -->
 
 <div class="hero is-fullheight">
+
+  <!-- Nav Bar -->
+
+  <header class="mask mslim">
+    <nav class="navbar is-flex">
+      <div class="navbar-brand is-flex-grow-2">
+          <a href="https://calref.ca/" class="navbar-item depth glowm">
+              <img height="48" width="48" src="{{ url_for('static', filename='icon.svg') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge">
+              CalRef
+          </a>
+      </div>
+
+      <div class="navbar-menu is-flex-grow-1">
+        <div class="navbar-end">
+          <a href="https://calref.ca/dot/" class="navbar-item depth"><i class="ico ico-dot"></i>Dot</a>
+          <a href="https://eyebeast.calref.ca/" class="navbar-item depth"><i class="ico ico-eyebeast"></i>Eyebeast</a>
+          <a href="https://tart.calref.ca/" class="navbar-item depth"><i class="ico ico-tart"></i>Tart.CalRef</a>
+        </div>
+      </div>
+    </nav>
+  </header>
 
 <main class="hero-body px-2">
   <div class="container outline">
@@ -24,7 +44,7 @@
 
       <article class="media has-text-left">
         <figure class="image is-64x64">
-          <a href="/"><img src="../static/eyecon.png" alt="logo" aria-label="Return to splash page"></a>
+          <a href="/"><img height="64" width="64" src="{{ url_for('static', filename='eyebeast_logo.svg') }}" alt="logo" aria-label="Return to splash page"></a>
         </figure>
         <div class="media-content mb-3">
           <span class="tag is-info">v{{ version }}</span>
@@ -68,16 +88,12 @@
 <footer class="is-flex center">
   <div class="media-footer is-flex">
     <figure class="image depth is-32x32">
-      <a href="https://calref.ca/">
-        <img src="{{ url_for('static', filename='icon.png') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge">
-      </a>
+      <a href="https://calref.ca/"><img height="32" width="32" src="{{ url_for('static', filename='icon.svg') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge"></a>
     </figure>
-    <div class="media-content px-1">
-      <p class="is-size-6">
+      <p class="media-content is-size-6 px-1">
         <span><a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
         <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span>
       </p>
-    </div>
   </div>
 </footer>
 
