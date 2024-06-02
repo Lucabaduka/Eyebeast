@@ -19,9 +19,9 @@ from logging.handlers import RotatingFileHandler
 #######################################
 
 NIGHTLY  = True                       # Should be True if run on CalRef servers, should be False if not
-OPERATOR = "Refuge Isle"              # Should be the operator's main nation or email address
+OPERATOR = "Default"                  # Should be the operator's main nation or email address
 WEBHOOKS = [                          # Should be a list of Discord webhook URL strings to receive errors
-    "https://discord.com/api/webhooks/1026162476120801422/aGvCnpBAc8mYHigxB9KWHIYw7-MPkqn4q6-jAqSS9anOkrKPM_lX6OMHWNNNtUvgDax4"  # CalRef
+
 ]
 
 #######################################
