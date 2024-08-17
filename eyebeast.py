@@ -123,7 +123,12 @@ def gazer():
 
         # Load WFEs
         wrapper_entry = f"""<pre class="data-display wfes{hide}" style="font-size: 10pt;">"""
-        wfe_entry = html.unescape(value[2])
+
+        # Convert emoji and such if the WFE has a value
+        if value[2] != None:
+            wfe_entry = html.unescape(value[2])
+        else:
+            wfe_entry = ""
 
         wfes[0].append(wrapper_entry)
         wfes[1].append(wfe_entry)
