@@ -9,7 +9,7 @@ from logging.handlers import RotatingFileHandler
 
 ########################################################################################################
 #                                     #                                                                #
-#           Eyebeast  1.3.2           # This is the mining script for Eyebeast. A description of notes #
+#           Eyebeast  1.3.3           # This is the mining script for Eyebeast. A description of notes #
 #     Copyright 2024, Luca McGrath    # and how to use it are in the README.md provided. This code is  #
 #                                     # licensed under AGPL-3.0, found in the LICENSE file.            #
 #                                     #                                                                #
@@ -29,7 +29,7 @@ WEBHOOKS = [                          # Should be a list of Discord webhook URL 
 #######################################
 
 # Initialise global variables
-VERSION  = "1.3.2"
+VERSION  = "1.3.3"
 HEADERS  = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
 LIMIT    = 1.2
 DEBUG    = False

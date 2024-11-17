@@ -29,8 +29,8 @@
     </div>
 
     <form class="search-box is-flex-grow-3">
-      <input type="submit" id="search" class="button search center is-info" value="Search">
-      <input class="input bar" name="region" id="search" type="text" placeholder="Search for a region" required>
+      <button type="submit" id="search" class="button search center is-info ico-search" value="Search"></button>
+      <input class="input bar" name="region" id="search" type="text" placeholder="Region name" required>
     </form>
 
     <div class="navbar-menu is-flex-grow-1">
@@ -107,10 +107,10 @@
           </div>
           <div class="column center is-flex">
             <div class="px-2">
-              <button class="button is-info py-5 px-5" id="forward" onclick="downity()" disabled>◀ Forward</button>
+              <button class="button is-info py-5" id="forward" onclick="downity()" disabled>◀ Forward</button>
             </div>
             <div class="px-2">
-              <button class="button is-info py-5 px-5" id="backward" onclick="uppity()" {{breaks[0]}}>Backward ▶</button>
+              <button class="button is-info py-5" id="backward" onclick="uppity()" {{breaks[0]}}>Backward ▶</button>
             </div>
           </div>
         </div>
@@ -225,13 +225,13 @@
 <!-- footer -->
 
 <footer class="is-flex center">
-  <div class="media-footer is-flex">
+  <div class="is-flex">
     <figure class="image depth is-32x32">
       <a href="https://calref.ca/"><img height="32" width="32" src="{{ url_for('static', filename='icon.svg') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge"></a>
     </figure>
       <p class="media-content is-size-6 px-1">
         <span><a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
-        <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span>
+        <span> | <a class="gold" href="https://calref.ca/donate">Donate</a></span>
       </p>
   </div>
 </footer>

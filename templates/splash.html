@@ -48,10 +48,10 @@
         </figure>
         <div class="media-content mb-3">
           <span class="tag is-info">v{{ version }}</span>
-          <h1 class="title is-flex blue space">
+          <h1 class="title blue space">
             Eyebeast
           </h1>
-          <h2 class="subtitle space is-flex">
+          <h2 class="subtitle space">
             Eldritch Archival Utility
           </h2>
         </div>
@@ -73,8 +73,8 @@
         <nav class="navbar" role="navigation" aria-label="main navigation">
           <div class="navbar-start center is-fullwidth">
             <form class="field has-addons search-box form">
-              <input type="submit" value="Search" id="search" class="button is-info search">
-              <input class="input bar" id="search" name="region" type="text" placeholder="Search for a region">
+              <button type="submit" value="Search" id="search" class="button is-info search ico-search"></button>
+              <input class="input bar" id="search" name="region" type="text" placeholder="Region name">
             </form>
           </div>
         </nav>
@@ -86,13 +86,13 @@
 <!-- Footer -->
 
 <footer class="is-flex center">
-  <div class="media-footer is-flex">
+  <div class="is-flex">
     <figure class="image depth is-32x32">
       <a href="https://calref.ca/"><img height="32" width="32" src="{{ url_for('static', filename='icon.svg') }}" alt="CalRef Logo" aria-label="Visit Calamity Refuge"></a>
     </figure>
       <p class="media-content is-size-6 px-1">
         <span><a class="gold" href="https://calref.ca/">CalRef</a></span><span> © 2008-2024</span>
-        <span> | <a class="gold" href="https://calref.ca/donate">Support Our Servers</a></span>
+        <span> | <a class="gold" href="https://calref.ca/donate">Donate</a></span>
       </p>
   </div>
 </footer>

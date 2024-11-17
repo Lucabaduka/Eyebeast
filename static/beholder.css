@@ -352,3 +352,12 @@ pre, .content pre {
   background-size: contain;
   margin-right: 0.3rem;
 }
+.ico-search::after {
+  content: '';
+  display: block;
+  height: 1.5em;
+  width: 1.5em;
+  background-image: url("search.svg");
+  background-size: contain;
+  margin-right: 0.3rem;
+}
