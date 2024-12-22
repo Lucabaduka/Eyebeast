@@ -10,7 +10,7 @@ from logging.handlers import RotatingFileHandler
 ########################################################################################################
 #                                     #                                                                #
 #           Eyebeast  1.3.3           # This is the mining script for Eyebeast. A description of notes #
-#     Copyright 2024, Luca McGrath    # and how to use it are in the README.md provided. This code is  #
+#             Luca McGrath            # and how to use it are in the README.md provided. This code is  #
 #                                     # licensed under AGPL-3.0, found in the LICENSE file.            #
 #                                     #                                                                #
 #             Python 3.8+             #         https://github.com/Lucabaduka/Eyebeast                 #
