@@ -185,10 +185,9 @@ pre, .content pre {
   align-items: center;
   text-align: -moz-center;
 }
-.navbar-item, .navbar-link {
+.navbar-item {
   color: #FFFFFF;
   font-size: 1.1em;
-  padding: .5em 1em .25em 1em;
 }
 .navbar-item img {
   max-height: fit-content;
