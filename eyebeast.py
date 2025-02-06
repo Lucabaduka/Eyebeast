@@ -6,14 +6,14 @@ from flask import Flask, render_template, request, abort, send_from_directory
 
 ########################################################################################################
 #                                     #                                                                #
-#           Eyebeast  1.3.3           # This is the backend file for the Eyebeast web application.     #
+#           Eyebeast  1.3.4           # This is the backend file for the Eyebeast web application.     #
 #             Luca McGrath            # notes and how to use it are in the README.md provided. This    #
 #                                     # code is licensed under AGPL-3.0, found in the LICENSE file.    #
 #                                     #                                                                #
 #             Python 3.8+             #         https://github.com/Lucabaduka/Eyebeast                 #
 ########################################################################################################
 
-VERSION = "1.3.3"
+VERSION = "1.3.4"
 PATH    = os.path.dirname(__file__)
 app     = Flask(__name__)
 

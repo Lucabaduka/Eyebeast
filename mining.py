@@ -9,7 +9,7 @@ from logging.handlers import RotatingFileHandler
 
 ########################################################################################################
 #                                     #                                                                #
-#           Eyebeast  1.3.3           # This is the mining script for Eyebeast. A description of notes #
+#           Eyebeast  1.3.4           # This is the mining script for Eyebeast. A description of notes #
 #             Luca McGrath            # and how to use it are in the README.md provided. This code is  #
 #                                     # licensed under AGPL-3.0, found in the LICENSE file.            #
 #                                     #                                                                #
@@ -29,7 +29,7 @@ WEBHOOKS = [                          # Should be a list of Discord webhook URL 
 #######################################
 
 # Initialise global variables
-VERSION  = "1.3.3"
+VERSION  = "1.3.4"
 HEADERS  = {"User-Agent": f"{OPERATOR}, running Eyebeast, v{VERSION}"}
 LIMIT    = 1.2
 DEBUG    = False
@@ -76,7 +76,8 @@ def pull_file(url):
         return r.content
 
     # File does not exist
-        return False
+    # We return None here because NS doesn't return 404s for files that don't exist (what)
+        return None
 
 # Clean Up
 # Called to clean up data dump files when not in use and prevent repeat data
@@ -381,11 +382,11 @@ def main():
                 response = pull_file(flag)
 
                 # File still exists
-                if response != False:
+                if response != None:
                     with open(flagsave, "wb") as f:
                         f.write(response)
                         f.close()
-                    print(f"Downloaded: {flag}")
+                    print(f"Downloaded flag: {flag}")
 
             # Banner stuff now
             extension = banner.partition(".")[2]
@@ -399,11 +400,11 @@ def main():
                 response = pull_file(f"https://www.nationstates.net/{banner}")
 
                 # File still exists
-                if response != False:
+                if response != None:
                     with open(bannersave, "wb") as f:
                         f.write(response)
                         f.close()
-                    print(f"Downloaded: {bannername}")
+                    print(f"Downloaded banner: {bannername}")
 
             else:
                 bannername = banner.partition("/images/rbanners/")[2].replace(f".{extension}", "")
