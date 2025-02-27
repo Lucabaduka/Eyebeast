@@ -35,11 +35,6 @@
 /* Tag Overrides */
 
 html {
-  background:
-    radial-gradient(ellipse at top left, #064494 30%, #042afb2e 40%),
-    radial-gradient(ellipse at bottom left, #103b68 20%, transparent 40%),
-    radial-gradient(ellipse at top right, #00529F 20%, #248cca80 50%),
-    radial-gradient(ellipse at bottom right, #001626 20%, #00AAFD 35%);
   background-image: url(moon_bg.webp);
   background-size: cover;
   background-repeat: no-repeat;
@@ -77,6 +72,9 @@ footer {
   text-align: center;
   text-shadow: 1px 1px 2px #0f0f0f5e;
   box-shadow: 0 -1px 2px #b1b1b10f
+}
+header {
+  background-color: #0000004f;
 }
 hr {
   border: none;
@@ -312,9 +310,6 @@ pre, .content pre {
 .inactive {
   display: none;
 }
-.mask {
-  background-color: #0000004f;
-}
 .tag:not(body).is-info {
   background-color: #09F;
   color: #000;
@@ -333,7 +328,7 @@ pre, .content pre {
   display: inline-block;
   text-transform: none;
 }
-.ico-dot::after, .ico-tart::after, .ico-eyebeast::after, .ico-search::after, ico-rmm::after {
+.ico-dot:after, .ico-tart:after, .ico-eyebeast:after, .ico-search:after, .ico-rmm:after, .ico-popcorn:after {
   content: '';
   display: block;
   height: 1.5em;
@@ -341,18 +336,9 @@ pre, .content pre {
   background-size: contain;
   margin-right: 0.3rem;
 }
-.ico-dot::after {
-  background-image: url("dot.svg");
-}
-.ico-tart::after {
-  background-image: url("tart.svg");
-}
-.ico-eyebeast::after {
-  background-image: url("eyebeast.svg");
-}
-.ico-search::after {
-  background-image: url("search.svg");
-}
-.ico-rmm::after {
-  background-image: url("rmm.svg");
-}
+.ico-dot:after {background-image: url("dot.svg");}
+.ico-tart:after {background-image: url("tart.svg");}
+.ico-eyebeast:after {background-image: url("eyebeast.svg");}
+.ico-search:after {background-image: url("search.svg");}
+.ico-popcorn:after {background-image: url("popcorn.svg");}
+.ico-rmm:after {background-image: url("rmm.svg");}

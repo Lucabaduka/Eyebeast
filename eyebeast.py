@@ -118,7 +118,7 @@ def gazer():
         stamps.append(stamp_entry)
 
         # Load regions
-        region_entry = f"""<p class="title space is-2 regions{hide}" style="margin-bottom: 0rem;"><a class="gold" href="https://www.nationstates.net/region={value[1].lower().replace(' ', '_')}" target="_blank">{value[1]}</a></p>"""
+        region_entry = f"""<p class="title space is-2 mb-0 regions{hide}"><a class="gold" href="https://www.nationstates.net/region={value[1].lower().replace(' ', '_')}" target="_blank">{value[1]}</a></p>"""
         regions.append(region_entry)
 
         # Load WFEs
